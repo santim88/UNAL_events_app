@@ -11,14 +11,19 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,8 +39,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -47,21 +50,9 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import com.example.pokedex.data.Event
 
 // 1. Entities/Domain
-
-data class Event(
-    val id: Int,
-    val name: String,
-    val description: String,
-    val place: String,
-    val date: String,
-    val hour: String
-)
 
 interface GetEventDataSource {
     suspend fun getEventList(): List<Event>
@@ -74,16 +65,33 @@ interface SaveEventDataSource {
 interface EventDataSource : GetEventDataSource, SaveEventDataSource
 
 //////////////////////////////Datos de prueba//////////////////////////////////////
-class GetEventMockDataSourceImpl : GetEventDataSource {
+class EventMockDataSourceImpl : EventDataSource {
 
     private val eventMockList = listOf(
         Event(1, "Pikachu", "ti", "minas", "16/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
         Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
         Event(3, "Squirtle", "ti", "minas_3", "18/09/09/09", "2:00"),
         Event(4, "Bulbasaur", "ti", "minas_4", "19/09/09/09", "2:00"),
     )
 
     override suspend fun getEventList(): List<Event> = eventMockList
+
+    override fun saveEvent(event: Event) {
+
+    }
 
 }
 
@@ -168,7 +176,7 @@ interface EventRepository {
 
 class EventRepositoryImpl(
     private val context: Context,
-    private val eventDataSource: EventDataSource = EventDataSourceImpl(context) // TODO: FIX THIS WHIT HILT
+    private val eventDataSource: EventDataSource = EventMockDataSourceImpl() //EventDataSourceImpl(context) // TODO: FIX THIS WHIT HILT
 ) : EventRepository {
 
     override suspend fun getEventList(): List<Event> {
@@ -177,26 +185,6 @@ class EventRepositoryImpl(
 }
 /////////////////////////////////////END Reposittory/////////////////////////////////////
 
-// 4. Presenter/ViewModel
-class EventViewModel : ViewModel() {
-
-    // TODO: FIX THIS WITH HILT
-    private var eventRepository: EventRepository? = null
-
-    private val _eventListState = MutableStateFlow(listOf<Event>())
-    val eventListState = _eventListState.asStateFlow()
-
-    fun getEventList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _eventListState.value = eventRepository?.getEventList() ?: listOf()
-        }
-    }
-
-    fun initDependencies(context: Context) {
-        eventRepository = EventRepositoryImpl(context)
-    }
-
-}
 /////////////////////////////////////Reposittory/////////////////////////////////////
 
 
@@ -251,10 +239,10 @@ fun MyScreenPreview() {
 fun MainActivityContent(data: List<Event>, eventDataSource: EventDataSource) {
     /*    val eventRepository = EventRepository()*/
     /*    val getAllData = eventRepository.getAllData()*/
-    Column() {
+    Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .wrapContentHeight()
                 .background(Color.White),
             verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -263,19 +251,31 @@ fun MainActivityContent(data: List<Event>, eventDataSource: EventDataSource) {
                 CardEvent(event = event)
             }
         }
-        Button(onClick = {
-            val event = Event(
-                id = 100,
-                name = "Event 1",
-                description = "Event description",
-                place = "M2",
-                date = "03/02/2023",
-                hour = "12:40"
-            )
-            eventDataSource.saveEvent(event)
-        }) {
-            Text("Save Event")
+        FloatingActionButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(20.dp),
+            onClick = { },
+        ) {
+            Icon(Icons.Filled.Add, "Floating action button.")
         }
+//        Button(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .align(Alignment.BottomEnd),
+//            onClick = {
+//                val event = Event(
+//                    id = 100,
+//                    name = "Event 1",
+//                    description = "Event description",
+//                    place = "M2",
+//                    date = "03/02/2023",
+//                    hour = "12:40"
+//                )
+//                eventDataSource.saveEvent(event)
+//            }) {
+//            Text("Save Event")
+//        }
     }
 }
 
