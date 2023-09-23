@@ -77,19 +77,14 @@ interface EventDataSource : GetEventDataSource, SaveEventDataSource
 class GetEventMockDataSourceImpl : GetEventDataSource {
 
     private val eventMockList = listOf(
-        Event(1, "Pikachu", "ti","minas", "16/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti","minas_2", "17/09/09/09", "2:00"),
-        Event(3, "Squirtle", "ti","minas_3", "18/09/09/09", "2:00"),
-        Event(4, "Bulbasaur", "ti","minas_4", "19/09/09/09", "2:00"),
+        Event(1, "Pikachu", "ti", "minas", "16/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(3, "Squirtle", "ti", "minas_3", "18/09/09/09", "2:00"),
+        Event(4, "Bulbasaur", "ti", "minas_4", "19/09/09/09", "2:00"),
     )
 
     override suspend fun getEventList(): List<Event> = eventMockList
 
-}
-//Data Source
-class GetEventDataSourceImpl(private val mockDataSource: GetEventMockDataSourceImpl) : GetEventDataSource {
-
-    override suspend fun getEventList(): List<Event> = mockDataSource.getEventList()
 }
 
 ////////////////////////////// ROOM //////////////////////////////
@@ -123,6 +118,7 @@ abstract class EventDatabase : RoomDatabase() {
     abstract fun EventDao(): EventDao
 }
 
+//Data Source
 class EventDataSourceImpl(
     private val applicationContext: Context
 ) : EventDataSource {
@@ -149,21 +145,20 @@ fun EventEntity.toEvent() = Event(
     id = id ?: 0,
     name = name ?: "",
     description = description,
-    place= place ?: "",
-    date= date ?:"",
-    hour= hour ?: ""
+    place = place ?: "",
+    date = date ?: "",
+    hour = hour ?: ""
 )
 
 fun Event.toEventEntity() = EventEntity(
     id = id,
     name = name,
     description = description,
-    place= place,
-    date= date ,
-    hour= hour
+    place = place,
+    date = date,
+    hour = hour
 )
 /////////////////////////////////End ROOM/////////////////////////////////
-
 
 
 /////////////////////////////////////Reposittory/////////////////////////////////////
@@ -172,11 +167,12 @@ interface EventRepository {
 }
 
 class EventRepositoryImpl(
-    private val getEventDataSource: GetEventDataSourceImpl = GetEventDataSourceImpl(GetEventMockDataSourceImpl()) // TODO: FIX THIS WHIT HILT
+    private val context: Context,
+    private val eventDataSource: EventDataSource = EventDataSourceImpl(context) // TODO: FIX THIS WHIT HILT
 ) : EventRepository {
 
     override suspend fun getEventList(): List<Event> {
-        return getEventDataSource.getEventList()
+        return eventDataSource.getEventList()
     }
 }
 /////////////////////////////////////END Reposittory/////////////////////////////////////
@@ -185,70 +181,118 @@ class EventRepositoryImpl(
 class EventViewModel : ViewModel() {
 
     // TODO: FIX THIS WITH HILT
-    private val eventRepository: EventRepository = EventRepositoryImpl()
+    private var eventRepository: EventRepository? = null
 
-    private val _pokemonListState = MutableStateFlow(listOf<Event>())
-    val pokemonListState = _pokemonListState.asStateFlow()
-
-    private val _pokemonFavoriteListState = MutableStateFlow(listOf<Event>())
-    val pokemonFavoriteListState = _pokemonFavoriteListState.asStateFlow()
+    private val _eventListState = MutableStateFlow(listOf<Event>())
+    val eventListState = _eventListState.asStateFlow()
 
     fun getEventList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _pokemonListState.value = eventRepository.getEventList()
-            //_pokemonFavoriteListState.value =
-              //  pokemonFavoritesRepository?.getPokemonList() ?: emptyList()
+            _eventListState.value = eventRepository?.getEventList() ?: listOf()
         }
     }
+
+    fun initDependencies(context: Context) {
+        eventRepository = EventRepositoryImpl(context)
+    }
+
 }
 /////////////////////////////////////Reposittory/////////////////////////////////////
-
 
 
 // 4. Presenter/UI
 class MainActivity : ComponentActivity() {
 
-    private val EvenViewModel by viewModels<EventViewModel>()
+    private val evenViewModel by viewModels<EventViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      /*  EvenViewModel.initDependencies(this)*/
+
+        evenViewModel.initDependencies(this)
         setContent {
-         LaunchedEffect(Unit) {
-                EvenViewModel.getEventList()
+            LaunchedEffect(Unit) {
+                evenViewModel.getEventList()
             }
-            val pokemonListState by EvenViewModel.pokemonListState.collectAsState()
-            MainActivityContent(pokemonListState)
+
+            val eventDataSource = EventDataSourceImpl(applicationContext)
+            val eventListState by evenViewModel.eventListState.collectAsState()
+            MainActivityContent(eventListState, eventDataSource)
         }
     }
 }
 
 //////////////////////////////PersonalCode///////////////////////////////////////////////////////
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun MyScreenPreview() {
     val sampleEvents = listOf(
-        Event(id = 1, name = "Sample Event 1", description = "Description 1", place = "Place 1", date = "Date 1", hour = "Hour 1"),
-        Event(id = 2, name = "Sample Event 2", description = "Description 2", place = "Place 2", date = "Date 2", hour = "Hour 2")
+        Event(
+            id = 1,
+            name = "Sample Event 1",
+            description = "Description 1",
+            place = "Place 1",
+            date = "Date 1",
+            hour = "Hour 1"
+        ),
+        Event(
+            id = 2,
+            name = "Sample Event 2",
+            description = "Description 2",
+            place = "Place 2",
+            date = "Date 2",
+            hour = "Hour 2"
+        )
     )
-    MainActivityContent(sampleEvents)
+    MainActivityContent(sampleEvents, EventDataSource)
+}*/
+
+@Composable
+fun MainActivityContent(data: List<Event>, eventDataSource: EventDataSource) {
+    /*    val eventRepository = EventRepository()*/
+    /*    val getAllData = eventRepository.getAllData()*/
+    Column() {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(Color.White),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            items(items = data) { event ->
+                CardEvent(event = event)
+            }
+        }
+        Button(onClick = {
+            val event = Event(
+                id = 100,
+                name = "Event 1",
+                description = "Event description",
+                place = "M2",
+                date = "03/02/2023",
+                hour = "12:40"
+            )
+            eventDataSource.saveEvent(event)
+        }) {
+            Text("Save Event")
+        }
+    }
 }
 
 @Composable
-fun MainActivityContent(data: List<Event>) {
-    /*    val eventRepository = EventRepository()*/
-    /*    val getAllData = eventRepository.getAllData()*/
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .background(Color.White),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
-        items(items = data) { event ->
-            CardEvent(event = event)
-        }
+fun SaveEventButton(eventDataSource: EventDataSource) {
+    Button(onClick = {
+        val event = Event(
+            id = 100,
+            name = "Event 1",
+            description = "Event description",
+            place = "M2",
+            date = "03/02/2023",
+            hour = "12:40"
+        )
+        eventDataSource.saveEvent(event)
+    }) {
+        Text("Save Event")
     }
 }
 
@@ -269,7 +313,8 @@ fun CardEvent(
     ElevatedCard(
         Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp)) {
+            .padding(horizontal = 8.dp)
+    ) {
         Column(Modifier.fillMaxWidth()) {
             Box(
                 Modifier
