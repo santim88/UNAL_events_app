@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -39,6 +41,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -52,6 +58,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.pokedex.data.Event
 
+
+//////////////////////////////use navigating//////////////////////////
+
+
+///////////////////////////////end navigating/////////////////////////////////
 // 1. Entities/Domain
 
 interface GetEventDataSource {
@@ -204,7 +215,9 @@ class MainActivity : ComponentActivity() {
 
             val eventDataSource = EventDataSourceImpl(applicationContext)
             val eventListState by evenViewModel.eventListState.collectAsState()
-            MainActivityContent(eventListState, eventDataSource)
+            val navController = rememberNavController()
+            Nav(eventListState, eventDataSource, navController)
+/*            MainActivityContent(eventListState, eventDataSource)*/
         }
     }
 }
@@ -234,9 +247,56 @@ fun MyScreenPreview() {
     )
     MainActivityContent(sampleEvents, EventDataSource)
 }*/
+@Composable
+fun Nav(data: List<Event>,
+        eventDataSource: EventDataSource,
+        navController: NavHostController) {
+
+    NavHost(navController = navController, startDestination = "A") {
+        composable("A") {
+            ScreenMain(data, eventDataSource, navController)
+        }
+        composable("B") {
+            ScreenB(navController)
+        }
+    }
+}
 
 @Composable
-fun MainActivityContent(data: List<Event>, eventDataSource: EventDataSource) {
+fun ScreenB(navController: NavHostController) {
+    Column(
+        modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Screen B click to pass C", fontSize = 64.sp)
+        Spacer(modifier = Modifier.height(45.dp))
+        Button(onClick = {
+            navController.navigate("A") {
+                popUpTo("A") { inclusive = true }
+            }
+        }) {
+            Text(text = "Go to screen C", fontSize = 40.sp)
+        }
+
+    }
+}
+
+@Composable
+fun ScreenMain(
+    data: List<Event>,
+    eventDataSource: EventDataSource,
+    navController: NavHostController
+) {
+
+    MainActivityContent(data, eventDataSource, navController)
+}
+
+@Composable
+fun MainActivityContent(
+    data: List<Event>,
+    eventDataSource: EventDataSource,
+    navController: NavHostController
+) {
     /*    val eventRepository = EventRepository()*/
     /*    val getAllData = eventRepository.getAllData()*/
     Box(modifier = Modifier.fillMaxSize()) {
@@ -255,7 +315,11 @@ fun MainActivityContent(data: List<Event>, eventDataSource: EventDataSource) {
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(20.dp),
-            onClick = { },
+            onClick = {
+                navController.navigate("B") {
+                    popUpTo("B") { inclusive = true }
+                }
+            },
         ) {
             Icon(Icons.Filled.Add, "Floating action button.")
         }
@@ -378,45 +442,3 @@ fun CardEvent(
     }
 }
 
-/*
-@Preview
-@Composable
-fun PokemonFavorite(
-    pokemon: Pokemon = Pokemon(0, "Pikachu")
-) {
-    Text(
-        modifier = Modifier.padding(8.dp),
-        text = pokemon.name
-    )
-}
-
-
-@Preview
-@Composable
-fun PokemonRow(
-    pokemon: Pokemon = Pokemon(0, "Pikachu"),
-    isLiked: Boolean = false,
-    onLikeClick: (Pokemon) -> Unit = {}
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        Text(
-            modifier = Modifier.align(Alignment.CenterStart),
-            text = pokemon.name
-        )
-        IconButton(
-            modifier = Modifier.align(Alignment.CenterEnd),
-            onClick = { onLikeClick(pokemon) }
-        ) {
-            Icon(
-                modifier = Modifier,
-                imageVector = Icons.Sharp.Favorite,
-                contentDescription = "like",
-                tint = if (isLiked) Color.Red else Color.Gray
-            )
-        }
-    }
-}*/
