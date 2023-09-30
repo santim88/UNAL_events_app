@@ -1,4 +1,4 @@
-package com.example.pokedex.data
+package com.example.pokedex.domain
 
 data class Event(
     val id: Int,
