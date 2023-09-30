@@ -1,9 +1,11 @@
-package com.example.pokedex
+package com.example.pokedex.presentation
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedex.data.Event
+import com.example.pokedex.domain.Event
+import com.example.pokedex.repository.EventRepository
+import com.example.pokedex.repository.EventRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

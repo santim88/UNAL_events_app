@@ -1,6 +1,5 @@
-package com.example.pokedex
+package com.example.pokedex.presentation
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -45,161 +44,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.room.ColumnInfo
-import androidx.room.Dao
-import androidx.room.Database
-import androidx.room.Delete
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.PrimaryKey
-import androidx.room.Query
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.example.pokedex.data.Event
+import com.example.pokedex.R
+import com.example.pokedex.data.EventDataSource
+import com.example.pokedex.data.EventDataSourceImpl
+import com.example.pokedex.domain.Event
 
-
-//////////////////////////////use navigating//////////////////////////
-
-
-///////////////////////////////end navigating/////////////////////////////////
-// 1. Entities/Domain
-
-interface GetEventDataSource {
-    suspend fun getEventList(): List<Event>
-}
-
-interface SaveEventDataSource {
-    fun saveEvent(event: Event)
-}
-
-interface EventDataSource : GetEventDataSource, SaveEventDataSource
-
-//////////////////////////////Datos de prueba//////////////////////////////////////
-class EventMockDataSourceImpl : EventDataSource {
-
-    private val eventMockList = listOf(
-        Event(1, "Pikachu", "ti", "minas", "16/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(3, "Squirtle", "ti", "minas_3", "18/09/09/09", "2:00"),
-        Event(4, "Bulbasaur", "ti", "minas_4", "19/09/09/09", "2:00"),
-    )
-
-    override suspend fun getEventList(): List<Event> = eventMockList
-
-    override fun saveEvent(event: Event) {
-
-    }
-
-}
-
-////////////////////////////// ROOM //////////////////////////////
-@Entity(tableName = "events")
-data class EventEntity(
-    @PrimaryKey val id: Int,
-    @ColumnInfo(name = "name") val name: String?,
-    @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "place") val place: String?,
-    @ColumnInfo(name = "date") val date: String?,
-    @ColumnInfo(name = "hour") val hour: String?,
-)
-
-@Dao
-interface EventDao {
-    @Query("SELECT * FROM events")
-    fun getAll(): List<EventEntity>
-
-    @Query("SELECT * FROM events WHERE id IN (:userIds)")
-    fun loadAllByIds(userIds: IntArray): List<EventEntity>
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(vararg users: EventEntity)
-
-    @Delete
-    fun delete(user: EventEntity)
-}
-
-@Database(entities = [EventEntity::class], version = 1)
-abstract class EventDatabase : RoomDatabase() {
-    abstract fun EventDao(): EventDao
-}
-
-//Data Source
-class EventDataSourceImpl(
-    private val applicationContext: Context
-) : EventDataSource {
-
-    private val db = Room.databaseBuilder(
-        applicationContext,
-        EventDatabase::class.java, "events_db"
-    ).build()
-
-    private val eventDao = db.EventDao()
-    override suspend fun getEventList(): List<Event> = eventDao.getAll().map {
-        it.toEvent()
-    }
-
-    override fun saveEvent(event: Event) {
-        eventDao.insertAll(
-            event.toEventEntity()
-        )
-    }
-
-}
-
-fun EventEntity.toEvent() = Event(
-    id = id ?: 0,
-    name = name ?: "",
-    description = description,
-    place = place ?: "",
-    date = date ?: "",
-    hour = hour ?: ""
-)
-
-fun Event.toEventEntity() = EventEntity(
-    id = id,
-    name = name,
-    description = description,
-    place = place,
-    date = date,
-    hour = hour
-)
-/////////////////////////////////End ROOM/////////////////////////////////
-
-
-/////////////////////////////////////Reposittory/////////////////////////////////////
-interface EventRepository {
-    suspend fun getEventList(): List<Event>
-}
-
-class EventRepositoryImpl(
-    private val context: Context,
-    private val eventDataSource: EventDataSource = EventMockDataSourceImpl() //EventDataSourceImpl(context) // TODO: FIX THIS WHIT HILT
-) : EventRepository {
-
-    override suspend fun getEventList(): List<Event> {
-        return eventDataSource.getEventList()
-    }
-}
-/////////////////////////////////////END Reposittory/////////////////////////////////////
-
-/////////////////////////////////////Reposittory/////////////////////////////////////
-
-
-// 4. Presenter/UI
 class MainActivity : ComponentActivity() {
 
     private val evenViewModel by viewModels<EventViewModel>()
