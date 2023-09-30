@@ -11,14 +11,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,8 +41,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -47,21 +56,14 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import com.example.pokedex.data.Event
 
+
+//////////////////////////////use navigating//////////////////////////
+
+
+///////////////////////////////end navigating/////////////////////////////////
 // 1. Entities/Domain
-
-data class Event(
-    val id: Int,
-    val name: String,
-    val description: String,
-    val place: String,
-    val date: String,
-    val hour: String
-)
 
 interface GetEventDataSource {
     suspend fun getEventList(): List<Event>
@@ -74,22 +76,34 @@ interface SaveEventDataSource {
 interface EventDataSource : GetEventDataSource, SaveEventDataSource
 
 //////////////////////////////Datos de prueba//////////////////////////////////////
-class GetEventMockDataSourceImpl : GetEventDataSource {
+class EventMockDataSourceImpl : EventDataSource {
 
     private val eventMockList = listOf(
-        Event(1, "Pikachu", "ti","minas", "16/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti","minas_2", "17/09/09/09", "2:00"),
-        Event(3, "Squirtle", "ti","minas_3", "18/09/09/09", "2:00"),
-        Event(4, "Bulbasaur", "ti","minas_4", "19/09/09/09", "2:00"),
+        Event(1, "Pikachu", "ti", "minas", "16/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
+        Event(3, "Squirtle", "ti", "minas_3", "18/09/09/09", "2:00"),
+        Event(4, "Bulbasaur", "ti", "minas_4", "19/09/09/09", "2:00"),
     )
 
     override suspend fun getEventList(): List<Event> = eventMockList
 
-}
-//Data Source
-class GetEventDataSourceImpl(private val mockDataSource: GetEventMockDataSourceImpl) : GetEventDataSource {
+    override fun saveEvent(event: Event) {
 
-    override suspend fun getEventList(): List<Event> = mockDataSource.getEventList()
+    }
+
 }
 
 ////////////////////////////// ROOM //////////////////////////////
@@ -123,6 +137,7 @@ abstract class EventDatabase : RoomDatabase() {
     abstract fun EventDao(): EventDao
 }
 
+//Data Source
 class EventDataSourceImpl(
     private val applicationContext: Context
 ) : EventDataSource {
@@ -149,21 +164,20 @@ fun EventEntity.toEvent() = Event(
     id = id ?: 0,
     name = name ?: "",
     description = description,
-    place= place ?: "",
-    date= date ?:"",
-    hour= hour ?: ""
+    place = place ?: "",
+    date = date ?: "",
+    hour = hour ?: ""
 )
 
 fun Event.toEventEntity() = EventEntity(
     id = id,
     name = name,
     description = description,
-    place= place,
-    date= date ,
-    hour= hour
+    place = place,
+    date = date,
+    hour = hour
 )
 /////////////////////////////////End ROOM/////////////////////////////////
-
 
 
 /////////////////////////////////////Reposittory/////////////////////////////////////
@@ -172,83 +186,177 @@ interface EventRepository {
 }
 
 class EventRepositoryImpl(
-    private val getEventDataSource: GetEventDataSourceImpl = GetEventDataSourceImpl(GetEventMockDataSourceImpl()) // TODO: FIX THIS WHIT HILT
+    private val context: Context,
+    private val eventDataSource: EventDataSource = EventMockDataSourceImpl() //EventDataSourceImpl(context) // TODO: FIX THIS WHIT HILT
 ) : EventRepository {
 
     override suspend fun getEventList(): List<Event> {
-        return getEventDataSource.getEventList()
+        return eventDataSource.getEventList()
     }
 }
 /////////////////////////////////////END Reposittory/////////////////////////////////////
 
-// 4. Presenter/ViewModel
-class EventViewModel : ViewModel() {
-
-    // TODO: FIX THIS WITH HILT
-    private val eventRepository: EventRepository = EventRepositoryImpl()
-
-    private val _pokemonListState = MutableStateFlow(listOf<Event>())
-    val pokemonListState = _pokemonListState.asStateFlow()
-
-    private val _pokemonFavoriteListState = MutableStateFlow(listOf<Event>())
-    val pokemonFavoriteListState = _pokemonFavoriteListState.asStateFlow()
-
-    fun getEventList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _pokemonListState.value = eventRepository.getEventList()
-            //_pokemonFavoriteListState.value =
-              //  pokemonFavoritesRepository?.getPokemonList() ?: emptyList()
-        }
-    }
-}
 /////////////////////////////////////Reposittory/////////////////////////////////////
-
 
 
 // 4. Presenter/UI
 class MainActivity : ComponentActivity() {
 
-    private val EvenViewModel by viewModels<EventViewModel>()
+    private val evenViewModel by viewModels<EventViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      /*  EvenViewModel.initDependencies(this)*/
+
+        evenViewModel.initDependencies(this)
         setContent {
-         LaunchedEffect(Unit) {
-                EvenViewModel.getEventList()
+            LaunchedEffect(Unit) {
+                evenViewModel.getEventList()
             }
-            val pokemonListState by EvenViewModel.pokemonListState.collectAsState()
-            MainActivityContent(pokemonListState)
+
+            val eventDataSource = EventDataSourceImpl(applicationContext)
+            val eventListState by evenViewModel.eventListState.collectAsState()
+            val navController = rememberNavController()
+            Nav(eventListState, eventDataSource, navController)
+/*            MainActivityContent(eventListState, eventDataSource)*/
         }
     }
 }
 
 //////////////////////////////PersonalCode///////////////////////////////////////////////////////
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun MyScreenPreview() {
     val sampleEvents = listOf(
-        Event(id = 1, name = "Sample Event 1", description = "Description 1", place = "Place 1", date = "Date 1", hour = "Hour 1"),
-        Event(id = 2, name = "Sample Event 2", description = "Description 2", place = "Place 2", date = "Date 2", hour = "Hour 2")
+        Event(
+            id = 1,
+            name = "Sample Event 1",
+            description = "Description 1",
+            place = "Place 1",
+            date = "Date 1",
+            hour = "Hour 1"
+        ),
+        Event(
+            id = 2,
+            name = "Sample Event 2",
+            description = "Description 2",
+            place = "Place 2",
+            date = "Date 2",
+            hour = "Hour 2"
+        )
     )
-    MainActivityContent(sampleEvents)
+    MainActivityContent(sampleEvents, EventDataSource)
+}*/
+@Composable
+fun Nav(data: List<Event>,
+        eventDataSource: EventDataSource,
+        navController: NavHostController) {
+
+    NavHost(navController = navController, startDestination = "A") {
+        composable("A") {
+            ScreenMain(data, eventDataSource, navController)
+        }
+        composable("B") {
+            ScreenB(navController)
+        }
+    }
 }
 
 @Composable
-fun MainActivityContent(data: List<Event>) {
+fun ScreenB(navController: NavHostController) {
+    Column(
+        modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Screen B click to pass C", fontSize = 64.sp)
+        Spacer(modifier = Modifier.height(45.dp))
+        Button(onClick = {
+            navController.navigate("A") {
+                popUpTo("A") { inclusive = true }
+            }
+        }) {
+            Text(text = "Go to screen C", fontSize = 40.sp)
+        }
+
+    }
+}
+
+@Composable
+fun ScreenMain(
+    data: List<Event>,
+    eventDataSource: EventDataSource,
+    navController: NavHostController
+) {
+
+    MainActivityContent(data, eventDataSource, navController)
+}
+
+@Composable
+fun MainActivityContent(
+    data: List<Event>,
+    eventDataSource: EventDataSource,
+    navController: NavHostController
+) {
     /*    val eventRepository = EventRepository()*/
     /*    val getAllData = eventRepository.getAllData()*/
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .background(Color.White),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
-        items(items = data) { event ->
-            CardEvent(event = event)
+    Box(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentHeight()
+                .background(Color.White),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            items(items = data) { event ->
+                CardEvent(event = event)
+            }
         }
+        FloatingActionButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(20.dp),
+            onClick = {
+                navController.navigate("B") {
+                    popUpTo("B") { inclusive = true }
+                }
+            },
+        ) {
+            Icon(Icons.Filled.Add, "Floating action button.")
+        }
+//        Button(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .align(Alignment.BottomEnd),
+//            onClick = {
+//                val event = Event(
+//                    id = 100,
+//                    name = "Event 1",
+//                    description = "Event description",
+//                    place = "M2",
+//                    date = "03/02/2023",
+//                    hour = "12:40"
+//                )
+//                eventDataSource.saveEvent(event)
+//            }) {
+//            Text("Save Event")
+//        }
+    }
+}
+
+@Composable
+fun SaveEventButton(eventDataSource: EventDataSource) {
+    Button(onClick = {
+        val event = Event(
+            id = 100,
+            name = "Event 1",
+            description = "Event description",
+            place = "M2",
+            date = "03/02/2023",
+            hour = "12:40"
+        )
+        eventDataSource.saveEvent(event)
+    }) {
+        Text("Save Event")
     }
 }
 
@@ -269,7 +377,8 @@ fun CardEvent(
     ElevatedCard(
         Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp)) {
+            .padding(horizontal = 8.dp)
+    ) {
         Column(Modifier.fillMaxWidth()) {
             Box(
                 Modifier
@@ -333,45 +442,3 @@ fun CardEvent(
     }
 }
 
-/*
-@Preview
-@Composable
-fun PokemonFavorite(
-    pokemon: Pokemon = Pokemon(0, "Pikachu")
-) {
-    Text(
-        modifier = Modifier.padding(8.dp),
-        text = pokemon.name
-    )
-}
-
-
-@Preview
-@Composable
-fun PokemonRow(
-    pokemon: Pokemon = Pokemon(0, "Pikachu"),
-    isLiked: Boolean = false,
-    onLikeClick: (Pokemon) -> Unit = {}
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        Text(
-            modifier = Modifier.align(Alignment.CenterStart),
-            text = pokemon.name
-        )
-        IconButton(
-            modifier = Modifier.align(Alignment.CenterEnd),
-            onClick = { onLikeClick(pokemon) }
-        ) {
-            Icon(
-                modifier = Modifier,
-                imageVector = Icons.Sharp.Favorite,
-                contentDescription = "like",
-                tint = if (isLiked) Color.Red else Color.Gray
-            )
-        }
-    }
-}*/

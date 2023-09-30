@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.example.pokedex'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.pokedex"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -48,6 +48,9 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.navigation:navigation-compose:2.7.0")
+
     implementation 'com.squareup.retrofit2:retrofit:2.9.0' // Retrofit library
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0" // Moshi converter for Retrofit
     implementation "com.squareup.moshi:moshi:1.14.0" // Moshi library
