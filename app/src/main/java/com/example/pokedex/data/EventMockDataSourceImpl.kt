@@ -2,7 +2,6 @@ package com.example.pokedex.data
 
 import com.example.pokedex.domain.Event
 
-//////////////////////////////Datos de prueba//////////////////////////////////////
 class EventMockDataSourceImpl : EventDataSource {
 
     private val eventMockList = listOf(

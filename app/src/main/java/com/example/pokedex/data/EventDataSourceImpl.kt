@@ -7,7 +7,6 @@ import com.example.pokedex.domain.Event
 import com.example.pokedex.framework.db.toEvent
 import com.example.pokedex.framework.db.toEventEntity
 
-//Data Source
 class EventDataSourceImpl(
     private val applicationContext: Context
 ) : EventDataSource {
