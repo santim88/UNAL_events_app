@@ -49,12 +49,14 @@ import com.example.pokedex.data.EventDataSource
 import com.example.pokedex.data.EventDataSourceImpl
 import com.example.pokedex.domain.Event
 
+
 class MainActivity : ComponentActivity() {
 
     private val evenViewModel by viewModels<EventViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         evenViewModel.initDependencies(this)
         setContent {
@@ -72,6 +74,44 @@ class MainActivity : ComponentActivity() {
 }
 
 //////////////////////////////PersonalCode///////////////////////////////////////////////////////
+
+@Composable
+fun ScreenB(navController: NavHostController) {
+    Column(
+        modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Screen B click to pass C", fontSize = 64.sp)
+        Spacer(modifier = Modifier.height(45.dp))
+        Button(onClick = {
+            navController.navigate("A") {
+                popUpTo("A") { inclusive = true }
+            }
+        }) {
+            Text(text = "Go to screen C", fontSize = 40.sp)
+        }
+
+    }
+}
+
+@Composable
+fun ScreenC(navController: NavHostController) {
+    Column(
+        modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Screen C click to pass C", fontSize = 64.sp)
+        Spacer(modifier = Modifier.height(45.dp))
+        Button(onClick = {
+            navController.navigate("A") {
+                popUpTo("A") { inclusive = true }
+            }
+        }) {
+            Text(text = "Go to screen C", fontSize = 40.sp)
+        }
+
+    }
+}
 
 /*@Preview(showBackground = true)
 @Composable
@@ -108,25 +148,9 @@ fun Nav(data: List<Event>,
         composable("B") {
             ScreenB(navController)
         }
-    }
-}
-
-@Composable
-fun ScreenB(navController: NavHostController) {
-    Column(
-        modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "Screen B click to pass C", fontSize = 64.sp)
-        Spacer(modifier = Modifier.height(45.dp))
-        Button(onClick = {
-            navController.navigate("A") {
-                popUpTo("A") { inclusive = true }
-            }
-        }) {
-            Text(text = "Go to screen C", fontSize = 40.sp)
+        composable("C") {
+            ScreenC(navController)
         }
-
     }
 }
 
@@ -135,7 +159,7 @@ fun ScreenMain(
     data: List<Event>,
     eventDataSource: EventDataSource,
     navController: NavHostController
-) {
+) { 
 
     MainActivityContent(data, eventDataSource, navController)
 }
@@ -157,7 +181,9 @@ fun MainActivityContent(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             items(items = data) { event ->
-                CardEvent(event = event)
+                CardEvent(event = event, onClick = {
+                    navController.navigate("C")
+                })
             }
         }
         FloatingActionButton(
