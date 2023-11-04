@@ -14,7 +14,7 @@ class EventDataSourceImpl(
     private val db = Room.databaseBuilder(
         applicationContext,
         EventDatabase::class.java, "events_db"
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 
     private val eventDao = db.EventDao()
     override suspend fun getEventList(): List<Event> = eventDao.getAll().map {
@@ -23,6 +23,12 @@ class EventDataSourceImpl(
 
     override fun saveEvent(event: Event) {
         eventDao.insertAll(
+            event.toEventEntity()
+        )
+    }
+
+    fun deleteEvent(event: Event) {
+        eventDao.delete(
             event.toEventEntity()
         )
     }

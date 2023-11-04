@@ -7,5 +7,4 @@ interface EventDataSource {
     suspend fun getEventList(): List<Event>
 
     fun saveEvent(event: Event)
-
 }

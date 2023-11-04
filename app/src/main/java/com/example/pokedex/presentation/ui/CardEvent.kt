@@ -30,7 +30,7 @@ import com.example.pokedex.domain.Event
 fun CardEvent(
     modifier: Modifier = Modifier,
     event: Event = Event(
-        id = 100,
+   /*     id = 100,*/
         name = "Event 1",
         description = "Event description",
         place = "M2",
@@ -82,6 +82,12 @@ fun CardEvent(
                 }
             }
             Column(Modifier.padding(horizontal = 10.dp)) {
+                Text(
+                    text = event.description,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Normal,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
                 Text(
                     text = event.date,
                     color = Color.Black,

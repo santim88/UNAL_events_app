@@ -30,7 +30,7 @@ fun Nav() {
             ScreenMain(eventDataSource, navController)
         }
         composable("B") {
-            ScreenB(navController)
+            ScreenB(eventDataSource, navController)
         }
         composable("C") {
             ScreenC(navController)
