@@ -39,9 +39,6 @@ fun Nav() {
             ScreenC(navController)
         }
 
-     /*   composable("Edit") {
-            ScreenEdit(navController)
-        }*/
         composable("Edit/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) { entry ->
             ScreenEdit(navController, id = entry.arguments?.getString("id"))
         }
