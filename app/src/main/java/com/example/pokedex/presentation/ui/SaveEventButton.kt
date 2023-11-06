@@ -10,6 +10,7 @@ import com.example.pokedex.domain.Event
 fun SaveEventButton(eventDataSource: EventDataSource) {
     Button(onClick = {
         val event = Event(
+            null,
             name = "Event 1",
             description = "Event description",
             place = "M2",

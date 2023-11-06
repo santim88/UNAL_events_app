@@ -1,9 +1,7 @@
 package com.example.pokedex.repository
 
 import com.example.pokedex.data.EventDataSource
-import com.example.pokedex.data.EventDataSourceImpl
 import com.example.pokedex.domain.Event
-import com.example.pokedex.framework.db.dao.EventDao
 
 class EventRepositoryImpl(
     private val eventDataSource: EventDataSource,
@@ -15,5 +13,17 @@ class EventRepositoryImpl(
 
     override suspend fun insertEvent(event: Event) {
         return  eventDataSource.saveEvent(event)
+    }
+
+    override suspend fun updateEvent(event: Event) {
+        return  eventDataSource.updateEvent(event)
+    }
+
+    override suspend fun deleteEvent(event: Event) {
+        return  eventDataSource.deleteEvent(event)
+    }
+
+    override suspend fun getEventById(id: Int): Event {
+       return  eventDataSource.getEventById(id)
     }
 }

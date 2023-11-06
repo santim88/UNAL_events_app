@@ -30,14 +30,16 @@ import com.example.pokedex.domain.Event
 fun CardEvent(
     modifier: Modifier = Modifier,
     event: Event = Event(
-   /*     id = 100,*/
+        id = 100,
         name = "Event 1",
         description = "Event description",
         place = "M2",
         date = "03/02/2023",
         hour = "12:40"
     ),
-    onClick: () -> Unit = {}
+    changeScreen: () -> Unit = {},
+    deleteEvent: () -> Unit = {},
+    editEvent: () -> Unit = {}
 ) {
     ElevatedCard(
         Modifier
@@ -65,14 +67,14 @@ fun CardEvent(
                         .align(Alignment.CenterEnd),
 //                horizontalArrangement = Arrangement.End,
                 ) {
-                    IconButton(modifier = Modifier, onClick = {}) {
+                    IconButton(modifier = Modifier, onClick = editEvent) {
                         Image(
                             painterResource(R.drawable.baseline_edit_24),
                             contentDescription = "like",
                             modifier = Modifier.size(26.dp)
                         )
                     }
-                    IconButton(modifier = Modifier, onClick = { }) {
+                    IconButton(modifier = Modifier, onClick = deleteEvent) {
                         Image(
                             painterResource(R.drawable.baseline_delete_24),
                             contentDescription = "like",
@@ -102,7 +104,7 @@ fun CardEvent(
                 )
             }
             Button(
-                onClick = onClick,
+                onClick = changeScreen,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp),

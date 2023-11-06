@@ -73,17 +73,18 @@ fun ScreenMain(
         evenViewModel.getEventList()
     }
 
-    MainActivityContent(eventListState, eventDataSource, navController)
+    MainActivityContent(eventListState, eventDataSource, navController, evenViewModel)
 }
 
 @Composable
 fun MainActivityContent(
     data: List<Event>,
     eventDataSource: EventDataSource,
-    navController: NavHostController
+    navController: NavHostController,
+    evenViewModel: ScreenMainViewModel = hiltViewModel()
 ) {
-    /*    val eventRepository = EventRepository()*/
-    /*    val getAllData = eventRepository.getAllData()*/
+    val eventListState by evenViewModel.eventListState.collectAsState(emptyList())
+
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier
@@ -92,10 +93,16 @@ fun MainActivityContent(
                 .background(Color.White),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            items(items = data) { event ->
-                CardEvent(event = event, onClick = {
-                    navController.navigate("C")
-                })
+            items(items = eventListState) { event ->
+                CardEvent(
+                    event = event,
+                    changeScreen = {
+                        navController.navigate("C")
+                    }, editEvent = {
+                        navController.navigate("Edit/${event.id}")
+                    }, deleteEvent = {
+                        evenViewModel.deleteEvent(event)
+                    })
             }
         }
         FloatingActionButton(

@@ -21,8 +21,14 @@ class ScreenMainViewModel @Inject constructor(
     private val eventRepository: EventRepository
 ) : ViewModel() {
 
-    private val _eventListState = MutableStateFlow(listOf<Event>())
+    private val _eventListState = MutableStateFlow(emptyList<Event>())
     val eventListState = _eventListState.asStateFlow()
+
+/*    private val _eventState = MutableStateFlow<Event?>(null)
+    val eventState = _eventListState.asStateFlow()*/
+    private val _eventState = MutableStateFlow<Event?>(null)
+    val eventState = _eventState.asStateFlow()
+
 
     fun getEventList() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -35,4 +41,32 @@ class ScreenMainViewModel @Inject constructor(
                eventRepository.insertEvent(event)
          }
     }
+
+    fun deleteEvent(event: Event) {
+        viewModelScope.launch (Dispatchers.IO){
+            eventRepository.deleteEvent(event)
+            _eventListState.value = eventRepository.getEventList()
+        }
+    }
+
+    fun updateEvent(event: Event) {
+        viewModelScope.launch (Dispatchers.IO){
+            eventRepository.updateEvent(event)
+        }
+    }
+
+    fun getEventById(id: Int ?) {
+        viewModelScope.launch (Dispatchers.IO){
+            _eventState.value = eventRepository.getEventById(id ?: 0)
+        }
+    }
+
+    /*    fun deleteEventById(eventID: Int) {
+        viewModelScope.launch (Dispatchers.IO){
+            eventRepository.deleteEventById(eventID)
+        }
+    }*/
+
+    /* private val _eventListState = MutableStateFlow(listOf<Event>())
+   val eventListState = _eventListState.asStateFlow()*/
 }

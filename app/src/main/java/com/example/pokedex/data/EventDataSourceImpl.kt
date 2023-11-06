@@ -16,6 +16,7 @@ class EventDataSourceImpl(
         EventDatabase::class.java, "events_db"
     ).fallbackToDestructiveMigration().build()
 
+
     private val eventDao = db.EventDao()
     override suspend fun getEventList(): List<Event> = eventDao.getAll().map {
         it.toEvent()
@@ -27,10 +28,26 @@ class EventDataSourceImpl(
         )
     }
 
-    fun deleteEvent(event: Event) {
-        eventDao.delete(
-            event.toEventEntity()
-        )
+/*    override  suspend  fun deleteEventById(eventId: Int) {
+        eventDao.deleteEventById(eventId)
+    }*/
+
+    override suspend fun deleteEvent(event: Event) {
+        eventDao.deleteEvent(event.toEventEntity())
     }
 
+    override suspend fun updateEvent(event: Event) {
+        eventDao.update(event.toEventEntity())
+    }
+
+/*
+    override suspend fun getEventById(id: Int) {
+        eventDao.getEventById(id).toEvent()
+    }
+*/
+
+    override suspend fun getEventById(id: Int): Event {
+        val eventEntity = eventDao.getEventById(id)
+        return eventEntity.toEvent()
+    }
 }
