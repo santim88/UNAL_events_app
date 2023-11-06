@@ -19,8 +19,9 @@ interface EventDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(vararg users: EventEntity)
 
-  /*  @Query("DELETE FROM events WHERE id = :eventId")
-    suspend fun deleteEventById(eventId: Int)*/
+    @Query("DELETE FROM events WHERE id = :eventId")
+    suspend fun deleteEventById(eventId: Int)
+
     @Query("SELECT * FROM events WHERE id = :id")
     fun getEventById(id: Int): EventEntity
 

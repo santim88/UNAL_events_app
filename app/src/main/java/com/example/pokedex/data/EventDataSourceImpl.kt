@@ -28,9 +28,9 @@ class EventDataSourceImpl(
         )
     }
 
-/*    override  suspend  fun deleteEventById(eventId: Int) {
+    override  suspend  fun deleteEventById(eventId: Int) {
         eventDao.deleteEventById(eventId)
-    }*/
+    }
 
     override suspend fun deleteEvent(event: Event) {
         eventDao.deleteEvent(event.toEventEntity())
