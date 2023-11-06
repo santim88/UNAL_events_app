@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.pokedex'
+    namespace 'com.unalminas.eventsapp'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.pokedex"
+        applicationId "com.unalminas.eventsapp"
         minSdk 24
         targetSdk 34
         versionCode 1
