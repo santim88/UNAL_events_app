@@ -137,12 +137,11 @@ fun UserForm(
         Button(
             onClick = {
                 val newEvent = Event(
-                    null,
-                    name,
-                    description,
-                    location,
-                    date,
-                    time
+                    name = name,
+                    description = description,
+                    place = location,
+                    date = date,
+                    hour = time
                 )
 
                 CoroutineScope(Dispatchers.IO).launch {

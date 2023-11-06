@@ -59,13 +59,10 @@ fun CardEvent(
                     text = "${event.name} | ${event.place}",
                     color = Color.White,
                     style = MaterialTheme.typography.headlineSmall,
-                    /*  fontWeight = FontWeight.Bold,*/
-                    /*   fontSize = MaterialTheme.typography.headlineMedium*/
                 )
                 Row(
                     modifier = Modifier
                         .align(Alignment.CenterEnd),
-//                horizontalArrangement = Arrangement.End,
                 ) {
                     IconButton(modifier = Modifier, onClick = editEvent) {
                         Image(
@@ -93,7 +90,6 @@ fun CardEvent(
                 Text(
                     text = event.date,
                     color = Color.Black,
-                    /*       fontWeight = FontWeight.Normal,*/
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(

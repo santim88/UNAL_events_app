@@ -57,8 +57,6 @@ fun UserFormEdit(
     event: Event?
 ) {
 
-    /*    val event = Event(1, "sdgs", "sefs", "sfsfd", "sfsdf", "fsdsf")*/
-
     val eventName = remember { mutableStateOf(event?.name ?: "") }
     val eventDescription = remember { mutableStateOf(event?.description ?: "") }
     val eventPlace = remember { mutableStateOf(event?.place ?: "") }
@@ -138,12 +136,11 @@ fun UserFormEdit(
         Button(
             onClick = {
                 val updateCurrentEvent = Event(
-                    null,
-                    eventName.value,
-                    eventDescription.value,
-                    eventPlace.value,
-                    eventDate.value,
-                    eventHour.value
+                    name = eventName.value,
+                    description = eventDescription.value,
+                    place = eventPlace.value,
+                    date = eventDate.value,
+                    hour = eventHour.value
                 )
 
                 CoroutineScope(Dispatchers.IO).launch {

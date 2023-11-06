@@ -40,11 +40,6 @@ class EventDataSourceImpl(
         eventDao.update(event.toEventEntity())
     }
 
-/*
-    override suspend fun getEventById(id: Int) {
-        eventDao.getEventById(id).toEvent()
-    }
-*/
 
     override suspend fun getEventById(id: Int): Event {
         val eventEntity = eventDao.getEventById(id)
