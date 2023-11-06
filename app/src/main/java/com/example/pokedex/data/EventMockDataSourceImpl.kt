@@ -2,26 +2,26 @@ package com.example.pokedex.data
 
 import com.example.pokedex.domain.Event
 
-class EventMockDataSourceImpl : EventDataSource {
+class EventMockDataSourceImpl : EventDataSource{
 
     private val eventMockList = listOf(
-        Event(1, "Pikachu", "ti", "minas", "16/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(2, "Charmander", "ti", "minas_2", "17/09/09/09", "2:00"),
-        Event(3, "Squirtle", "ti", "minas_3", "18/09/09/09", "2:00"),
-        Event(4, "Bulbasaur", "ti", "minas_4", "19/09/09/09", "2:00"),
+        Event( name= "Pikachu", description =  "ti", place =  "minas", date =  "16/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Charmander", description =  "ti", place =  "minas_2", date =  "17/09/09/09", hour =  "2:00"),
+        Event( name= "Squirtle", description =  "ti", place =  "minas_3", date =  "18/09/09/09", hour =  "2:00"),
+        Event( name= "Bulbasaur", description =  "ti", place =  "minas_4", date =  "19/09/09/09", hour =  "2:00"),
     )
 
     override suspend fun getEventList(): List<Event> = eventMockList
@@ -30,4 +30,19 @@ class EventMockDataSourceImpl : EventDataSource {
 
     }
 
+    override suspend fun deleteEventById(eventId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteEvent(event: Event) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateEvent(event: Event) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getEventById(id: Int): Event {
+        TODO("Not yet implemented")
+    }
 }

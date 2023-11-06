@@ -5,7 +5,7 @@ import com.example.pokedex.framework.db.entity.EventEntity
 
 
 fun EventEntity.toEvent() = Event(
-    id = id ?: 0,
+    id = id,
     name = name ?: "",
     description = description,
     place = place ?: "",

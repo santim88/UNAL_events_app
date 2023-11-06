@@ -26,7 +26,6 @@ object RepositoryModule {
     ): EventDataSource {
         return EventDataSourceImpl(context)
     }
-
     @Named("EventMockDatasource")
     @Singleton
     @Provides
@@ -37,9 +36,8 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideEventRepository(
-        @Named("EventMockDatasource") eventDataSource: EventDataSource
+        @Named("EventDatasource") eventDataSource: EventDataSource
     ): EventRepository {
         return EventRepositoryImpl(eventDataSource)
     }
-
 }

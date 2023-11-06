@@ -1,7 +1,5 @@
 package com.example.pokedex.presentation.screens
 
-import android.widget.Toast
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,10 +18,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,31 +35,33 @@ import kotlinx.coroutines.withContext
 
 
 @Composable
-fun ScreenB(
+fun ScreenEdit(
     navController: NavHostController,
-    evenViewModel: ScreenMainViewModel = hiltViewModel()
+    id: String?,
+    evenViewModel: ScreenMainViewModel = hiltViewModel(),
 ) {
+    val eventState by evenViewModel.eventState.collectAsState()
 
     LaunchedEffect(Unit) {
-        evenViewModel.getEventList()
+        evenViewModel.getEventById(id?.toInt())//duda
     }
 
-
-    UserForm(navController, evenViewModel)
+    UserFormEdit(navController, evenViewModel, eventState)
 }
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun UserForm(
+fun UserFormEdit(
     navController: NavHostController,
-    evenViewModel: ScreenMainViewModel = hiltViewModel()
+    eventViewModel: ScreenMainViewModel = hiltViewModel(),
+    event: Event?
 ) {
-    var name by remember { mutableStateOf("") }
-    var date by remember { mutableStateOf("") }
-    var time by remember { mutableStateOf("") }
-    var location by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
 
+    val eventName = remember { mutableStateOf(event?.name ?: "") }
+    val eventDescription = remember { mutableStateOf(event?.description ?: "") }
+    val eventPlace = remember { mutableStateOf(event?.place ?: "") }
+    val eventDate = remember { mutableStateOf(event?.date ?: "") }
+    val eventHour = remember { mutableStateOf(event?.hour ?: "") }
 
     Column(
         modifier = Modifier
@@ -85,8 +84,8 @@ fun UserForm(
         )
 
         OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
+            value = eventName.value,
+            onValueChange = { newName -> eventName.value = newName },
             label = { Text("Nombre") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -95,8 +94,8 @@ fun UserForm(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = description,
-            onValueChange = { description = it },
+            value = eventDescription.value,
+            onValueChange = { newDescription -> eventDescription.value = newDescription },
             label = { Text("Descripción") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -105,8 +104,8 @@ fun UserForm(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = date,
-            onValueChange = { date = it },
+            value = eventDate.value,
+            onValueChange = { newDate -> eventDate.value = newDate },
             label = { Text("Fecha") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -115,8 +114,8 @@ fun UserForm(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = time,
-            onValueChange = { time = it },
+            value = eventHour.value,
+            onValueChange = { newHour -> eventHour.value = newHour },
             label = { Text("Horario") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -125,8 +124,8 @@ fun UserForm(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = location,
-            onValueChange = { location = it },
+            value = eventPlace.value,
+            onValueChange = { newPlace -> eventPlace.value = newPlace },
             label = { Text("Lugar") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -136,16 +135,16 @@ fun UserForm(
 
         Button(
             onClick = {
-                val newEvent = Event(
-                    name = name,
-                    description = description,
-                    place = location,
-                    date = date,
-                    hour = time
+                val updateCurrentEvent = Event(
+                    name = eventName.value,
+                    description = eventDescription.value,
+                    place = eventPlace.value,
+                    date = eventDate.value,
+                    hour = eventHour.value
                 )
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    evenViewModel.insertEvent(newEvent)
+                    eventViewModel.updateEvent(updateCurrentEvent)
                     withContext(Dispatchers.Main) {
                         navController.navigate("A") {
                             popUpTo("A") { inclusive = true }

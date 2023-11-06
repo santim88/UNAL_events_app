@@ -37,7 +37,9 @@ fun CardEvent(
         date = "03/02/2023",
         hour = "12:40"
     ),
-    onClick: () -> Unit = {}
+    changeScreen: () -> Unit = {},
+    deleteEvent: () -> Unit = {},
+    editEvent: () -> Unit = {}
 ) {
     ElevatedCard(
         Modifier
@@ -57,22 +59,19 @@ fun CardEvent(
                     text = "${event.name} | ${event.place}",
                     color = Color.White,
                     style = MaterialTheme.typography.headlineSmall,
-                    /*  fontWeight = FontWeight.Bold,*/
-                    /*   fontSize = MaterialTheme.typography.headlineMedium*/
                 )
                 Row(
                     modifier = Modifier
                         .align(Alignment.CenterEnd),
-//                horizontalArrangement = Arrangement.End,
                 ) {
-                    IconButton(modifier = Modifier, onClick = {}) {
+                    IconButton(modifier = Modifier, onClick = editEvent) {
                         Image(
                             painterResource(R.drawable.baseline_edit_24),
                             contentDescription = "like",
                             modifier = Modifier.size(26.dp)
                         )
                     }
-                    IconButton(modifier = Modifier, onClick = { }) {
+                    IconButton(modifier = Modifier, onClick = deleteEvent) {
                         Image(
                             painterResource(R.drawable.baseline_delete_24),
                             contentDescription = "like",
@@ -83,9 +82,14 @@ fun CardEvent(
             }
             Column(Modifier.padding(horizontal = 10.dp)) {
                 Text(
+                    text = event.description,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Normal,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Text(
                     text = event.date,
                     color = Color.Black,
-                    /*       fontWeight = FontWeight.Normal,*/
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
@@ -96,7 +100,7 @@ fun CardEvent(
                 )
             }
             Button(
-                onClick = onClick,
+                onClick = changeScreen,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp),
