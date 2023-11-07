@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.unalminas.eventsapp.framework.db.dao.EventDao
 import com.unalminas.eventsapp.framework.db.entity.EventEntity
 
-@Database(entities = [EventEntity::class], version = 4)
+@Database(entities = [EventEntity::class], version = 5)
 abstract class EventDatabase : RoomDatabase() {
     abstract fun EventDao(): EventDao
 }

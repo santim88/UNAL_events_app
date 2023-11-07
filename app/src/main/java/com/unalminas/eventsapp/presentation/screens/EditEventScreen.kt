@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,32 +23,17 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.domain.Event
-import com.unalminas.eventsapp.presentation.ScreenMainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
-@Composable
-fun ScreenB(
-    navController: NavHostController,
-    evenViewModel: ScreenMainViewModel = hiltViewModel()
-) {
-
-    LaunchedEffect(Unit) {
-        evenViewModel.getEventList()
-    }
-
-
-    UserForm(navController, evenViewModel)
-}
-
-@Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun UserForm(
+@Composable
+fun EditEventScreen(
     navController: NavHostController,
-    evenViewModel: ScreenMainViewModel = hiltViewModel()
+    viewModel: EditEventViewModel = hiltViewModel(),
+    isNewEvent: Boolean = false
 ) {
     var name by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
@@ -57,15 +41,14 @@ fun UserForm(
     var location by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
         Button(onClick = {
-            navController.navigate("A") {
-                popUpTo("A") { inclusive = true }
+            navController.navigate("MainScreen") {
+                popUpTo("MainScreen") { inclusive = true }
             }
         }) {
             Text(text = "volver", fontSize = 14.sp)
@@ -138,11 +121,32 @@ fun UserForm(
                     hour = time
                 )
 
+                if (isNewEvent) {
+                    viewModel.insertEvent(
+                        Event(
+                            name = name,
+                            description = description,
+                            place = location,
+                            date = date,
+                            hour = time
+                        )
+                    )
+                } else {
+                    viewModel.updateEvent(
+                        Event(
+                            name = name,
+                            description = description,
+                            place = location,
+                            date = date,
+                            hour = time
+                        )
+                    )
+                }
+
                 CoroutineScope(Dispatchers.IO).launch {
-                    evenViewModel.insertEvent(newEvent)
                     withContext(Dispatchers.Main) {
-                        navController.navigate("A") {
-                            popUpTo("A") { inclusive = true }
+                        navController.navigate("MainScreen") {
+                            popUpTo("MainScreen") { inclusive = true }
                         }
                     }
                 }
@@ -151,7 +155,7 @@ fun UserForm(
                 .fillMaxWidth()
                 .height(50.dp),
         ) {
-            Text("Save")
+            if (isNewEvent) Text("Create") else Text("Save")
         }
     }
 }

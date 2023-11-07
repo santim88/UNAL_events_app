@@ -57,8 +57,8 @@ fun ScreenC(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Button(onClick = {
-                            navController.navigate("A") {
-                                popUpTo("A") { inclusive = true }
+                            navController.navigate("MainScreen") {
+                                popUpTo("MainScreen") { inclusive = true }
                             }
                         }) {
                             Text(text = "volver", fontSize = 14.sp)
@@ -228,8 +228,8 @@ fun ScreenC(
                     .align(Alignment.BottomEnd)
                     .padding(20.dp),
                 onClick = {
-                    navController.navigate("B") {
-                        popUpTo("B") { inclusive = true }
+                    navController.navigate("CreateEventScreen") {
+                        popUpTo("CreateEventScreen") { inclusive = true }
                     }
                 },
             ) {

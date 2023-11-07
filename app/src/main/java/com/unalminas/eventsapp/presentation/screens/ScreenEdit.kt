@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,41 +25,31 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.domain.Event
-import com.unalminas.eventsapp.presentation.ScreenMainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+// TODO: Remove this component
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenEdit(
     navController: NavHostController,
     id: String?,
-    evenViewModel: ScreenMainViewModel = hiltViewModel(),
+    viewModel: EditEventViewModel = hiltViewModel(),
 ) {
-    val eventState by evenViewModel.eventState.collectAsState()
+    val eventState by viewModel.eventState.collectAsState()
 
     LaunchedEffect(Unit) {
-        evenViewModel.getEventById(id?.toInt())//duda
+        Log.i("ScreenEdit", "id: $id")
+        viewModel.getEventById(id?.toInt()) //duda
     }
 
-    UserFormEdit(navController, evenViewModel, eventState)
-}
-
-@Composable
-@OptIn(ExperimentalMaterial3Api::class)
-fun UserFormEdit(
-    navController: NavHostController,
-    eventViewModel: ScreenMainViewModel = hiltViewModel(),
-    event: Event?
-) {
-
-    val eventName = remember { mutableStateOf(event?.name ?: "") }
-    val eventDescription = remember { mutableStateOf(event?.description ?: "") }
-    val eventPlace = remember { mutableStateOf(event?.place ?: "") }
-    val eventDate = remember { mutableStateOf(event?.date ?: "") }
-    val eventHour = remember { mutableStateOf(event?.hour ?: "") }
+    val eventName = remember { mutableStateOf(eventState?.name ?: "") }
+    val eventDescription = remember { mutableStateOf(eventState?.description ?: "") }
+    val eventPlace = remember { mutableStateOf(eventState?.place ?: "") }
+    val eventDate = remember { mutableStateOf(eventState?.date ?: "") }
+    val eventHour = remember { mutableStateOf(eventState?.hour ?: "") }
 
     Column(
         modifier = Modifier
@@ -66,8 +57,8 @@ fun UserFormEdit(
             .padding(16.dp)
     ) {
         Button(onClick = {
-            navController.navigate("A") {
-                popUpTo("A") { inclusive = true }
+            navController.navigate("MainScreen") {
+                popUpTo("MainScreen") { inclusive = true }
             }
         }) {
             Text(text = "volver", fontSize = 14.sp)
@@ -141,10 +132,10 @@ fun UserFormEdit(
                 )
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    eventViewModel.updateEvent(updateCurrentEvent)
+                    viewModel.updateEvent(updateCurrentEvent)
                     withContext(Dispatchers.Main) {
-                        navController.navigate("A") {
-                            popUpTo("A") { inclusive = true }
+                        navController.navigate("MainScreen") {
+                            popUpTo("MainScreen") { inclusive = true }
                         }
                     }
                 }

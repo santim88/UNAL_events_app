@@ -22,13 +22,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.unalminas.eventsapp.presentation.ScreenMainViewModel
 import com.unalminas.eventsapp.presentation.ui.CardEvent
 
 @Composable
-fun ScreenMain(
+fun MainScreen(
     navController: NavHostController,
-    eventViewModel: ScreenMainViewModel = hiltViewModel()
+    eventViewModel: MainViewModel = hiltViewModel()
 ) {
 
     LaunchedEffect(Unit) {
@@ -41,9 +40,9 @@ fun ScreenMain(
 @Composable
 fun MainActivityContent(
     navController: NavHostController,
-    evenViewModel: ScreenMainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel()
 ) {
-    val eventListState by evenViewModel.eventListState.collectAsState(emptyList())
+    val eventListState by viewModel.eventListState.collectAsState(emptyList())
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -61,8 +60,9 @@ fun MainActivityContent(
                     }, editEvent = {
                         navController.navigate("Edit/${event.id}")
                     }, deleteEvent = {
-                        evenViewModel.deleteEvent(event)
-                    })
+                        viewModel.deleteEvent(event)
+                    }
+                )
             }
         }
         FloatingActionButton(
@@ -70,8 +70,8 @@ fun MainActivityContent(
                 .align(Alignment.BottomEnd)
                 .padding(20.dp),
             onClick = {
-                navController.navigate("B") {
-                    popUpTo("B") { inclusive = true }
+                navController.navigate("CreateEventScreen") {
+                    popUpTo("CreateEventScreen") { inclusive = true }
                 }
             },
         ) {
