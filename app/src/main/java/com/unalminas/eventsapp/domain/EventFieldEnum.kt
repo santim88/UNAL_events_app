@@ -1,6 +1,6 @@
 package com.unalminas.eventsapp.domain
 
-enum class EventFieldName(
+enum class EventFieldEnum(
     val fieldName: String
 ) {
     NAME("name"),

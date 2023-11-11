@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.unalminas.eventsapp.domain.Event
+import com.unalminas.eventsapp.domain.EventFieldEnum
 import com.unalminas.eventsapp.presentation.screens.FormEventViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -68,7 +68,7 @@ fun FormEvent(
         OutlinedTextField(
             value = event.name,
             onValueChange = { newName ->
-//                event.name = newName
+                viewModel.editEventField(EventFieldEnum.NAME, newName)
             },
             label = { Text("Nombre") },
             singleLine = true,
@@ -80,7 +80,7 @@ fun FormEvent(
         OutlinedTextField(
             value = event.description,
             onValueChange = { newDescription ->
-//                eventDescription.value = newDescription
+                viewModel.editEventField(EventFieldEnum.DESCRIPTION, newDescription)
             },
             label = { Text("Descripción") },
             singleLine = true,
@@ -92,7 +92,7 @@ fun FormEvent(
         OutlinedTextField(
             value = event.name,
             onValueChange = { newDate ->
-//                eventDate.value = newDate
+                viewModel.editEventField(EventFieldEnum.DATE, newDate)
             },
             label = { Text("Fecha") },
             singleLine = true,
@@ -104,7 +104,7 @@ fun FormEvent(
         OutlinedTextField(
             value = event.hour,
             onValueChange = { newHour ->
-//                eventHour.value = newHour
+                viewModel.editEventField(EventFieldEnum.HOUR, newHour)
             },
             label = { Text("Horario") },
             singleLine = true,
@@ -116,7 +116,7 @@ fun FormEvent(
         OutlinedTextField(
             value = event.place,
             onValueChange = { newPlace ->
-//                eventPlace.value = newPlace
+                viewModel.editEventField(EventFieldEnum.PLACE, newPlace)
             },
             label = { Text("Lugar") },
             singleLine = true,
@@ -127,17 +127,10 @@ fun FormEvent(
 
         Button(
             onClick = {
-                val eventTarget = Event(
-                    name = event.name,
-                    description = event.description,
-                    place = event.place,
-                    date = event.date,
-                    hour = event.hour
-                )
                 if (isNewEvent) {
-                    viewModel.insertEvent(eventTarget)
+                    viewModel.insertEvent(event)
                 } else {
-                    viewModel.updateEvent(eventTarget)
+                    viewModel.updateEvent(event)
                 }
 
                 CoroutineScope(Dispatchers.IO).launch {

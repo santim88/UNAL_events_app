@@ -3,6 +3,7 @@ package com.unalminas.eventsapp.presentation.screens
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.unalminas.eventsapp.domain.Event
+import com.unalminas.eventsapp.domain.EventFieldEnum
 import com.unalminas.eventsapp.repository.EventRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -40,14 +41,14 @@ class FormEventViewModel @Inject constructor(
 
     // Edit event
 
-//    fun editEventField(fieldName: String, fieldValue: String) {
-//        _eventState.value = _eventState.value.copy(name = name)
-//    }
+    fun editEventField(fieldEnumType: EventFieldEnum, fieldValue: String) {
+        _eventState.value = when (fieldEnumType) {
+            EventFieldEnum.NAME -> _eventState.value.copy(name = fieldValue)
+            EventFieldEnum.DESCRIPTION -> _eventState.value.copy(description = fieldValue)
+            EventFieldEnum.PLACE -> _eventState.value.copy(place = fieldValue)
+            EventFieldEnum.DATE -> _eventState.value.copy(date = fieldValue)
+            EventFieldEnum.HOUR -> _eventState.value.copy(hour = fieldValue)
+        }
+    }
 
-}
-
-sealed class EditEventState {
-//    object Loading : EditEventState()
-//    data class Success(val event: Event) : EditEventState()
-//    data class Error(val message: String) : EditEventState()
 }
