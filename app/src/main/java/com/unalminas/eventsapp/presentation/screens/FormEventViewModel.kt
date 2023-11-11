@@ -12,11 +12,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EditEventViewModel @Inject constructor(
+class FormEventViewModel @Inject constructor(
     private val eventRepository: EventRepository
 ) : ViewModel() {
 
-    private val _eventState = MutableStateFlow<Event?>(null)
+    private val _eventState = MutableStateFlow(Event())
     val eventState = _eventState.asStateFlow()
 
     fun insertEvent(event: Event) {
@@ -31,10 +31,23 @@ class EditEventViewModel @Inject constructor(
         }
     }
 
-    fun getEventById(id: Int?) {
+    fun getEventById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _eventState.value = eventRepository.getEventById(id ?: 0)
+            val event = eventRepository.getEventById(id)
+            _eventState.value = event
         }
     }
 
+    // Edit event
+
+//    fun editEventField(fieldName: String, fieldValue: String) {
+//        _eventState.value = _eventState.value.copy(name = name)
+//    }
+
+}
+
+sealed class EditEventState {
+//    object Loading : EditEventState()
+//    data class Success(val event: Event) : EditEventState()
+//    data class Error(val message: String) : EditEventState()
 }

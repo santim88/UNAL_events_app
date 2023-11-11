@@ -8,10 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.unalminas.eventsapp.presentation.screens.CreateEventScreen
-import com.unalminas.eventsapp.presentation.screens.EditEventScreen
-import com.unalminas.eventsapp.presentation.screens.ScreenC
 import com.unalminas.eventsapp.presentation.screens.MainScreen
+import com.unalminas.eventsapp.presentation.screens.ScreenC
+import com.unalminas.eventsapp.presentation.ui.FormEvent
 
 @Composable
 fun AppNavigation() {
@@ -19,14 +18,14 @@ fun AppNavigation() {
 
     NavHost(
         modifier = Modifier.fillMaxSize(),
-        navController = navController, startDestination = "MainScreen"
+        navController = navController, startDestination = Screen.MainScreen.route
     ) {
         composable(Screen.MainScreen.route) {
             MainScreen(navController)
         }
 
         composable(Screen.CreateEventScreen.route) {
-            CreateEventScreen(navController)
+            FormEvent(navController = navController, isNewEvent = true)
         }
 
         composable(Screen.ScreenC.route) {
@@ -37,7 +36,12 @@ fun AppNavigation() {
             Screen.EditEventScreen("{id}").route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
-            EditEventScreen(navController, id = entry.arguments?.getString("id"))
+            val id = entry.arguments?.getString("id")?.toInt()
+            FormEvent(
+                navController = navController,
+                id = id,
+                isNewEvent = false
+            )
         }
     }
 }
