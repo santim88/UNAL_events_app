@@ -1,7 +1,7 @@
-package com.unalminas.eventsapp.framework.db
+package com.unalminas.eventsapp.domain.framework.db
 
 import com.unalminas.eventsapp.domain.Event
-import com.unalminas.eventsapp.framework.db.entity.EventEntity
+import com.unalminas.eventsapp.domain.framework.db.entity.EventEntity
 
 
 fun EventEntity.toEvent() = Event(

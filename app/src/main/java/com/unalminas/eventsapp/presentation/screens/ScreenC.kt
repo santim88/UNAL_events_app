@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
+import com.unalminas.eventsapp.presentation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -122,7 +123,7 @@ fun ScreenC(
                 Spacer(modifier = Modifier.height(45.dp))
 
                 LazyColumn(
-                    modifier= Modifier.clip(RoundedCornerShape(8.dp))
+                    modifier = Modifier.clip(RoundedCornerShape(8.dp))
                 ) {
                     item {
                         Row(
@@ -228,9 +229,7 @@ fun ScreenC(
                     .align(Alignment.BottomEnd)
                     .padding(20.dp),
                 onClick = {
-                    navController.navigate("CreateEventScreen") {
-                        popUpTo("CreateEventScreen") { inclusive = true }
-                    }
+                    navController.navigate(Screen.CreateEventScreen.route)
                 },
             ) {
                 Icon(Icons.Filled.Add, "Floating action button.")

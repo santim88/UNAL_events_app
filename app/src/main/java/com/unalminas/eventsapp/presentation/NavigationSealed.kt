@@ -6,4 +6,3 @@ sealed class Screen(val route: String) {
     object ScreenC : Screen("C")
     data class EditEventScreen(val id: String) : Screen("Edit/{id}")
 }
-

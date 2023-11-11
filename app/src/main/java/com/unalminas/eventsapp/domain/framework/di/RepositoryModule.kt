@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.framework.di
+package com.unalminas.eventsapp.domain.framework.di
 
 import android.content.Context
 import com.unalminas.eventsapp.data.EventDataSource

@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.CardEvent
 
 @Composable
@@ -56,9 +57,9 @@ fun MainActivityContent(
                 CardEvent(
                     event = event,
                     changeScreen = {
-                        navController.navigate("C")
+                        navController.navigate(Screen.ScreenC.route)
                     }, editEvent = {
-                        navController.navigate("Edit/${event.id}")
+                        navController.navigate(Screen.EditEventScreen("{id}").route)
                     }, deleteEvent = {
                         event.id?.let { nonNullId ->
                             viewModel.deleteEventById(nonNullId)
@@ -73,9 +74,7 @@ fun MainActivityContent(
                 .align(Alignment.BottomEnd)
                 .padding(20.dp),
             onClick = {
-                navController.navigate("CreateEventScreen") {
-                    popUpTo("CreateEventScreen") { inclusive = true }
-                }
+                navController.navigate(Screen.CreateEventScreen.route)
             },
         ) {
             Icon(Icons.Filled.Add, "Floating action button.")
