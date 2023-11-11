@@ -2,7 +2,7 @@ package com.unalminas.eventsapp.data
 
 import com.unalminas.eventsapp.domain.Event
 
-interface EventDataSource {
+interface   EventDataSource {
 
     suspend fun getEventList(): List<Event>
 

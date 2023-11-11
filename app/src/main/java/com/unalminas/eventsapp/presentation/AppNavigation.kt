@@ -8,9 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.unalminas.eventsapp.presentation.screens.CreateEventScreen
 import com.unalminas.eventsapp.presentation.screens.EditEventScreen
 import com.unalminas.eventsapp.presentation.screens.ScreenC
-import com.unalminas.eventsapp.presentation.screens.ScreenEdit
 import com.unalminas.eventsapp.presentation.screens.MainScreen
 
 @Composable
@@ -21,20 +21,23 @@ fun AppNavigation() {
         modifier = Modifier.fillMaxSize(),
         navController = navController, startDestination = "MainScreen"
     ) {
-        composable("MainScreen") {
+        composable(Screen.MainScreen.route) {
             MainScreen(navController)
         }
 
-        composable("CreateEventScreen") {
-            EditEventScreen(navController, isNewEvent = true)
+        composable(Screen.CreateEventScreen.route) {
+            CreateEventScreen(navController)
         }
 
-        composable("C") {
+        composable(Screen.ScreenC.route) {
             ScreenC(navController)
         }
 
-        composable("Edit/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) { entry ->
-            ScreenEdit(navController, id = entry.arguments?.getString("id"))
+        composable(
+            Screen.EditEventScreen("{id}").route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            EditEventScreen(navController, id = entry.arguments?.getString("id"))
         }
     }
 }

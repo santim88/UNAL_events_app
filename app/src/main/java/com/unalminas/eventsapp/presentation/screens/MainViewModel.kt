@@ -28,7 +28,14 @@ class MainViewModel @Inject constructor(
     fun deleteEvent(event: Event) {
         viewModelScope.launch(Dispatchers.IO) {
             eventRepository.deleteEvent(event)
-//            _eventListState.value = eventRepository.getEventList()
+            _eventListState.value = eventRepository.getEventList()
+        }
+    }
+
+    fun deleteEventById(id: Int ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            eventRepository.deleteEventById(id)
+            _eventListState.value = eventRepository.getEventList()
         }
     }
 }

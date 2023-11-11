@@ -1,6 +1,5 @@
-package com.unalminas.eventsapp.presentation.screens
+package com.unalminas.eventsapp.presentation.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,9 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -25,26 +21,21 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.domain.Event
+import com.unalminas.eventsapp.presentation.screens.EditEventViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-// TODO: Remove this component
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
-fun ScreenEdit(
+@ExperimentalMaterial3Api
+fun FormEvent(
     navController: NavHostController,
-    id: String?,
+    eventState: Event?,
+    isNewEvent: Boolean,
     viewModel: EditEventViewModel = hiltViewModel(),
 ) {
-    val eventState by viewModel.eventState.collectAsState()
-
-    LaunchedEffect(Unit) {
-        Log.i("ScreenEdit", "id: $id")
-        viewModel.getEventById(id?.toInt()) //duda
-    }
-
     val eventName = remember { mutableStateOf(eventState?.name ?: "") }
     val eventDescription = remember { mutableStateOf(eventState?.description ?: "") }
     val eventPlace = remember { mutableStateOf(eventState?.place ?: "") }
@@ -123,16 +114,20 @@ fun ScreenEdit(
 
         Button(
             onClick = {
-                val updateCurrentEvent = Event(
+                val eventTarget = Event(
                     name = eventName.value,
                     description = eventDescription.value,
                     place = eventPlace.value,
                     date = eventDate.value,
                     hour = eventHour.value
                 )
+                if (isNewEvent){
+                    viewModel.insertEvent(eventTarget)
+                }else{
+                    viewModel.updateEvent(eventTarget)
+                }
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    viewModel.updateEvent(updateCurrentEvent)
                     withContext(Dispatchers.Main) {
                         navController.navigate("MainScreen") {
                             popUpTo("MainScreen") { inclusive = true }

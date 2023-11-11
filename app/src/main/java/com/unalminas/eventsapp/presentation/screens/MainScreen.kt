@@ -60,7 +60,10 @@ fun MainActivityContent(
                     }, editEvent = {
                         navController.navigate("Edit/${event.id}")
                     }, deleteEvent = {
-                        viewModel.deleteEvent(event)
+                        event.id?.let { nonNullId ->
+                            viewModel.deleteEventById(nonNullId)
+                        }
+              /*          viewModel.deleteEventById(event.id)*/
                     }
                 )
             }
