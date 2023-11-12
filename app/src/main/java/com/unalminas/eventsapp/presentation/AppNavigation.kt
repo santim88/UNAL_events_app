@@ -8,10 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.unalminas.eventsapp.presentation.screens.ScreenB
+import com.unalminas.eventsapp.presentation.screens.MainScreen
 import com.unalminas.eventsapp.presentation.screens.ScreenC
-import com.unalminas.eventsapp.presentation.screens.ScreenEdit
-import com.unalminas.eventsapp.presentation.screens.ScreenMain
+import com.unalminas.eventsapp.presentation.ui.FormEvent
 
 @Composable
 fun AppNavigation() {
@@ -19,20 +18,30 @@ fun AppNavigation() {
 
     NavHost(
         modifier = Modifier.fillMaxSize(),
-        navController = navController, startDestination = "A"
+        navController = navController, startDestination = Screen.MainScreen.route
     ) {
-        composable("A") {
-            ScreenMain(navController)
+        composable(Screen.MainScreen.route) {
+            MainScreen(navController)
         }
-        composable("B") {
-            ScreenB(navController)
+
+        composable(Screen.CreateEventScreen.route) {
+            FormEvent(navController = navController, isNewEvent = true)
         }
-        composable("C") {
+
+        composable(Screen.ScreenC.route) {
             ScreenC(navController)
         }
 
-        composable("Edit/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) { entry ->
-            ScreenEdit(navController, id = entry.arguments?.getString("id"))
+        composable(
+            Screen.EditEventScreen("{id}").route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")?.toInt()
+            FormEvent(
+                navController = navController,
+                id = id,
+                isNewEvent = false
+            )
         }
     }
 }

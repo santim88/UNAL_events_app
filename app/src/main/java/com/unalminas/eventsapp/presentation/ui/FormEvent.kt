@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens
+package com.unalminas.eventsapp.presentation.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,18 +13,16 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.unalminas.eventsapp.domain.Event
-import com.unalminas.eventsapp.presentation.ScreenMainViewModel
+import com.unalminas.eventsapp.domain.EventFieldEnum
+import com.unalminas.eventsapp.presentation.screens.FormEventViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,31 +30,20 @@ import kotlinx.coroutines.withContext
 
 
 @Composable
-fun ScreenB(
-    navController: NavHostController,
-    evenViewModel: ScreenMainViewModel = hiltViewModel()
-) {
-
-    LaunchedEffect(Unit) {
-        evenViewModel.getEventList()
-    }
-
-
-    UserForm(navController, evenViewModel)
-}
-
-@Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun UserForm(
+fun FormEvent(
     navController: NavHostController,
-    evenViewModel: ScreenMainViewModel = hiltViewModel()
+    id: Int? = null,
+    isNewEvent: Boolean,
+    viewModel: FormEventViewModel = hiltViewModel(),
 ) {
-    var name by remember { mutableStateOf("") }
-    var date by remember { mutableStateOf("") }
-    var time by remember { mutableStateOf("") }
-    var location by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
+    val event by viewModel.eventState.collectAsState()
 
+    LaunchedEffect(isNewEvent) {
+        if (!isNewEvent) id?.let {
+            viewModel.getEventById(it)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -64,8 +51,8 @@ fun UserForm(
             .padding(16.dp)
     ) {
         Button(onClick = {
-            navController.navigate("A") {
-                popUpTo("A") { inclusive = true }
+            navController.navigate("MainScreen") {
+                popUpTo("MainScreen") { inclusive = true }
             }
         }) {
             Text(text = "volver", fontSize = 14.sp)
@@ -79,8 +66,10 @@ fun UserForm(
         )
 
         OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
+            value = event.name,
+            onValueChange = { newName ->
+                viewModel.editEventField(EventFieldEnum.NAME, newName)
+            },
             label = { Text("Nombre") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -89,8 +78,10 @@ fun UserForm(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = description,
-            onValueChange = { description = it },
+            value = event.description,
+            onValueChange = { newDescription ->
+                viewModel.editEventField(EventFieldEnum.DESCRIPTION, newDescription)
+            },
             label = { Text("Descripción") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -99,8 +90,10 @@ fun UserForm(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = date,
-            onValueChange = { date = it },
+            value = event.name,
+            onValueChange = { newDate ->
+                viewModel.editEventField(EventFieldEnum.DATE, newDate)
+            },
             label = { Text("Fecha") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -109,8 +102,10 @@ fun UserForm(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = time,
-            onValueChange = { time = it },
+            value = event.hour,
+            onValueChange = { newHour ->
+                viewModel.editEventField(EventFieldEnum.HOUR, newHour)
+            },
             label = { Text("Horario") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -119,8 +114,10 @@ fun UserForm(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = location,
-            onValueChange = { location = it },
+            value = event.place,
+            onValueChange = { newPlace ->
+                viewModel.editEventField(EventFieldEnum.PLACE, newPlace)
+            },
             label = { Text("Lugar") },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
@@ -130,19 +127,16 @@ fun UserForm(
 
         Button(
             onClick = {
-                val newEvent = Event(
-                    name = name,
-                    description = description,
-                    place = location,
-                    date = date,
-                    hour = time
-                )
+                if (isNewEvent) {
+                    viewModel.insertEvent(event)
+                } else {
+                    viewModel.updateEvent(event)
+                }
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    evenViewModel.insertEvent(newEvent)
                     withContext(Dispatchers.Main) {
-                        navController.navigate("A") {
-                            popUpTo("A") { inclusive = true }
+                        navController.navigate("MainScreen") {
+                            popUpTo("MainScreen") { inclusive = true }
                         }
                     }
                 }

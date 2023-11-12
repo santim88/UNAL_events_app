@@ -2,10 +2,10 @@ package com.unalminas.eventsapp.data
 
 import android.content.Context
 import androidx.room.Room
-import com.unalminas.eventsapp.framework.db.database.EventDatabase
+import com.unalminas.eventsapp.domain.framework.db.database.EventDatabase
 import com.unalminas.eventsapp.domain.Event
-import com.unalminas.eventsapp.framework.db.toEvent
-import com.unalminas.eventsapp.framework.db.toEventEntity
+import com.unalminas.eventsapp.domain.framework.db.toEvent
+import com.unalminas.eventsapp.domain.framework.db.toEventEntity
 
 class EventDataSourceImpl(
     private val applicationContext: Context

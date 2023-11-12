@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
+import com.unalminas.eventsapp.presentation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,8 +58,8 @@ fun ScreenC(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Button(onClick = {
-                            navController.navigate("A") {
-                                popUpTo("A") { inclusive = true }
+                            navController.navigate("MainScreen") {
+                                popUpTo("MainScreen") { inclusive = true }
                             }
                         }) {
                             Text(text = "volver", fontSize = 14.sp)
@@ -122,7 +123,7 @@ fun ScreenC(
                 Spacer(modifier = Modifier.height(45.dp))
 
                 LazyColumn(
-                    modifier= Modifier.clip(RoundedCornerShape(8.dp))
+                    modifier = Modifier.clip(RoundedCornerShape(8.dp))
                 ) {
                     item {
                         Row(
@@ -228,9 +229,7 @@ fun ScreenC(
                     .align(Alignment.BottomEnd)
                     .padding(20.dp),
                 onClick = {
-                    navController.navigate("B") {
-                        popUpTo("B") { inclusive = true }
-                    }
+                    navController.navigate(Screen.CreateEventScreen.route)
                 },
             ) {
                 Icon(Icons.Filled.Add, "Floating action button.")

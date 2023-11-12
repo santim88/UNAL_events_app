@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation
+package com.unalminas.eventsapp.presentation.screens
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,28 +11,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// 4. Presenter/ViewModel
 @HiltViewModel
-class ScreenMainViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val eventRepository: EventRepository
 ) : ViewModel() {
 
     private val _eventListState = MutableStateFlow(emptyList<Event>())
     val eventListState = _eventListState.asStateFlow()
 
-    private val _eventState = MutableStateFlow<Event?>(null)
-    val eventState = _eventState.asStateFlow()
-
-
     fun getEventList() {
         viewModelScope.launch(Dispatchers.IO) {
             _eventListState.value = eventRepository.getEventList()
-        }
-    }
-
-    fun insertEvent(event: Event) {
-        viewModelScope.launch(Dispatchers.IO) {
-            eventRepository.insertEvent(event)
         }
     }
 
@@ -43,15 +32,10 @@ class ScreenMainViewModel @Inject constructor(
         }
     }
 
-    fun updateEvent(event: Event) {
+    fun deleteEventById(id: Int ) {
         viewModelScope.launch(Dispatchers.IO) {
-            eventRepository.updateEvent(event)
-        }
-    }
-
-    fun getEventById(id: Int?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _eventState.value = eventRepository.getEventById(id ?: 0)
+            eventRepository.deleteEventById(id)
+            _eventListState.value = eventRepository.getEventList()
         }
     }
 }

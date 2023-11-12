@@ -26,4 +26,8 @@ class EventRepositoryImpl(
     override suspend fun getEventById(id: Int): Event {
        return  eventDataSource.getEventById(id)
     }
+
+    override suspend fun deleteEventById(id: Int) {
+        return  eventDataSource.deleteEventById(id)
+    }
 }

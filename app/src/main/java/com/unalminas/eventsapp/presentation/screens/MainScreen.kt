@@ -22,13 +22,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.unalminas.eventsapp.presentation.ScreenMainViewModel
+import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.CardEvent
 
 @Composable
-fun ScreenMain(
+fun MainScreen(
     navController: NavHostController,
-    eventViewModel: ScreenMainViewModel = hiltViewModel()
+    eventViewModel: MainViewModel = hiltViewModel()
 ) {
 
     LaunchedEffect(Unit) {
@@ -41,9 +41,9 @@ fun ScreenMain(
 @Composable
 fun MainActivityContent(
     navController: NavHostController,
-    evenViewModel: ScreenMainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel()
 ) {
-    val eventListState by evenViewModel.eventListState.collectAsState(emptyList())
+    val eventListState by viewModel.eventListState.collectAsState(emptyList())
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -57,12 +57,16 @@ fun MainActivityContent(
                 CardEvent(
                     event = event,
                     changeScreen = {
-                        navController.navigate("C")
+                        navController.navigate(Screen.ScreenC.route)
                     }, editEvent = {
-                        navController.navigate("Edit/${event.id}")
+                        navController.navigate(Screen.EditEventScreen("{id}").route)
                     }, deleteEvent = {
-                        evenViewModel.deleteEvent(event)
-                    })
+                        event.id?.let { nonNullId ->
+                            viewModel.deleteEventById(nonNullId)
+                        }
+              /*          viewModel.deleteEventById(event.id)*/
+                    }
+                )
             }
         }
         FloatingActionButton(
@@ -70,9 +74,7 @@ fun MainActivityContent(
                 .align(Alignment.BottomEnd)
                 .padding(20.dp),
             onClick = {
-                navController.navigate("B") {
-                    popUpTo("B") { inclusive = true }
-                }
+                navController.navigate(Screen.CreateEventScreen.route)
             },
         ) {
             Icon(Icons.Filled.Add, "Floating action button.")
