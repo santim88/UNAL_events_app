@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Unal Assistance</string>
 
-    <string name="hello">Hello World!</string>
+    <string name="create_event">Create Event</string>
+    <string name="save_event">Save Event</string>
 </resources>

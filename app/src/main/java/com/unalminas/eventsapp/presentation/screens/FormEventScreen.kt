@@ -16,9 +16,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.EventFieldEnum
 import com.unalminas.eventsapp.presentation.ui.TopBar_Title
 import kotlinx.coroutines.CoroutineScope
@@ -140,7 +142,11 @@ fun FormEventScreen(
                         .fillMaxWidth()
                         .height(50.dp),
                 ) {
-                    Text("Save")
+                    Text(
+                        text = stringResource(
+                            id = if (isNewEvent) R.string.create_event else R.string.save_event
+                        )
+                    )
                 }
             }
         }
