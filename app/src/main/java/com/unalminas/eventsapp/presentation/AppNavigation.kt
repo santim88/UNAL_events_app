@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.unalminas.eventsapp.presentation.screens.MainScreen
 import com.unalminas.eventsapp.presentation.screens.ScreenC
-import com.unalminas.eventsapp.presentation.ui.FormEvent
+import com.unalminas.eventsapp.presentation.screens.FormEventScreen
 
 @Composable
 fun AppNavigation() {
@@ -25,7 +25,7 @@ fun AppNavigation() {
         }
 
         composable(Screen.CreateEventScreen.route) {
-            FormEvent(navController = navController, isNewEvent = true)
+            FormEventScreen(navController = navController, isNewEvent = true)
         }
 
         composable(Screen.ScreenC.route) {
@@ -37,7 +37,7 @@ fun AppNavigation() {
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt()
-            FormEvent(
+            FormEventScreen(
                 navController = navController,
                 id = id,
                 isNewEvent = false
