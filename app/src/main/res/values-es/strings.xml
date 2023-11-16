@@ -3,4 +3,10 @@
 
     <string name="create_event">Crear Evento</string>
     <string name="save_event">Guardar Evento</string>
+        <string name="place_event">Lugar</string>
+        <string name="hour_event">Hora</string>
+        <string name="date_event">Fecha</string>
+        <string name="description_event">Descripción</string>
+        <string name="name_event">Nombre</string>
+        <string name="take_asistence">Tomar asistencia</string>
 </resources>

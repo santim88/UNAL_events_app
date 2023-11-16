@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -59,12 +60,14 @@ fun MainActivityContent(
                     changeScreen = {
                         navController.navigate(Screen.ScreenC.route)
                     }, editEvent = {
-                        navController.navigate(Screen.EditEventScreen("{id}").route)
+                        event.id?.let { nonNullId ->
+                            val screen = Screen.EditEventScreen(nonNullId.toString())
+                            navController.navigate(screen.createRoute())
+                        }
                     }, deleteEvent = {
                         event.id?.let { nonNullId ->
                             viewModel.deleteEventById(nonNullId)
                         }
-              /*          viewModel.deleteEventById(event.id)*/
                     }
                 )
             }

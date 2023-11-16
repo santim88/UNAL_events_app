@@ -67,7 +67,13 @@ fun FormEventScreen(
                     onValueChange = { newName ->
                         viewModel.editEventField(EventFieldEnum.NAME, newName)
                     },
-                    label = { Text("Nombre") },
+                    label = {
+                        Text(
+                            text = stringResource(
+                                id = R.string.name_event
+                            )
+                        )
+                    },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -79,7 +85,13 @@ fun FormEventScreen(
                     onValueChange = { newDescription ->
                         viewModel.editEventField(EventFieldEnum.DESCRIPTION, newDescription)
                     },
-                    label = { Text("Descripción") },
+                    label = {
+                        Text(
+                            text = stringResource(
+                                id = R.string.description_event
+                            )
+                        )
+                    },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -87,11 +99,17 @@ fun FormEventScreen(
 
             item {
                 OutlinedTextField(
-                    value = event.name,
+                    value = event.date,
                     onValueChange = { newDate ->
                         viewModel.editEventField(EventFieldEnum.DATE, newDate)
                     },
-                    label = { Text("Fecha") },
+                    label = {
+                        Text(
+                            text = stringResource(
+                                id = R.string.date_event
+                            )
+                        )
+                    },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -103,7 +121,13 @@ fun FormEventScreen(
                     onValueChange = { newHour ->
                         viewModel.editEventField(EventFieldEnum.HOUR, newHour)
                     },
-                    label = { Text("Horario") },
+                    label = {
+                        Text(
+                            text = stringResource(
+                                id = R.string.hour_event
+                            )
+                        )
+                    },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -115,7 +139,13 @@ fun FormEventScreen(
                     onValueChange = { newPlace ->
                         viewModel.editEventField(EventFieldEnum.PLACE, newPlace)
                     },
-                    label = { Text("Lugar") },
+                    label = {
+                        Text(
+                            text = stringResource(
+                                id = R.string.place_event
+                            )
+                        )
+                    },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )
