@@ -2,6 +2,7 @@
     <string name="app_name">Unal Assistance</string>
 
     <string name="create_event">Create Event</string>
+    <string name="edit_event">Edit Event</string>
     <string name="save_event">Save Event</string>
     <string name="place_event">Place</string>
     <string name="hour_event">Hora</string>
