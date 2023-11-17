@@ -63,17 +63,19 @@ fun AssistantScreen(
 
             AssistantTable(eventListState)
 
-            FloatingActionButton(
-                modifier = Modifier
-                    /*        .align(Alignment.BottomEnd)*/
-                    .padding(20.dp),
-                onClick = {
-                    navController.navigate(Screen.CreateEventScreen.route)
-                },
+            Box(
             ) {
-                Icon(Icons.Filled.Add, "Floating action button.")
+                FloatingActionButton(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(20.dp),
+                    onClick = {
+                        navController.navigate(Screen.CreateEventScreen.route)
+                    },
+                ) {
+                    Icon(Icons.Filled.Add, "Floating action button.")
+                }
             }
         }
     }
 }
-

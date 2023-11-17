@@ -1,50 +1,53 @@
 package com.unalminas.eventsapp.presentation.ui
 
-import androidx.compose.foundation.Image
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Assistant
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun AssistantTable(
     eventListState: List<Assistant>
 ) {
-    /*   val eventListState = listOf<Assistant>(
-           Assistant(name = "santiago", identification = "20300303", email = "santiag@gmail.com"),
-           Assistant(name = "santiago", identification = "20300303", email = "santiag@gmail.com"),
-           Assistant(name = "santiago", identification = "20300303", email = "santiag@gmail.com"),
-           Assistant(name = "sofia", identification = "20300303", email = "arleth@gmail.com"),
-           Assistant(name = "sofia", identification = "20300303", email = "arleth@gmail.com"),
-           Assistant(name = "sofia", identification = "20300303", email = "arleth@gmail.com"),
-       )*/
+    val eventListState = listOf<Assistant>(
+        Assistant(name = "santiago", identification = "20300303", email = "santiag@gmail.com"),
+        Assistant(name = "santiago", identification = "20300303", email = "santiag@gmail.com"),
+        Assistant(name = "santiago", identification = "20300303", email = "santiag@gmail.com"),
+        Assistant(name = "sofia", identification = "20300303", email = "arleth@gmail.com"),
+        Assistant(name = "sofia", identification = "20300303", email = "arleth@gmail.com"),
+        Assistant(name = "sofia", identification = "20300303", email = "arleth@gmail.com"),
+    )
     var expanded by remember { mutableStateOf(false) }
+
     LazyColumn(
         modifier = Modifier.clip(RoundedCornerShape(8.dp))
     ) {
@@ -78,7 +81,8 @@ fun AssistantTable(
         }
 
         itemsIndexed(items = eventListState) { index, item ->
-
+            val context = LocalContext.current
+            var expanded by remember { mutableStateOf(false) }
             Row(
                 modifier = Modifier
                     .padding(11.dp)
@@ -88,56 +92,41 @@ fun AssistantTable(
                 Text(text = "${index}.${item.name ?: ""}", modifier = Modifier.weight(1f))
                 Text(text = item.identification ?: "", modifier = Modifier.weight(1f))
                 Text(text = item.email ?: "", modifier = Modifier.weight(1f))
-                IconButton(modifier = Modifier.weight(0.2f), onClick = { expanded = true }) {
-                    Image(
-                        painterResource(R.drawable.baseline_edit_24),
-                        contentDescription = "like",
-                        modifier = Modifier
-                            .size(20.dp)
-                    )
-                }
-
             }
         }
-        item {
-            TaskMenu(
-                expanded = expanded,
-                onEditClick = { /* Handle Edit Click */ },
-                onDeleteClick = { /* Handle Delete Click */ },
-                onDismiss = { expanded = false }
-            )
-        }
     }
-}
 
-@Composable
-fun TaskMenu(
-    expanded: Boolean,
-    onEditClick: () -> Unit,
-    onDeleteClick: () -> Unit,
-    onDismiss: () -> Unit
-) {
+    @Composable
+    fun Demo_DropDownMenu() {
+        val context = LocalContext.current
+        var expanded by remember { mutableStateOf(false) }
 
-    val options = listOf( // (2)
-        "edit"
-        /*        "delete"*/
-    )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxWidth(0.2f)
+                .wrapContentSize(Alignment.TopEnd)
+        ) {
+            IconButton(onClick = { expanded = !expanded }) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = "More"
+                )
+            }
 
-    DropdownMenu( // (3)
-        expanded = expanded,
-        onDismissRequest = onDismiss
-    ) {
-        options.forEach { option ->
-            DropdownMenuItem( // (4)
-                text = { Text(text = option) },
-                onClick = {
-                    when (option) {
-                        "edit" -> onEditClick()
-                        "delete" -> onDeleteClick()
-                    }
-                    onDismiss()
-                }
-            )
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                DropdownMenuItem(
+                    text = { Text("Edit") },
+                    onClick = { Toast.makeText(context, "Load", Toast.LENGTH_SHORT).show() }
+                )
+                DropdownMenuItem(
+                    text = { Text("Delete") },
+                    onClick = { Toast.makeText(context, "Save", Toast.LENGTH_SHORT).show() }
+                )
+            }
         }
     }
 }
