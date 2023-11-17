@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.EventFieldEnum
+import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.TopBar_Title
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,9 +50,7 @@ fun FormEventScreen(
             title = if (isNewEvent) "Crear evento" else "Editar evento",
             showBackButton = true,
             onBackButtonClick = {
-                navController.navigate("MainScreen") {
-                    popUpTo("MainScreen") { inclusive = true }
-                }
+                navController.navigate(Screen.MainScreen.route)
             }
         )
 

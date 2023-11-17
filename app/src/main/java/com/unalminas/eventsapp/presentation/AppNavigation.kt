@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.unalminas.eventsapp.presentation.screens.AssistantScreen
 import com.unalminas.eventsapp.presentation.screens.MainScreen
-import com.unalminas.eventsapp.presentation.screens.ScreenC
 import com.unalminas.eventsapp.presentation.screens.FormEventScreen
 
 @Composable
@@ -29,7 +29,7 @@ fun AppNavigation() {
         }
 
         composable(Screen.ScreenC.route) {
-            ScreenC(navController)
+            AssistantScreen(navController)
         }
 
         composable(
