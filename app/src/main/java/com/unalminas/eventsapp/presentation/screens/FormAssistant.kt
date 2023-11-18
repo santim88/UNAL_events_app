@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
-import com.unalminas.eventsapp.domain.EventFieldEnum
+import com.unalminas.eventsapp.domain.AssistantFieldEnum
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.TopBar_Title
 import kotlinx.coroutines.CoroutineScope
@@ -31,23 +31,23 @@ import kotlinx.coroutines.withContext
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun FormEventScreen(
+fun FormAssistant(
     navController: NavHostController,
     id: Int? = null,
-    isNewEvent: Boolean,
-    viewModel: FormEventViewModel = hiltViewModel()
+    isNewAssistant: Boolean,
+    viewModel: AssistantScreenViewModel = hiltViewModel()
 ) {
-    val event by viewModel.eventState.collectAsState()
+    val assistant by viewModel.assistantState.collectAsState()
 
-    LaunchedEffect(isNewEvent) {
-        if (!isNewEvent) id?.let {
-            viewModel.getEventById(it)
+    LaunchedEffect(isNewAssistant) {
+        if (!isNewAssistant) id?.let {
+            viewModel.getAssistantById(id)
         }
     }
 
     Column {
         TopBar_Title(
-            title = stringResource(id = if (isNewEvent) R.string.name_event else R.string.edit_event),
+            title = stringResource(id = if (isNewAssistant) R.string.create_assistant else R.string.edit_assistant),
             showBackButton = true,
             onBackButtonClick = {
                 navController.navigate(Screen.MainScreen.route)
@@ -62,14 +62,14 @@ fun FormEventScreen(
         ) {
             item {
                 OutlinedTextField(
-                    value = event.name,
+                    value = assistant.name,
                     onValueChange = { newName ->
-                        viewModel.editEventField(EventFieldEnum.NAME, newName)
+                        viewModel.editAssistantField(AssistantFieldEnum.NAME, newName)
                     },
                     label = {
                         Text(
                             text = stringResource(
-                                id = R.string.name_event
+                                id = R.string.name_assistant
                             )
                         )
                     },
@@ -80,14 +80,14 @@ fun FormEventScreen(
 
             item {
                 OutlinedTextField(
-                    value = event.description,
-                    onValueChange = { newDescription ->
-                        viewModel.editEventField(EventFieldEnum.DESCRIPTION, newDescription)
+                    value = assistant.identification,
+                    onValueChange = { newIdentification ->
+                        viewModel.editAssistantField(AssistantFieldEnum.IDENTIFICATION, newIdentification)
                     },
                     label = {
                         Text(
                             text = stringResource(
-                                id = R.string.description_event
+                                id = R.string.identification_assistant
                             )
                         )
                     },
@@ -98,50 +98,14 @@ fun FormEventScreen(
 
             item {
                 OutlinedTextField(
-                    value = event.date,
-                    onValueChange = { newDate ->
-                        viewModel.editEventField(EventFieldEnum.DATE, newDate)
+                    value = assistant.email,
+                    onValueChange = { newEmail ->
+                        viewModel.editAssistantField(AssistantFieldEnum.EMAIL, newEmail)
                     },
                     label = {
                         Text(
                             text = stringResource(
-                                id = R.string.date_event
-                            )
-                        )
-                    },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
-            item {
-                OutlinedTextField(
-                    value = event.hour,
-                    onValueChange = { newHour ->
-                        viewModel.editEventField(EventFieldEnum.HOUR, newHour)
-                    },
-                    label = {
-                        Text(
-                            text = stringResource(
-                                id = R.string.hour_event
-                            )
-                        )
-                    },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
-            item {
-                OutlinedTextField(
-                    value = event.place,
-                    onValueChange = { newPlace ->
-                        viewModel.editEventField(EventFieldEnum.PLACE, newPlace)
-                    },
-                    label = {
-                        Text(
-                            text = stringResource(
-                                id = R.string.place_event
+                                id = R.string.email_assistant
                             )
                         )
                     },
@@ -153,10 +117,10 @@ fun FormEventScreen(
             item {
                 Button(
                     onClick = {
-                        if (isNewEvent) {
-                            viewModel.insertEvent(event)
+                        if (isNewAssistant) {
+                            viewModel.createAssistant(assistant)
                         } else {
-                            viewModel.updateEvent(event)
+                            viewModel.updateAssistant(assistant)
                         }
 
                         CoroutineScope(Dispatchers.IO).launch {
@@ -173,7 +137,7 @@ fun FormEventScreen(
                 ) {
                     Text(
                         text = stringResource(
-                            id = if (isNewEvent) R.string.create_event else R.string.save_event
+                            id = R.string.save_assistant
                         )
                     )
                 }

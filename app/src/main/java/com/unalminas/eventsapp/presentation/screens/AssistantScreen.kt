@@ -70,7 +70,7 @@ fun AssistantScreen(
                         .align(Alignment.BottomEnd)
                         .padding(20.dp),
                     onClick = {
-                        navController.navigate(Screen.CreateEventScreen.route)
+                        navController.navigate(Screen.AssistantForm.route)
                     },
                 ) {
                     Icon(Icons.Filled.Add, "Floating action button.")

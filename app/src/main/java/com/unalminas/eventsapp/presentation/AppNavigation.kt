@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.unalminas.eventsapp.presentation.screens.AssistantScreen
+import com.unalminas.eventsapp.presentation.screens.FormAssistant
 import com.unalminas.eventsapp.presentation.screens.MainScreen
 import com.unalminas.eventsapp.presentation.screens.FormEventScreen
 
@@ -28,7 +29,11 @@ fun AppNavigation() {
             FormEventScreen(navController = navController, isNewEvent = true)
         }
 
-        composable(Screen.ScreenC.route) {
+        composable(Screen.AssistantForm.route) {
+            FormAssistant(navController = navController, isNewAssistant = true)
+        }
+
+        composable(Screen.AssistantScreen.route) {
             AssistantScreen(navController)
         }
 
@@ -41,6 +46,18 @@ fun AppNavigation() {
                 navController = navController,
                 id = id,
                 isNewEvent = false
+            )
+        }
+
+        composable(
+            Screen.editAssistantScreen("{id}").route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")?.toInt()
+            FormAssistant(
+                navController = navController,
+                id = id,
+                isNewAssistant = false
             )
         }
     }

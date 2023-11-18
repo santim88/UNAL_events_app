@@ -10,4 +10,10 @@
     <string name="description_event">Descripción</string>
     <string name="name_event">Nombre</string>
     <string name="take_asistence">Tomar asistencia</string>
+    <string name="create_assistant">Nuevo asistente</string>
+    <string name="edit_assistant">Editar asistente</string>
+    <string name="name_assistant">Nombre</string>
+    <string name="identification_assistant">Identificación</string>
+    <string name="email_assistant">Email</string>
+    <string name="save_assistant">Guardar asistente</string>
 </resources>

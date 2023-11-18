@@ -17,4 +17,20 @@ class AssistantMockDataSourceImpl : AssistantDataSource {
     )
 
     override suspend fun getAssistantsList(): List<Assistant> = assistantList
+
+    override suspend fun deleteAssistantById(assistantId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getAssistantById(id: Int): Assistant {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateAssistantById(assistant: Assistant) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveAssistant(assistant: Assistant) {
+        TODO("Not yet implemented")
+    }
 }

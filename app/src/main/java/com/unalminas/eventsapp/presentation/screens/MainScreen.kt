@@ -1,8 +1,6 @@
 package com.unalminas.eventsapp.presentation.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,9 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -119,7 +115,7 @@ fun MainActivityContent(
                     CardEvent(
                         event = event,
                         changeScreen = {
-                            navController.navigate(Screen.ScreenC.route)
+                            navController.navigate(Screen.AssistantScreen.route)
                         }, editEvent = {
                             event.id?.let { nonNullId ->
                                 val screen = Screen.EditEventScreen(nonNullId.toString())
@@ -154,7 +150,6 @@ fun InfoDialogContent(
     title: String = "Title",
     dialogState: MutableState<Boolean> = remember { mutableStateOf(true) },
     successButtonText: String = "Success",
-    /*    viewModel: AssistantScreenViewModel = hiltViewModel(),*/
     content: @Composable () -> Unit = {}
 ) {
     Card(
