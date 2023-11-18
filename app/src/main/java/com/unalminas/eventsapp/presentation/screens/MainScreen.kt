@@ -64,7 +64,15 @@ fun MainActivityContent(
     navController: NavHostController,
     viewModel: MainViewModel = hiltViewModel()
 ) {
+
+    // State
+
     val eventListState by viewModel.eventListState.collectAsState(emptyList())
+    val dialogState: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+
+    // UI
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -75,9 +83,6 @@ fun MainActivityContent(
             contentPadding = PaddingValues(vertical = 10.dp)
         ) {
             items(items = eventListState) { event ->
-                val dialogState: MutableState<Boolean> = remember {
-                    mutableStateOf(false)
-                }
                 val delete = SwipeAction(
                     onSwipe = {
                         dialogState.value = true
@@ -100,11 +105,10 @@ fun MainActivityContent(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(16.dp),
-                                navController = navController,
                                 deleteEvent = {
                                     event.id?.let { nonNullId ->
-                                        viewModel.deleteEventById(nonNullId)
                                         Log.d("MyApp", "Variable value: $event")
+                                        viewModel.deleteEventById(nonNullId)
                                     }
                                 }
                             )
@@ -151,8 +155,8 @@ fun MainActivityContent(
 @Composable
 fun InfoDialogContent(
     modifier: Modifier = Modifier,
+    closeEvent: () -> Unit = {},
     deleteEvent: () -> Unit = {},
-    navController: NavHostController
 ) {
     Card(
         modifier = modifier
@@ -182,16 +186,13 @@ fun InfoDialogContent(
                 horizontalArrangement = Arrangement.spacedBy(13.dp)
             ) {
                 Button(
-                    onClick = { navController.navigate(Screen.MainScreen.route) }
+                    onClick = closeEvent
                 ) {
                     Text(text = stringResource(id = R.string.cancel))
                 }
 
                 Button(
-                    onClick = {
-                        deleteEvent
-                        navController.navigate(Screen.MainScreen.route)
-                    }
+                    onClick = deleteEvent
                 ) {
                     Text(text = stringResource(id = R.string.delete))
                 }

@@ -36,6 +36,7 @@ import com.unalminas.eventsapp.domain.Assistant
 @Preview
 @Composable
 fun CardAssistant(
+    modifier: Modifier = Modifier,
     index: Int = 0,
     item: Assistant = Assistant(
         name = "pepito",
@@ -44,7 +45,7 @@ fun CardAssistant(
     )
 ) {
     ElevatedCard(
-        Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
     ) {

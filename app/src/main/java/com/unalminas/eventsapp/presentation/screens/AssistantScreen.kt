@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,7 +43,7 @@ fun AssistantScreen(
     val assistantListState by viewModel.assistantListState.collectAsState(emptyList())
 
     Box(
-        modifier = Modifier
+        modifier = Modifier.fillMaxSize()
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
@@ -64,20 +65,19 @@ fun AssistantScreen(
             )
             Spacer(modifier = Modifier.height(45.dp))
 
-            AssistantTable(assistantListState)
-
-            Box(
+            AssistantTable(assistantListState) {
+                Log.i("AssistantScreen", "Assistant clicked: $it")
+            }
+        }
+        Box(Modifier.align(Alignment.BottomEnd)) {
+            FloatingActionButton(
+                modifier = Modifier
+                    .padding(20.dp),
+                onClick = {
+                    navController.navigate(Screen.AssistantForm.route)
+                },
             ) {
-                FloatingActionButton(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(20.dp),
-                    onClick = {
-                        navController.navigate(Screen.AssistantForm.route)
-                    },
-                ) {
-                    Icon(Icons.Filled.Add, "Floating action button.")
-                }
+                Icon(Icons.Filled.Add, "Floating action button.")
             }
         }
     }
