@@ -26,8 +26,8 @@ fun Event.toEventEntity() = EventEntity(
 
 fun AssistantEntity.toAssistant() = Assistant(
     id = id,
-    name = name ?: "",
-    identification = identification ?: "",
+    name = name,
+    identification = identification,
     email = email ?: ""
 )
 

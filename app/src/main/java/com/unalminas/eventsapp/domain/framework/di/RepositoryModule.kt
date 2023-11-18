@@ -66,7 +66,7 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideAssistantDataRepository(
-        @Named("AssistantMockDataSource") assistantDataSource: AssistantDataSource
+        @Named("AssistantDataSource") assistantDataSource: AssistantDataSource
     ): AssistantRepository {
         return AssistantRepositoryImpl(assistantDataSource)
     }

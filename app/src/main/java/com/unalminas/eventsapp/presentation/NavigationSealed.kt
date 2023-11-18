@@ -8,8 +8,8 @@ sealed class Screen(val route: String) {
     data class EditEventScreen(val id: String) : Screen("Edit/{id}") {
          fun createRoute() = "Edit/$id"
     }
-    data class editAssistantScreen(val id: String): Screen("Edit/{id}"){
+ /*   data class EditAssistantScreen(val id: String): Screen("Edit/{id}"){
         fun createRoute() = "Edit/$id"
-    }
+    }*/
 
 }

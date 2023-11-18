@@ -16,4 +16,9 @@
     <string name="identification_assistant">Identificación</string>
     <string name="email_assistant">Email</string>
     <string name="save_assistant">Guardar asistente</string>
+    <string name="list_assistants">Lista de asistentes</string>
+    <string name="delete">Borrar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="message_delete">Deseas borrar el evento?</string>
+
 </resources>

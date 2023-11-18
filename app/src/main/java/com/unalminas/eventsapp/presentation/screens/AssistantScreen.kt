@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -18,11 +19,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.AssistantTable
 import com.unalminas.eventsapp.presentation.ui.IndicatorEventBox
@@ -36,7 +39,7 @@ fun AssistantScreen(
     LaunchedEffect(Unit) {
         viewModel.getAssistantList()
     }
-    val eventListState by viewModel.assistantListState.collectAsState(emptyList())
+    val assistantListState by viewModel.assistantListState.collectAsState(emptyList())
 
     Box(
         modifier = Modifier
@@ -47,7 +50,7 @@ fun AssistantScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TopBar_Title(
-                title = "Lista de asistentes",
+                title = stringResource(id = R.string.list_assistants),
                 showBackButton = true,
                 onBackButtonClick = {
                     navController.navigate(Screen.MainScreen.route)
@@ -61,7 +64,7 @@ fun AssistantScreen(
             )
             Spacer(modifier = Modifier.height(45.dp))
 
-            AssistantTable(eventListState)
+            AssistantTable(assistantListState)
 
             Box(
             ) {

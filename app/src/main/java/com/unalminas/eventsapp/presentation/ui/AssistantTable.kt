@@ -5,8 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -38,95 +40,46 @@ import androidx.compose.ui.platform.LocalContext
 fun AssistantTable(
     eventListState: List<Assistant>
 ) {
-    val eventListState = listOf<Assistant>(
-        Assistant(name = "santiago", identification = "20300303", email = "santiag@gmail.com"),
-        Assistant(name = "santiago", identification = "20300303", email = "santiag@gmail.com"),
-        Assistant(name = "santiago", identification = "20300303", email = "santiag@gmail.com"),
-        Assistant(name = "sofia", identification = "20300303", email = "arleth@gmail.com"),
-        Assistant(name = "sofia", identification = "20300303", email = "arleth@gmail.com"),
-        Assistant(name = "sofia", identification = "20300303", email = "arleth@gmail.com"),
-    )
-    var expanded by remember { mutableStateOf(false) }
-
     LazyColumn(
-        modifier = Modifier.clip(RoundedCornerShape(8.dp))
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        verticalArrangement = Arrangement.spacedBy(20.dp),
+        contentPadding = PaddingValues(vertical = 10.dp)
     ) {
         item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = Color.LightGray)
-                    .padding(12.dp),
-                //* .height(50.dp),*//*
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+            Box() {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color.LightGray)
+                        .padding(12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
 
-                Text(
-                    text = "Name",
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
-                )
-                Text(
-                    text = "Identifier",
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
-                )
-                Text(
-                    text = "Email",
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
-                )
-                Spacer(modifier = Modifier.weight(0.2f))
+                    Text(
+                        text = "Name",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Text(
+                        text = "Identifier",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Text(
+                        text = "Email",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Spacer(modifier = Modifier.weight(0.2f))
+                }
+
             }
         }
 
         itemsIndexed(items = eventListState) { index, item ->
-            val context = LocalContext.current
-            var expanded by remember { mutableStateOf(false) }
-            Row(
-                modifier = Modifier
-                    .padding(11.dp)
-                    .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                Text(text = "${index}.${item.name ?: ""}", modifier = Modifier.weight(1f))
-                Text(text = item.identification ?: "", modifier = Modifier.weight(1f))
-                Text(text = item.email ?: "", modifier = Modifier.weight(1f))
-            }
-        }
-    }
-
-    @Composable
-    fun Demo_DropDownMenu() {
-        val context = LocalContext.current
-        var expanded by remember { mutableStateOf(false) }
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxWidth(0.2f)
-                .wrapContentSize(Alignment.TopEnd)
-        ) {
-            IconButton(onClick = { expanded = !expanded }) {
-                Icon(
-                    imageVector = Icons.Default.MoreVert,
-                    contentDescription = "More"
-                )
-            }
-
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                DropdownMenuItem(
-                    text = { Text("Edit") },
-                    onClick = { Toast.makeText(context, "Load", Toast.LENGTH_SHORT).show() }
-                )
-                DropdownMenuItem(
-                    text = { Text("Delete") },
-                    onClick = { Toast.makeText(context, "Save", Toast.LENGTH_SHORT).show() }
-                )
-            }
+            CardAssistant(index, item)
         }
     }
 }

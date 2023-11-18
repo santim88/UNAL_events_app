@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -98,7 +100,13 @@ fun MainActivityContent(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(16.dp),
-                                dialogState = dialogState
+                                navController = navController,
+                                deleteEvent = {
+                                    event.id?.let { nonNullId ->
+                                        viewModel.deleteEventById(nonNullId)
+                                        Log.d("MyApp", "Variable value: $event")
+                                    }
+                                }
                             )
                         },
                         properties = DialogProperties(
@@ -121,10 +129,6 @@ fun MainActivityContent(
                                 val screen = Screen.EditEventScreen(nonNullId.toString())
                                 navController.navigate(screen.createRoute())
                             }
-                        }, deleteEvent = {
-                            event.id?.let { nonNullId ->
-                                viewModel.deleteEventById(nonNullId)
-                            }
                         }
                     )
                 }
@@ -143,57 +147,53 @@ fun MainActivityContent(
     }
 }
 
-@Preview
+
 @Composable
 fun InfoDialogContent(
     modifier: Modifier = Modifier,
-    title: String = "Title",
-    dialogState: MutableState<Boolean> = remember { mutableStateOf(true) },
-    successButtonText: String = "Success",
-    content: @Composable () -> Unit = {}
+    deleteEvent: () -> Unit = {},
+    navController: NavHostController
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth(1f),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(17.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(red = 28, green = 27, blue = 31)
         )
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(24.dp)
                 .fillMaxWidth(1f),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally // Center horizontally
         ) {
             Box() {
                 Text(
                     modifier = Modifier.align(Alignment.CenterStart),
-                    text = "Deseas borrar el evento:",
+                    text = stringResource(id = R.string.message_delete),
                     color = Color.White
                 )
             }
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Color.Black.copy(alpha = 0.4f))
+            Row(
+                modifier = Modifier.padding(10.dp),
+                horizontalArrangement = Arrangement.spacedBy(13.dp)
             ) {
-
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                Button(
+                    onClick = { navController.navigate(Screen.MainScreen.route) }
                 ) {
-                    Button(
-                        onClick = { }
-                    ) {
-                        Text("Delete")
-                    }
+                    Text(text = stringResource(id = R.string.cancel))
+                }
 
-                    Button(
-                        onClick = { }
-                    ) {
-                        Text("Cancel")
+                Button(
+                    onClick = {
+                        deleteEvent
+                        navController.navigate(Screen.MainScreen.route)
                     }
+                ) {
+                    Text(text = stringResource(id = R.string.delete))
                 }
             }
         }

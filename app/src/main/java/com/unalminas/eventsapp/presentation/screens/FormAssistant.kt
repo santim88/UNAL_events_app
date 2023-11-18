@@ -125,9 +125,7 @@ fun FormAssistant(
 
                         CoroutineScope(Dispatchers.IO).launch {
                             withContext(Dispatchers.Main) {
-                                navController.navigate("MainScreen") {
-                                    popUpTo("MainScreen") { inclusive = true }
-                                }
+                                navController.navigate(Screen.AssistantScreen.route)
                             }
                         }
                     },

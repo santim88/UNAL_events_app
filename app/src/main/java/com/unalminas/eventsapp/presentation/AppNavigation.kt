@@ -49,8 +49,8 @@ fun AppNavigation() {
             )
         }
 
-        composable(
-            Screen.editAssistantScreen("{id}").route,
+        /*composable(
+            Screen.EditAssistantScreen("{id}").route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt()
@@ -59,6 +59,6 @@ fun AppNavigation() {
                 id = id,
                 isNewAssistant = false
             )
-        }
+        }*/
     }
 }

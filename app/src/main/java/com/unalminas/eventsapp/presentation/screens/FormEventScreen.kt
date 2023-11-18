@@ -161,9 +161,7 @@ fun FormEventScreen(
 
                         CoroutineScope(Dispatchers.IO).launch {
                             withContext(Dispatchers.Main) {
-                                navController.navigate("MainScreen") {
-                                    popUpTo("MainScreen") { inclusive = true }
-                                }
+                                navController.navigate(Screen.MainScreen.route)
                             }
                         }
                     },

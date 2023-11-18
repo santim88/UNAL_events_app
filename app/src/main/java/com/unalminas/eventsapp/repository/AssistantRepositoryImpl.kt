@@ -12,18 +12,18 @@ class AssistantRepositoryImpl(
     }
 
     override suspend fun deleteAssistantById(id: Int) {
-       assistantDataSource.deleteAssistantById(id)
+        return assistantDataSource.deleteAssistantById(id)
     }
 
     override suspend fun getAssistantById(id: Int): Assistant {
-       return assistantDataSource.getAssistantById(id)
+        return assistantDataSource.getAssistantById(id)
     }
 
     override suspend fun updateAssistant(assistant: Assistant) {
-        assistantDataSource.updateAssistantById(assistant)
+        return assistantDataSource.updateAssistantById(assistant)
     }
 
     override suspend fun insertAssistant(assistant: Assistant) {
-        assistantDataSource.saveAssistant(assistant)
+        return assistantDataSource.saveAssistant(assistant)
     }
 }
