@@ -39,7 +39,6 @@ fun CardEvent(
         hour = "12:40"
     ),
     changeScreen: () -> Unit = {},
-/*    deleteEvent: () -> Unit = {},*/
     editEvent: () -> Unit = {}
 ) {
     ElevatedCard(
@@ -72,13 +71,6 @@ fun CardEvent(
                             modifier = Modifier.size(26.dp)
                         )
                     }
-                    /*IconButton(modifier = Modifier, onClick = deleteEvent) {
-                        Image(
-                            painterResource(R.drawable.baseline_delete_24),
-                            contentDescription = "like",
-                            modifier = Modifier.size(26.dp)
-                        )
-                    }*/
                 }
             }
             Column(Modifier.padding(horizontal = 10.dp)) {

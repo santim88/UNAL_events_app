@@ -17,9 +17,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.unalminas.eventsapp.domain.Event
 
 @Composable
-fun IndicatorEventBox() {
+fun IndicatorEventBox(
+    event: Event
+) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
@@ -31,15 +34,15 @@ fun IndicatorEventBox() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Evento A",
+                text = event.name,
                 style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
             )
             Text(
-                text = "Fecha: 16/09/2022",
+                text = event.date,
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray)
             )
             Text(
-                text = "Hora: 2-4 PM",
+                text = event.hour,
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray)
             )
         }

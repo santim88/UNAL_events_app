@@ -33,8 +33,15 @@ fun AppNavigation() {
             FormAssistant(navController = navController, isNewAssistant = true)
         }
 
-        composable(Screen.AssistantScreen.route) {
-            AssistantScreen(navController)
+        composable(
+            Screen.AssistantScreen("{id}").route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")?.toInt()
+            AssistantScreen(
+                navController = navController,
+                id = id
+            )
         }
 
         composable(
@@ -49,7 +56,7 @@ fun AppNavigation() {
             )
         }
 
-        /*composable(
+        composable(
             Screen.EditAssistantScreen("{id}").route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
@@ -59,6 +66,6 @@ fun AppNavigation() {
                 id = id,
                 isNewAssistant = false
             )
-        }*/
+        }
     }
 }

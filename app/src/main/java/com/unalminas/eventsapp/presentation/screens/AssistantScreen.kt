@@ -1,6 +1,5 @@
 package com.unalminas.eventsapp.presentation.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
+import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.AssistantTable
 import com.unalminas.eventsapp.presentation.ui.IndicatorEventBox
@@ -35,11 +35,17 @@ import com.unalminas.eventsapp.presentation.ui.TopBar_Title
 @Composable
 fun AssistantScreen(
     navController: NavHostController,
-    viewModel: AssistantScreenViewModel = hiltViewModel()
+    viewModel: AssistantScreenViewModel = hiltViewModel(),
+    id: Int? = null
 ) {
     LaunchedEffect(Unit) {
         viewModel.getAssistantList()
+        id?.let {
+            viewModel.getEventById(id)
+        }
     }
+
+    val eventCurrent by viewModel.eventCurrentState.collectAsState(Event())
     val assistantListState by viewModel.assistantListState.collectAsState(emptyList())
 
     Box(
@@ -57,7 +63,7 @@ fun AssistantScreen(
                     navController.navigate(Screen.MainScreen.route)
                 }
             )
-            IndicatorEventBox()
+            IndicatorEventBox(event = eventCurrent)
             Spacer(modifier = Modifier.height(45.dp))
             Text(
                 text = "Asistentes: 45",
@@ -65,9 +71,7 @@ fun AssistantScreen(
             )
             Spacer(modifier = Modifier.height(45.dp))
 
-            AssistantTable(assistantListState) {
-                Log.i("AssistantScreen", "Assistant clicked: $it")
-            }
+            AssistantTable(assistantListState, navController)
         }
         Box(Modifier.align(Alignment.BottomEnd)) {
             FloatingActionButton(

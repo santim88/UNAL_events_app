@@ -47,7 +47,7 @@ fun FormEventScreen(
 
     Column {
         TopBar_Title(
-            title = stringResource(id = if (isNewEvent) R.string.name_event else R.string.edit_event),
+            title = stringResource(id = if (isNewEvent) R.string.create_event else R.string.edit_event),
             showBackButton = true,
             onBackButtonClick = {
                 navController.navigate(Screen.MainScreen.route)

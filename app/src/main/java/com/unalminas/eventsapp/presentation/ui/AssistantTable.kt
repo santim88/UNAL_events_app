@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp.presentation.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,19 +13,39 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Assistant
+import com.unalminas.eventsapp.presentation.Screen
+import com.unalminas.eventsapp.presentation.screens.AssistantScreenViewModel
+import com.unalminas.eventsapp.presentation.screens.InfoDialogContent
+import me.saket.swipe.SwipeAction
+import me.saket.swipe.SwipeableActionsBox
 
 @Composable
 fun AssistantTable(
     eventListState: List<Assistant> = listOf(),
-    assistantClicked: (Assistant) -> Unit = {}
+    navController: NavController,
+    assistantViewModel: AssistantScreenViewModel = hiltViewModel()
 ) {
+
+    var dialogState by remember { mutableStateOf(false) }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -42,17 +63,17 @@ fun AssistantTable(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Name",
+                        text = stringResource(id = R.string.name_assistant),
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.weight(1f)
                     )
                     Text(
-                        text = "Identifier",
+                        text = stringResource(id = R.string.identification_assistant),
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.weight(1f)
                     )
                     Text(
-                        text = "Email",
+                        text = stringResource(id = R.string.email_assistant),
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.weight(1f)
                     )
@@ -61,11 +82,59 @@ fun AssistantTable(
 
             }
         }
-
+        var currentAssistant = Assistant()
         itemsIndexed(items = eventListState) { index, item ->
-            CardAssistant(modifier = Modifier.clickable {
-                assistantClicked(item)
-            }, index, item)
+
+            val delete = SwipeAction(
+                onSwipe = {
+                    currentAssistant = item
+                    dialogState = true
+                },
+                icon = {
+                    Icon(
+                        modifier = Modifier.padding(16.dp),
+                        painter = painterResource(id = R.drawable.baseline_delete_24),
+                        contentDescription = null,
+                        tint = Color.White
+                    )
+                },
+                background = Color.LightGray
+            )
+            if (dialogState) {
+                Log.i("Tin", "message: $item")
+                Dialog(
+                    onDismissRequest = { dialogState = false },
+                    content = {
+                        InfoDialogContent(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            deleteEvent = {
+                                currentAssistant.id?.let { nonNullId ->
+                                    assistantViewModel.deleteAssistantById(nonNullId)
+                                }
+                                dialogState = false
+                            },
+                            closeEvent = { dialogState = false }
+                        )
+                    },
+                    properties = DialogProperties(
+                        dismissOnBackPress = false,
+                        dismissOnClickOutside = true
+                    )
+                )
+            }
+            SwipeableActionsBox(
+                swipeThreshold = 50.dp,
+                endActions = listOf(delete)
+            ) {
+                CardAssistant(modifier = Modifier.clickable {
+                    item.id?.let { nonNullId ->
+                        val screen = Screen.EditAssistantScreen(nonNullId.toString())
+                        navController.navigate(screen.createRoute())
+                    }
+                }, index, item)
+            }
         }
     }
 }

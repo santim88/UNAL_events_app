@@ -1,6 +1,5 @@
 package com.unalminas.eventsapp.presentation.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,17 +29,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
+import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.CardEvent
 import me.saket.swipe.SwipeAction
@@ -65,15 +63,10 @@ fun MainActivityContent(
     viewModel: MainViewModel = hiltViewModel()
 ) {
 
-    // State
-
     val eventListState by viewModel.eventListState.collectAsState(emptyList())
     val dialogState: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
-
-    // UI
-
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier
@@ -82,9 +75,11 @@ fun MainActivityContent(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             contentPadding = PaddingValues(vertical = 10.dp)
         ) {
+            var currentEvent = Event()
             items(items = eventListState) { event ->
                 val delete = SwipeAction(
                     onSwipe = {
+                        currentEvent = event
                         dialogState.value = true
                     },
                     icon = {
@@ -106,11 +101,12 @@ fun MainActivityContent(
                                     .fillMaxWidth()
                                     .padding(16.dp),
                                 deleteEvent = {
-                                    event.id?.let { nonNullId ->
-                                        Log.d("MyApp", "Variable value: $event")
+                                    currentEvent.id?.let { nonNullId ->
                                         viewModel.deleteEventById(nonNullId)
                                     }
-                                }
+                                    dialogState.value = false
+                                },
+                                closeEvent = { dialogState.value = false }
                             )
                         },
                         properties = DialogProperties(
@@ -119,15 +115,17 @@ fun MainActivityContent(
                         )
                     )
                 }
-
                 SwipeableActionsBox(
-                    swipeThreshold = 100.dp,
+                    swipeThreshold = 85.dp,
                     endActions = listOf(delete)
                 ) {
                     CardEvent(
                         event = event,
                         changeScreen = {
-                            navController.navigate(Screen.AssistantScreen.route)
+                            event.id?.let { nonNullId ->
+                                val screen = Screen.AssistantScreen(nonNullId.toString())
+                                navController.navigate(screen.createRoute())
+                            }
                         }, editEvent = {
                             event.id?.let { nonNullId ->
                                 val screen = Screen.EditEventScreen(nonNullId.toString())
@@ -155,8 +153,8 @@ fun MainActivityContent(
 @Composable
 fun InfoDialogContent(
     modifier: Modifier = Modifier,
-    closeEvent: () -> Unit = {},
     deleteEvent: () -> Unit = {},
+    closeEvent: () -> Unit = {}
 ) {
     Card(
         modifier = modifier
@@ -172,7 +170,7 @@ fun InfoDialogContent(
                 .fillMaxWidth(1f),
 
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally // Center horizontally
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box() {
                 Text(

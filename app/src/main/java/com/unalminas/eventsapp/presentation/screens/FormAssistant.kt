@@ -50,7 +50,7 @@ fun FormAssistant(
             title = stringResource(id = if (isNewAssistant) R.string.create_assistant else R.string.edit_assistant),
             showBackButton = true,
             onBackButtonClick = {
-                navController.navigate(Screen.MainScreen.route)
+                navController.popBackStack()
             }
         )
 
@@ -125,7 +125,7 @@ fun FormAssistant(
 
                         CoroutineScope(Dispatchers.IO).launch {
                             withContext(Dispatchers.Main) {
-                                navController.navigate(Screen.AssistantScreen.route)
+                                navController.popBackStack()
                             }
                         }
                     },
