@@ -67,7 +67,7 @@ fun CardEvent(
                     IconButton(modifier = Modifier, onClick = editEvent) {
                         Image(
                             painterResource(R.drawable.baseline_edit_24),
-                            contentDescription = "like",
+                            contentDescription = "edit event",
                             modifier = Modifier.size(26.dp)
                         )
                     }
@@ -75,18 +75,18 @@ fun CardEvent(
             }
             Column(Modifier.padding(horizontal = 10.dp)) {
                 Text(
-                    text = event.description,
+                    text = "Descripción: ${event.description}", // TODO
                     color = Color.Black,
                     fontWeight = FontWeight.Normal,
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
-                    text = event.date,
+                    text = "Fecha: ${event.date}", // TODO
                     color = Color.Black,
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
-                    text = event.hour,
+                    text = "Hora: ${event.hour}", // TODO
                     color = Color.Black,
                     fontWeight = FontWeight.Normal,
                     style = MaterialTheme.typography.bodyMedium,
@@ -98,7 +98,7 @@ fun CardEvent(
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp),
             ) {
-                Text(text = stringResource(id = R.string.take_asistence), fontSize = 8.sp)
+                Text(text = stringResource(id = R.string.take_asistence), fontSize = 16.sp)
             }
         }
     }

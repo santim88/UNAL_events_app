@@ -21,4 +21,6 @@
     <string name="cancel">Cancelar</string>
     <string name="message_delete">Deseas borrar el evento?</string>
 
+    <string name="event_name_format">Evento: %1$s</string>
+
 </resources>

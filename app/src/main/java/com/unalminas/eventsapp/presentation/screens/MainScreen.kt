@@ -67,6 +67,9 @@ fun MainActivityContent(
     val dialogState: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
+    var currentEvent = Event()
+
+
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier
@@ -75,7 +78,6 @@ fun MainActivityContent(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             contentPadding = PaddingValues(vertical = 10.dp)
         ) {
-            var currentEvent = Event()
             items(items = eventListState) { event ->
                 val delete = SwipeAction(
                     onSwipe = {
@@ -166,21 +168,18 @@ fun InfoDialogContent(
     ) {
         Column(
             modifier = Modifier
-                .padding(24.dp)
+                .padding(16.dp)
                 .fillMaxWidth(1f),
 
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box() {
-                Text(
-                    modifier = Modifier.align(Alignment.CenterStart),
-                    text = stringResource(id = R.string.message_delete),
-                    color = Color.White
-                )
-            }
+            Text(
+                modifier = Modifier,
+                text = stringResource(id = R.string.message_delete),
+                color = Color.White
+            )
             Row(
-                modifier = Modifier.padding(10.dp),
                 horizontalArrangement = Arrangement.spacedBy(13.dp)
             ) {
                 Button(

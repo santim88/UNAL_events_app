@@ -20,4 +20,6 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="message_delete">Do you want to delete the event?</string>
+
+    <string name="event_name_format">Event: %1$s</string>
 </resources>

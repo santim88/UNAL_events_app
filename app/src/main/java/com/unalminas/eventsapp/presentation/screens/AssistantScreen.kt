@@ -1,12 +1,15 @@
 package com.unalminas.eventsapp.presentation.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -18,6 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -49,10 +53,12 @@ fun AssistantScreen(
     val assistantListState by viewModel.assistantListState.collectAsState(emptyList())
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
     ) {
         Column(
-            modifier = Modifier.padding(20.dp),
+            modifier = Modifier,
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -63,26 +69,30 @@ fun AssistantScreen(
                     navController.navigate(Screen.MainScreen.route)
                 }
             )
-            IndicatorEventBox(event = eventCurrent)
-            Spacer(modifier = Modifier.height(45.dp))
+            IndicatorEventBox(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .background(Color.LightGray)
+                    .fillMaxWidth(),
+                event = eventCurrent
+            )
             Text(
-                text = "Asistentes: 45",
+                modifier = Modifier.padding(vertical = 16.dp),
+                text = "Asistentes: 45", // TODO
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray)
             )
-            Spacer(modifier = Modifier.height(45.dp))
-
             AssistantTable(assistantListState, navController)
         }
-        Box(Modifier.align(Alignment.BottomEnd)) {
-            FloatingActionButton(
-                modifier = Modifier
-                    .padding(20.dp),
-                onClick = {
-                    navController.navigate(Screen.AssistantForm.route)
-                },
-            ) {
-                Icon(Icons.Filled.Add, "Floating action button.")
-            }
+        FloatingActionButton(
+            modifier = Modifier
+                .padding(20.dp)
+                .align(Alignment.BottomEnd),
+            onClick = {
+                navController.navigate(Screen.AssistantForm.route)
+            },
+        ) {
+            Icon(Icons.Filled.Add, "Floating action button.")
         }
     }
 }

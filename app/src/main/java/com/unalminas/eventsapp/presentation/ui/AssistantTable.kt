@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -46,42 +47,47 @@ fun AssistantTable(
 ) {
 
     var dialogState by remember { mutableStateOf(false) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = Color.LightGray)
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "#")
+            Text(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp),
+                text = stringResource(id = R.string.name_assistant),
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                modifier = Modifier.weight(1f),
+                text = stringResource(id = R.string.identification_assistant),
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                modifier = Modifier.weight(1f),
+                text = stringResource(id = R.string.email_assistant),
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+    }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp),
         contentPadding = PaddingValues(vertical = 10.dp)
     ) {
-        item {
-            Box(Modifier.fillMaxWidth()) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = Color.LightGray)
-                        .padding(12.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.name_assistant),
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Text(
-                        text = stringResource(id = R.string.identification_assistant),
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Text(
-                        text = stringResource(id = R.string.email_assistant),
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Spacer(modifier = Modifier.weight(0.2f))
-                }
-
-            }
-        }
         var currentAssistant = Assistant()
         itemsIndexed(items = eventListState) { index, item ->
 
@@ -101,7 +107,6 @@ fun AssistantTable(
                 background = Color.LightGray
             )
             if (dialogState) {
-                Log.i("Tin", "message: $item")
                 Dialog(
                     onDismissRequest = { dialogState = false },
                     content = {
@@ -133,7 +138,7 @@ fun AssistantTable(
                         val screen = Screen.EditAssistantScreen(nonNullId.toString())
                         navController.navigate(screen.createRoute())
                     }
-                }, index, item)
+                }, index + 1, item)
             }
         }
     }
