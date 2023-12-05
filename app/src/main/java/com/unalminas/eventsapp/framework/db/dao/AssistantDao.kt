@@ -1,13 +1,11 @@
-package com.unalminas.eventsapp.domain.framework.db.dao
+package com.unalminas.eventsapp.framework.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.unalminas.eventsapp.domain.Assistant
-import com.unalminas.eventsapp.domain.framework.db.entity.AssistantEntity
-import com.unalminas.eventsapp.domain.framework.db.entity.EventEntity
+import com.unalminas.eventsapp.framework.db.entity.AssistantEntity
 
 @Dao
 interface AssistantDao {

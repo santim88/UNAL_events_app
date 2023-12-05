@@ -34,14 +34,14 @@ fun IndicatorEventBox(
         )
         Text(
             modifier = Modifier.padding(horizontal = 16.dp),
-            text = "Fecha: ${event.date}", // TODO
+            text = stringResource(id = R.string.event_date_format, event.date),
             style = TextStyle(fontSize = 16.sp, color = Color.Gray)
         )
         Text(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .padding(bottom = 16.dp),
-            text = "Lugar: ${event.place}", // TODO
+            text = stringResource(id = R.string.event_place_format, event.place),
             style = TextStyle(fontSize = 16.sp, color = Color.Gray)
         )
     }

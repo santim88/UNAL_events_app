@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens
+package com.unalminas.eventsapp.presentation.screens.assistants.adapter
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.AssistantFieldEnum
-import com.unalminas.eventsapp.presentation.Screen
+import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
 import com.unalminas.eventsapp.presentation.ui.TopBar_Title
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

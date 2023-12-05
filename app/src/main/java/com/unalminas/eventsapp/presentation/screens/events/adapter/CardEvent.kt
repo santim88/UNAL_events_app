@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.ui
+package com.unalminas.eventsapp.presentation.screens.events.adapter
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -75,18 +75,18 @@ fun CardEvent(
             }
             Column(Modifier.padding(horizontal = 10.dp)) {
                 Text(
-                    text = "Descripción: ${event.description}", // TODO
+                    text = stringResource(id = R.string.event_description_format, event.description),
                     color = Color.Black,
                     fontWeight = FontWeight.Normal,
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
-                    text = "Fecha: ${event.date}", // TODO
+                    text = stringResource(id = R.string.event_date_format, event.date),
                     color = Color.Black,
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
-                    text = "Hora: ${event.hour}", // TODO
+                    text = stringResource(id = R.string.event_hour_format, event.hour),
                     color = Color.Black,
                     fontWeight = FontWeight.Normal,
                     style = MaterialTheme.typography.bodyMedium,

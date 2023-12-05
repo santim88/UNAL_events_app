@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.domain.framework.di
+package com.unalminas.eventsapp.di
 
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,23 +1,15 @@
 package com.unalminas.eventsapp.data
 
-import android.content.Context
-import androidx.room.Room
-import com.unalminas.eventsapp.domain.framework.db.database.EventDatabase
 import com.unalminas.eventsapp.domain.Event
-import com.unalminas.eventsapp.domain.framework.db.toEvent
-import com.unalminas.eventsapp.domain.framework.db.toEventEntity
+import com.unalminas.eventsapp.framework.db.dao.EventDao
+import com.unalminas.eventsapp.framework.db.toEvent
+import com.unalminas.eventsapp.framework.db.toEventEntity
+import javax.inject.Inject
 
-class EventDataSourceImpl(
-    private val applicationContext: Context
+class EventDataSourceImpl @Inject constructor(
+    private val eventDao: EventDao
 ) : EventDataSource {
 
-    private val db = Room.databaseBuilder(
-        applicationContext,
-        EventDatabase::class.java, "events_db"
-    ).fallbackToDestructiveMigration().build()
-
-
-    private val eventDao = db.EventDao()
     override suspend fun getEventList(): List<Event> = eventDao.getAll().map {
         it.toEvent()
     }
@@ -28,7 +20,7 @@ class EventDataSourceImpl(
         )
     }
 
-    override  suspend  fun deleteEventById(eventId: Int) {
+    override suspend fun deleteEventById(eventId: Int) {
         eventDao.deleteEventById(eventId)
     }
 

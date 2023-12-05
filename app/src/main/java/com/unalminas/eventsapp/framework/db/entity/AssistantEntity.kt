@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.domain.framework.db.entity
+package com.unalminas.eventsapp.framework.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

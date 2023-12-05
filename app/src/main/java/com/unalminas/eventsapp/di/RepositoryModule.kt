@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.domain.framework.di
+package com.unalminas.eventsapp.di
 
 import android.content.Context
 import com.unalminas.eventsapp.data.AssistantDataSource
@@ -7,6 +7,7 @@ import com.unalminas.eventsapp.data.AssistantMockDataSourceImpl
 import com.unalminas.eventsapp.data.EventDataSource
 import com.unalminas.eventsapp.data.EventDataSourceImpl
 import com.unalminas.eventsapp.data.EventMockDataSourceImpl
+import com.unalminas.eventsapp.framework.db.dao.EventDao
 import com.unalminas.eventsapp.repository.AssistantRepository
 import com.unalminas.eventsapp.repository.AssistantRepositoryImpl
 import com.unalminas.eventsapp.repository.EventRepository
@@ -27,9 +28,9 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideEventDataSource(
-        @ApplicationContext context: Context
+        eventDao: EventDao
     ): EventDataSource {
-        return EventDataSourceImpl(context)
+        return EventDataSourceImpl(eventDao)
     }
 
     @Named("EventMockDataSource")

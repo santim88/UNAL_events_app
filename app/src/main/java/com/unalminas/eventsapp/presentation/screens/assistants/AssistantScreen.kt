@@ -1,13 +1,11 @@
-package com.unalminas.eventsapp.presentation.screens
+package com.unalminas.eventsapp.presentation.screens.assistants
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -51,6 +49,7 @@ fun AssistantScreen(
 
     val eventCurrent by viewModel.eventCurrentState.collectAsState(Event())
     val assistantListState by viewModel.assistantListState.collectAsState(emptyList())
+    val itemCount = assistantListState.size
 
     Box(
         modifier = Modifier
@@ -79,7 +78,7 @@ fun AssistantScreen(
             )
             Text(
                 modifier = Modifier.padding(vertical = 16.dp),
-                text = "Asistentes: 45", // TODO
+                text = stringResource(id = R.string.dialog_state_format, itemCount),
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray)
             )
             AssistantTable(assistantListState, navController)

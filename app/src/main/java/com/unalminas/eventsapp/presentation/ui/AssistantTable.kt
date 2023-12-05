@@ -1,14 +1,11 @@
 package com.unalminas.eventsapp.presentation.ui
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,8 +31,8 @@ import androidx.navigation.NavController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Assistant
 import com.unalminas.eventsapp.presentation.Screen
-import com.unalminas.eventsapp.presentation.screens.AssistantScreenViewModel
-import com.unalminas.eventsapp.presentation.screens.InfoDialogContent
+import com.unalminas.eventsapp.presentation.myComposables.InfoDialogContent
+import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
@@ -111,16 +108,17 @@ fun AssistantTable(
                     onDismissRequest = { dialogState = false },
                     content = {
                         InfoDialogContent(
+                            R.string.message_delete_assistant,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(16.dp),
-                            deleteEvent = {
+                            onDeleteClick = {
                                 currentAssistant.id?.let { nonNullId ->
                                     assistantViewModel.deleteAssistantById(nonNullId)
                                 }
                                 dialogState = false
                             },
-                            closeEvent = { dialogState = false }
+                            onCancel = { dialogState = false }
                         )
                     },
                     properties = DialogProperties(

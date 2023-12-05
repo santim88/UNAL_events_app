@@ -19,8 +19,14 @@
     <string name="list_assistants">Lista de asistentes</string>
     <string name="delete">Borrar</string>
     <string name="cancel">Cancelar</string>
-    <string name="message_delete">Deseas borrar el evento?</string>
+    <string name="message_delete_event">Deseas borrar el evento?</string>
+    <string name="message_delete_assistant">Deseas borrar el asistente?</string>
 
     <string name="event_name_format">Evento: %1$s</string>
+    <string name="event_description_format">Descripción: %1$s</string>
+    <string name="event_date_format">Fecha: %1$s</string>
+    <string name="event_hour_format">Hora: %1$s</string>
+    <string name="event_place_format">Lugar: %1$s</string>
+    <string name="dialog_state_format">Asistentes: %1$s</string>
 
 </resources>

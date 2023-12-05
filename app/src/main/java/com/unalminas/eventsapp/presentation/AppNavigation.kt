@@ -8,9 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.unalminas.eventsapp.presentation.screens.AssistantScreen
-import com.unalminas.eventsapp.presentation.screens.FormAssistant
-import com.unalminas.eventsapp.presentation.screens.MainScreen
+import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreen
+import com.unalminas.eventsapp.presentation.screens.assistants.adapter.FormAssistant
+import com.unalminas.eventsapp.presentation.screens.main.MainScreen
 import com.unalminas.eventsapp.presentation.screens.FormEventScreen
 
 @Composable
@@ -19,7 +19,8 @@ fun AppNavigation() {
 
     NavHost(
         modifier = Modifier.fillMaxSize(),
-        navController = navController, startDestination = Screen.MainScreen.route
+        navController = navController,
+        startDestination = Screen.MainScreen.route
     ) {
         composable(Screen.MainScreen.route) {
             MainScreen(navController)

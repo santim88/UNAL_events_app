@@ -1,7 +1,7 @@
 package com.unalminas.eventsapp.domain
 
 data class Event(
-    val id: Int? = null,
+    val id: Int = System.currentTimeMillis().hashCode(),
     val name: String = "",
     val description: String = "",
     val place: String = "",

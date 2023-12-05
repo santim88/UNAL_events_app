@@ -3,9 +3,9 @@ package com.unalminas.eventsapp.data
 import android.content.Context
 import androidx.room.Room
 import com.unalminas.eventsapp.domain.Assistant
-import com.unalminas.eventsapp.domain.framework.db.database.AssistantDataBase
-import com.unalminas.eventsapp.domain.framework.db.toAssistant
-import com.unalminas.eventsapp.domain.framework.db.toAssistantEntity
+import com.unalminas.eventsapp.framework.db.database.AssistantDataBase
+import com.unalminas.eventsapp.framework.db.toAssistant
+import com.unalminas.eventsapp.framework.db.toAssistantEntity
 
 
 class AssistantDataSourceImp(

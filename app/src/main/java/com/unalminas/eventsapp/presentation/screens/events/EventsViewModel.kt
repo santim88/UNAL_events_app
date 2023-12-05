@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens
+package com.unalminas.eventsapp.presentation.screens.events
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class EventsViewModel @Inject constructor(
     private val eventRepository: EventRepository
 ) : ViewModel() {
 
