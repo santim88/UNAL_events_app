@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens
+package com.unalminas.eventsapp.presentation.screens.events
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

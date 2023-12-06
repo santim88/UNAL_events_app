@@ -11,7 +11,7 @@ import androidx.navigation.navArgument
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.FormAssistant
 import com.unalminas.eventsapp.presentation.screens.main.MainScreen
-import com.unalminas.eventsapp.presentation.screens.FormEventScreen
+import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
 
 @Composable
 fun AppNavigation() {
