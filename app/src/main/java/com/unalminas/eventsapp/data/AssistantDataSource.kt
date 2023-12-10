@@ -14,4 +14,5 @@ interface AssistantDataSource {
 
     suspend fun saveAssistant(assistant: Assistant)
 
+    suspend fun getAssistantByEventId(id: Int): List<Assistant>
 }

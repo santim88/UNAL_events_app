@@ -30,8 +30,8 @@ import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
-import com.unalminas.eventsapp.presentation.ui.AssistantTable
-import com.unalminas.eventsapp.presentation.ui.IndicatorEventBox
+import com.unalminas.eventsapp.presentation.screens.assistants.adapter.AssistantTable
+import com.unalminas.eventsapp.presentation.screens.events.adapter.IndicatorEventBox
 import com.unalminas.eventsapp.presentation.ui.TopBar_Title
 
 @Composable
@@ -41,7 +41,9 @@ fun AssistantScreen(
     id: Int? = null
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getAssistantList()
+        id?.let {
+            viewModel.getAssistantListByEvent(id)
+        }
         id?.let {
             viewModel.getEventById(id)
         }
@@ -88,7 +90,8 @@ fun AssistantScreen(
                 .padding(20.dp)
                 .align(Alignment.BottomEnd),
             onClick = {
-                navController.navigate(Screen.AssistantForm.route)
+                val screen = Screen.CreateAssistantScreen(id.toString())
+                navController.navigate(screen.createRoute())
             },
         ) {
             Icon(Icons.Filled.Add, "Floating action button.")

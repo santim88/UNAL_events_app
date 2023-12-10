@@ -1,6 +1,7 @@
 package com.unalminas.eventsapp.data
 
 import com.unalminas.eventsapp.domain.Event
+import com.unalminas.eventsapp.framework.db.dao.AssistantDao
 import com.unalminas.eventsapp.framework.db.dao.EventDao
 import com.unalminas.eventsapp.framework.db.toEvent
 import com.unalminas.eventsapp.framework.db.toEventEntity

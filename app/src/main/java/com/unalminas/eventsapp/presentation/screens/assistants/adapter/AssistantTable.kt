@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.ui
+package com.unalminas.eventsapp.presentation.screens.assistants.adapter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

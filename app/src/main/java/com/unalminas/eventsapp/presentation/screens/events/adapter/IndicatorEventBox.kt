@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.ui
+package com.unalminas.eventsapp.presentation.screens.events.adapter
 
 
 import androidx.compose.foundation.layout.Arrangement

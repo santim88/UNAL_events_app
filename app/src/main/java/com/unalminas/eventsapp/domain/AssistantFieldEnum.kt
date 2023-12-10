@@ -5,5 +5,6 @@ enum class AssistantFieldEnum(
 ) {
     NAME("name"),
     IDENTIFICATION("identification"),
-    EMAIL("email")
+    EMAIL("email"),
+    EVENTID("eventId")
 }

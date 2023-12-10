@@ -30,8 +30,17 @@ fun AppNavigation() {
             FormEventScreen(navController = navController, isNewEvent = true)
         }
 
-        composable(Screen.AssistantForm.route) {
-            FormAssistant(navController = navController, isNewAssistant = true)
+        composable(
+            Screen.CreateAssistantScreen("{eventId}").route,
+            arguments = listOf(navArgument("eventId") { type = NavType.StringType })
+        ) { entry ->
+            val eventId = entry.arguments?.getString("eventId")?.toInt()
+            FormAssistant(
+                navController = navController,
+                id = null,
+                isNewAssistant = true,
+                eventId =  eventId
+            )
         }
 
         composable(
@@ -65,7 +74,8 @@ fun AppNavigation() {
             FormAssistant(
                 navController = navController,
                 id = id,
-                isNewAssistant = false
+                isNewAssistant = false,
+                eventId =  null
             )
         }
     }

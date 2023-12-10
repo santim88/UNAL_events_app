@@ -7,7 +7,10 @@ sealed class Screen(val route: String) {
         fun createRoute() = "AssistantScreen/$id"
     }
 
-    object AssistantForm : Screen("AssistantForm")
+    data class CreateAssistantScreen(val eventId: String) : Screen("AssistantCreate/{eventId}") {
+        fun createRoute() = "AssistantCreate/$eventId"
+    }
+
     data class EditEventScreen(val id: String) : Screen("Edit/{id}") {
         fun createRoute() = "Edit/$id"
     }

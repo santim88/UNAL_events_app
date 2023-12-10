@@ -7,6 +7,7 @@ import com.unalminas.eventsapp.data.AssistantMockDataSourceImpl
 import com.unalminas.eventsapp.data.EventDataSource
 import com.unalminas.eventsapp.data.EventDataSourceImpl
 import com.unalminas.eventsapp.data.EventMockDataSourceImpl
+import com.unalminas.eventsapp.framework.db.dao.AssistantDao
 import com.unalminas.eventsapp.framework.db.dao.EventDao
 import com.unalminas.eventsapp.repository.AssistantRepository
 import com.unalminas.eventsapp.repository.AssistantRepositoryImpl
@@ -15,7 +16,6 @@ import com.unalminas.eventsapp.repository.EventRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Named
 import javax.inject.Singleton
@@ -59,9 +59,9 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideAssistantDataSource(
-        @ApplicationContext context: Context
+       assistantDao: AssistantDao
     ): AssistantDataSource {
-        return AssistantDataSourceImp(context)
+        return AssistantDataSourceImp(assistantDao)
     }
 
     @Singleton

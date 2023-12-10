@@ -28,12 +28,14 @@ fun AssistantEntity.toAssistant() = Assistant(
     id = id,
     name = name,
     identification = identification,
-    email = email ?: ""
+    email = email ?: "",
+    eventId = eventId
 )
 
 fun Assistant.toAssistantEntity() = AssistantEntity(
     id = id,
     name = name,
     identification = identification,
-    email = email
+    email = email,
+    eventId = eventId
 )

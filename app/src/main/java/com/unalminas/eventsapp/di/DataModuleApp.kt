@@ -2,8 +2,9 @@ package com.unalminas.eventsapp.di
 
 import android.content.Context
 import androidx.room.Room
+import com.unalminas.eventsapp.framework.db.dao.AssistantDao
 import com.unalminas.eventsapp.framework.db.dao.EventDao
-import com.unalminas.eventsapp.framework.db.database.EventDatabase
+import com.unalminas.eventsapp.framework.db.database.AssistantDataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,20 +14,21 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class DataModule{
+class DataModuleApp {
 
     @Provides
     @Singleton
-    fun providesDatabase(@ApplicationContext context: Context): EventDatabase{
-        return Room.databaseBuilder(
+    fun providesDataBase(@ApplicationContext context: Context): AssistantDataBase =
+        Room.databaseBuilder(
             context,
-            EventDatabase::class.java, "events_db"
+            AssistantDataBase::class.java, "assistants_db"
         ).fallbackToDestructiveMigration().build()
-    }
+
 
     @Provides
     @Singleton
-    fun providesEventDao(eventDatabase: EventDatabase): EventDao{
-        return eventDatabase.eventDao()
-    }
+    fun providesAssistantDao(database: AssistantDataBase): AssistantDao = database.assistantDao()
+
+    @Provides
+    fun providesEventDao(database: AssistantDataBase): EventDao = database.eventDao()
 }

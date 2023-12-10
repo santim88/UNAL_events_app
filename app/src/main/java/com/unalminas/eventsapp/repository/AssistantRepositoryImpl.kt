@@ -11,6 +11,10 @@ class AssistantRepositoryImpl(
         return assistantDataSource.getAssistantsList()
     }
 
+    override suspend fun getAssistantListByEvent(eventId: Int): List<Assistant> {
+        return assistantDataSource.getAssistantByEventId(eventId)
+    }
+
     override suspend fun deleteAssistantById(id: Int) {
         return assistantDataSource.deleteAssistantById(id)
     }

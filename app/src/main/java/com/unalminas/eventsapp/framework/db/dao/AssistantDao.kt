@@ -22,6 +22,9 @@ interface AssistantDao {
     @Query("DELETE FROM assistants WHERE id= :assistantId")
     suspend fun deleteAssistantById(assistantId: Int)
 
+    @Query("SELECT * FROM assistants WHERE eventId= :eventId")
+    suspend fun getAssistantByEventId(eventId: Int): List<AssistantEntity>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAssistant(vararg users: AssistantEntity)
 }

@@ -3,9 +3,9 @@ package com.unalminas.eventsapp.framework.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.Index
 import androidx.room.PrimaryKey
 
+/*
 @Entity(
     tableName = "assistants",
     foreignKeys = [
@@ -15,8 +15,7 @@ import androidx.room.PrimaryKey
             childColumns = ["eventId"],
             onDelete = ForeignKey.CASCADE
         )
-    ],
-    indices = [Index("eventId")]
+    ]
 )
 
 data class AssistantEntity(
@@ -25,4 +24,4 @@ data class AssistantEntity(
     @ColumnInfo(name = "identification") val identification: String,
     @ColumnInfo(name = "email") val email: String?,
     @ColumnInfo(name = "eventId") val eventId: Int
-)
+)*/

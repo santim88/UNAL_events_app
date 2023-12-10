@@ -30,10 +30,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun FormAssistant(
     navController: NavHostController,
     id: Int? = null,
+    eventId: Int? = null,
     isNewAssistant: Boolean,
     viewModel: AssistantScreenViewModel = hiltViewModel()
 ) {
@@ -42,6 +42,8 @@ fun FormAssistant(
     LaunchedEffect(isNewAssistant) {
         if (!isNewAssistant) id?.let {
             viewModel.getAssistantById(id)
+        }else{
+            viewModel.editAssistantField(AssistantFieldEnum.EVENTID, eventId.toString())
         }
     }
 

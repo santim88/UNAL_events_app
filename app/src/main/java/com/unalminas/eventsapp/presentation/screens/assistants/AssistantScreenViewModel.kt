@@ -35,6 +35,12 @@ class AssistantScreenViewModel @Inject constructor(
         }
     }
 
+    fun getAssistantListByEvent(eventId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _assistantListState.value = assistantRepository.getAssistantListByEvent(eventId)
+        }
+    }
+
     fun deleteAssistantById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             assistantRepository.deleteAssistantById(id)
@@ -66,6 +72,7 @@ class AssistantScreenViewModel @Inject constructor(
             AssistantFieldEnum.NAME -> _assistantState.value.copy(name = fieldValue)
             AssistantFieldEnum.IDENTIFICATION -> _assistantState.value.copy(identification = fieldValue)
             AssistantFieldEnum.EMAIL -> _assistantState.value.copy(email = fieldValue)
+            AssistantFieldEnum.EVENTID -> _assistantState.value.copy(eventId = fieldValue.toInt())
         }
     }
 

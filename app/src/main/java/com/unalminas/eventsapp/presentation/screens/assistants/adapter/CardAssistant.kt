@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.ui
+package com.unalminas.eventsapp.presentation.screens.assistants.adapter
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

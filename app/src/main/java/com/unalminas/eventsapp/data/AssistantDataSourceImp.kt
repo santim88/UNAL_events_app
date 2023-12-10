@@ -1,23 +1,15 @@
 package com.unalminas.eventsapp.data
 
-import android.content.Context
-import androidx.room.Room
 import com.unalminas.eventsapp.domain.Assistant
-import com.unalminas.eventsapp.framework.db.database.AssistantDataBase
+import com.unalminas.eventsapp.framework.db.dao.AssistantDao
 import com.unalminas.eventsapp.framework.db.toAssistant
 import com.unalminas.eventsapp.framework.db.toAssistantEntity
+import javax.inject.Inject
 
 
-class AssistantDataSourceImp(
-    private val applicationContext: Context
+class AssistantDataSourceImp @Inject constructor(
+    private val assistantDao: AssistantDao
 ) : AssistantDataSource {
-
-    private val db = Room.databaseBuilder(
-        applicationContext,
-        AssistantDataBase::class.java, "assistants_db"
-    ).fallbackToDestructiveMigration().build()
-
-    private val assistantDao = db.AssistantDao()
     override suspend fun getAssistantsList(): List<Assistant> = assistantDao.getAll().map {
         it.toAssistant()
     }
@@ -36,5 +28,9 @@ class AssistantDataSourceImp(
 
     override suspend fun saveAssistant(assistant: Assistant) {
         assistantDao.insertAssistant(assistant.toAssistantEntity())
+    }
+
+    override suspend fun getAssistantByEventId(eventId: Int): List<Assistant> = assistantDao.getAssistantByEventId(eventId).map{
+        it.toAssistant()
     }
 }
