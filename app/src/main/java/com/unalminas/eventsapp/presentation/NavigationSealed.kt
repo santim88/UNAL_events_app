@@ -18,4 +18,8 @@ sealed class Screen(val route: String) {
     data class EditAssistantScreen(val id: String) : Screen("AssistantEdit/{id}") {
         fun createRoute() = "AssistantEdit/$id"
     }
+
+    data class CreateAssistantCameraScreen(val id: String) : Screen("AssistantCamera/{id}") {
+        fun createRoute() = "AssistantCamera/$id"
+    }
 }

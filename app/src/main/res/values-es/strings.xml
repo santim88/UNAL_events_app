@@ -29,4 +29,7 @@
     <string name="event_place_format">Lugar: %1$s</string>
     <string name="dialog_state_format">Asistentes: %1$s</string>
 
+    <string name="enter_assistant">Añadir asistente</string>
+    <string name="register_qr">Registrar Qr</string>
+
 </resources>

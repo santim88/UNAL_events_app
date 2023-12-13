@@ -8,19 +8,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -31,6 +31,7 @@ import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.AssistantTable
+import com.unalminas.eventsapp.presentation.screens.assistants.adapter.BottomFloatingDropMenu
 import com.unalminas.eventsapp.presentation.screens.events.adapter.IndicatorEventBox
 import com.unalminas.eventsapp.presentation.ui.TopBar_Title
 
@@ -40,6 +41,13 @@ fun AssistantScreen(
     viewModel: AssistantScreenViewModel = hiltViewModel(),
     id: Int? = null
 ) {
+    var isMenuExpanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val menuItems = listOf(
+        stringResource(id = R.string.enter_assistant),
+        stringResource(id = R.string.register_qr)
+    )
+
     LaunchedEffect(Unit) {
         id?.let {
             viewModel.getAssistantListByEvent(id)
@@ -85,16 +93,17 @@ fun AssistantScreen(
             )
             AssistantTable(assistantListState, navController)
         }
-        FloatingActionButton(
+
+        BottomFloatingDropMenu(
             modifier = Modifier
                 .padding(20.dp)
                 .align(Alignment.BottomEnd),
-            onClick = {
-                val screen = Screen.CreateAssistantScreen(id.toString())
-                navController.navigate(screen.createRoute())
-            },
-        ) {
-            Icon(Icons.Filled.Add, "Floating action button.")
-        }
+            isMenuExpanded = isMenuExpanded,
+            onMenuExpandedChanged = { isMenuExpanded = it },
+            menuItems = menuItems,
+            context = context,
+            navController = navController,
+            eventId = id
+        )
     }
 }

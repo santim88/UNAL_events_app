@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.unalminas.eventsapp.framework.db.dao.AssistantDao
 import com.unalminas.eventsapp.framework.db.dao.EventDao
+import com.unalminas.eventsapp.framework.db.dao.ImageDao
 import com.unalminas.eventsapp.framework.db.database.AssistantDataBase
 import dagger.Module
 import dagger.Provides
@@ -30,5 +31,10 @@ class DataModuleApp {
     fun providesAssistantDao(database: AssistantDataBase): AssistantDao = database.assistantDao()
 
     @Provides
+    @Singleton
     fun providesEventDao(database: AssistantDataBase): EventDao = database.eventDao()
+
+    @Provides
+    @Singleton
+    fun providesImageDao(database: AssistantDataBase): ImageDao = database.imageDao()
 }

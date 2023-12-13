@@ -2,8 +2,10 @@ package com.unalminas.eventsapp.framework.db
 
 import com.unalminas.eventsapp.domain.Assistant
 import com.unalminas.eventsapp.domain.Event
+import com.unalminas.eventsapp.domain.Image
 import com.unalminas.eventsapp.framework.db.entity.AssistantEntity
 import com.unalminas.eventsapp.framework.db.entity.EventEntity
+import com.unalminas.eventsapp.framework.db.entity.ImageEntity
 
 
 fun EventEntity.toEvent() = Event(
@@ -38,4 +40,14 @@ fun Assistant.toAssistantEntity() = AssistantEntity(
     identification = identification,
     email = email,
     eventId = eventId
+)
+
+fun ImageEntity.toImage() = Image(
+    id = id,
+    imageByteArray = imageByteArray
+)
+
+fun Image.toImageEntity() = ImageEntity(
+    id = id,
+    imageByteArray = imageByteArray
 )

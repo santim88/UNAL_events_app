@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.unalminas.eventsapp.presentation.screens.camera.CameraXGuideTheme
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.FormAssistant
 import com.unalminas.eventsapp.presentation.screens.main.MainScreen
@@ -76,6 +77,17 @@ fun AppNavigation() {
                 id = id,
                 isNewAssistant = false,
                 eventId =  null
+            )
+        }
+
+        composable(
+            Screen.CreateAssistantCameraScreen("{id}").route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")?.toInt()
+            CameraXGuideTheme(
+                navController = navController,
+                eventId =  id
             )
         }
     }
