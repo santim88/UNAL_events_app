@@ -1,5 +1,35 @@
 <resources>
     <string name="app_name">Reservation Unal</string>
 
-    <string name="hello">Hola Mundo!</string>
+    <string name="create_event">Crear Evento</string>
+    <string name="edit_event">Editar Evento</string>
+    <string name="save_event">Guardar Evento</string>
+    <string name="place_event">Lugar</string>
+    <string name="hour_event">Hora</string>
+    <string name="date_event">Fecha</string>
+    <string name="description_event">Descripción</string>
+    <string name="name_event">Nombre</string>
+    <string name="take_asistence">Tomar asistencia</string>
+    <string name="create_assistant">Nuevo asistente</string>
+    <string name="edit_assistant">Editar asistente</string>
+    <string name="name_assistant">Nombre</string>
+    <string name="identification_assistant">Identificación</string>
+    <string name="email_assistant">Email</string>
+    <string name="save_assistant">Guardar asistente</string>
+    <string name="list_assistants">Lista de asistentes</string>
+    <string name="delete">Borrar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="message_delete_event">Deseas borrar el evento?</string>
+    <string name="message_delete_assistant">Deseas borrar el asistente?</string>
+
+    <string name="event_name_format">Evento: %1$s</string>
+    <string name="event_description_format">Descripción: %1$s</string>
+    <string name="event_date_format">Fecha: %1$s</string>
+    <string name="event_hour_format">Hora: %1$s</string>
+    <string name="event_place_format">Lugar: %1$s</string>
+    <string name="dialog_state_format">Asistentes: %1$s</string>
+
+    <string name="enter_assistant">Añadir asistente</string>
+    <string name="register_qr">Registrar Qr</string>
+
 </resources>

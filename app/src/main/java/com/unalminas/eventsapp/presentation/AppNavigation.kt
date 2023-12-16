@@ -8,9 +8,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.unalminas.eventsapp.presentation.screens.MainScreen
-import com.unalminas.eventsapp.presentation.screens.ScreenC
-import com.unalminas.eventsapp.presentation.screens.FormEventScreen
+import com.unalminas.eventsapp.presentation.screens.camera.CameraXGuideTheme
+import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreen
+import com.unalminas.eventsapp.presentation.screens.assistants.adapter.FormAssistant
+import com.unalminas.eventsapp.presentation.screens.main.MainScreen
+import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
 
 @Composable
 fun AppNavigation() {
@@ -18,7 +20,8 @@ fun AppNavigation() {
 
     NavHost(
         modifier = Modifier.fillMaxSize(),
-        navController = navController, startDestination = Screen.MainScreen.route
+        navController = navController,
+        startDestination = Screen.MainScreen.route
     ) {
         composable(Screen.MainScreen.route) {
             MainScreen(navController)
@@ -28,8 +31,28 @@ fun AppNavigation() {
             FormEventScreen(navController = navController, isNewEvent = true)
         }
 
-        composable(Screen.ScreenC.route) {
-            ScreenC(navController)
+        composable(
+            Screen.CreateAssistantScreen("{eventId}").route,
+            arguments = listOf(navArgument("eventId") { type = NavType.StringType })
+        ) { entry ->
+            val eventId = entry.arguments?.getString("eventId")?.toInt()
+            FormAssistant(
+                navController = navController,
+                id = null,
+                isNewAssistant = true,
+                eventId =  eventId
+            )
+        }
+
+        composable(
+            Screen.AssistantScreen("{id}").route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")?.toInt()
+            AssistantScreen(
+                navController = navController,
+                id = id
+            )
         }
 
         composable(
@@ -41,6 +64,30 @@ fun AppNavigation() {
                 navController = navController,
                 id = id,
                 isNewEvent = false
+            )
+        }
+
+        composable(
+            Screen.EditAssistantScreen("{id}").route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")?.toInt()
+            FormAssistant(
+                navController = navController,
+                id = id,
+                isNewAssistant = false,
+                eventId =  null
+            )
+        }
+
+        composable(
+            Screen.CreateAssistantCameraScreen("{id}").route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")?.toInt()
+            CameraXGuideTheme(
+                navController = navController,
+                eventId =  id
             )
         }
     }

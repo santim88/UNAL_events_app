@@ -1,5 +1,35 @@
 <resources>
     <string name="app_name">Unal Assistance</string>
 
-    <string name="hello">Hello World!</string>
+    <string name="create_event">Create Event</string>
+    <string name="edit_event">Edit Event</string>
+    <string name="save_event">Save Event</string>
+    <string name="place_event">Place</string>
+    <string name="hour_event">Hour</string>
+    <string name="date_event">Date</string>
+    <string name="description_event">Description</string>
+    <string name="name_event">Name</string>
+    <string name="take_asistence">Take assistance</string>
+    <string name="create_assistant">New assistant</string>
+    <string name="edit_assistant">Edit assistant</string>
+    <string name="name_assistant">Name</string>
+    <string name="identification_assistant">Identification</string>
+    <string name="email_assistant">Email</string>
+    <string name="save_assistant">Save Assistant</string>
+    <string name="list_assistants">Assistants list</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="message_delete_event">Do you want to delete the event?</string>
+    <string name="message_delete_assistant">Do you want to delete the assistant?</string>
+
+    <string name="event_name_format">Event: %1$s</string>
+    <string name="event_description_format">Description: %1$s</string>
+    <string name="event_date_format">Date  : %1$s</string>
+    <string name="event_hour_format">Hour: %1$s</string>
+    <string name="event_place_format">Lugar: %1$s</string>
+    <string name="dialog_state_format">Assistants: %1$s</string>
+
+    <string name="enter_assistant">Add assistant</string>
+    <string name="register_qr">Register Qr</string>
+
 </resources>
