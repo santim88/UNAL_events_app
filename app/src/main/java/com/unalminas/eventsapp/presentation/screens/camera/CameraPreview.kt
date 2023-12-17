@@ -17,9 +17,17 @@ fun CameraPreview(
         factory = {
             PreviewView(it).apply {
                 this.controller = controller
+                setupAutoFocus(controller)//can be remplace
                 controller.bindToLifecycle(lifecycleOwner)
             }
         },
         modifier = modifier
     )
+}
+
+private fun setupAutoFocus(controller: LifecycleCameraController) {
+    controller.cameraControl?.let { cameraControl ->
+        cameraControl.enableTorch(true)  // Example method call, replace with actual autofocus setup
+        cameraControl.setLinearZoom(0.5f) // Example method call, replace with actual autofocus setup
+    }
 }

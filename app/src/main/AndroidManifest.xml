@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UnalEventsApp"
         tools:targetApi="31"
+        android:hardwareAccelerated="true"
         tools:ignore="LockedOrientationActivity">
         <activity
             android:name=".presentation.MainActivity"
