@@ -37,4 +37,8 @@ class AssistantMockDataSourceImpl : AssistantDataSource {
     override suspend fun getAssistantByEventId(id: Int): List<Assistant> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun insertAssistantOutId(assistant: Assistant): List<Long> {
+        TODO("Not yet implemented")
+    }
 }

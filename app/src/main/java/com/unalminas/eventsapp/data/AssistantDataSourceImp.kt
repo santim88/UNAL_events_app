@@ -33,4 +33,8 @@ class AssistantDataSourceImp @Inject constructor(
     override suspend fun getAssistantByEventId(eventId: Int): List<Assistant> = assistantDao.getAssistantByEventId(eventId).map{
         it.toAssistant()
     }
+
+    override suspend fun insertAssistantOutId(assistant: Assistant): List<Long> {
+        return assistantDao.insertAssistantOutId(assistant.toAssistantEntity())
+    }
 }

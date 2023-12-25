@@ -6,7 +6,7 @@ import com.unalminas.eventsapp.framework.db.toImage
 import com.unalminas.eventsapp.framework.db.toImageEntity
 import javax.inject.Inject
 
-class ImageDataSourceImpl @Inject constructor(
+class ImageDataSourceImpl(
     private val imageDao: ImageDao
 ) : ImageDataSource {
     override suspend fun getAllImages(): List<Image> = imageDao.getAll().map {

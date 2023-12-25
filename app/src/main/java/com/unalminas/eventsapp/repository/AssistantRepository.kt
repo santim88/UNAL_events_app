@@ -9,4 +9,6 @@ interface AssistantRepository {
     suspend fun getAssistantById(id: Int): Assistant
     suspend fun deleteAssistantById(id: Int)
     suspend fun getAssistantListByEvent(eventId: Int): List<Assistant>
+    suspend fun insertAssistantOutId(assistant: Assistant): List<Long>
+
 }

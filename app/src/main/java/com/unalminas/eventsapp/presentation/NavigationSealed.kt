@@ -22,4 +22,8 @@ sealed class Screen(val route: String) {
     data class CreateAssistantCameraScreen(val id: String) : Screen("AssistantCamera/{id}") {
         fun createRoute() = "AssistantCamera/$id"
     }
+
+    data class CreateAssistantPdf417(val id: String) : Screen("AssistantPdf417/{id}") {
+        fun createRoute() = "AssistantPdf417/$id"
+    }
 }

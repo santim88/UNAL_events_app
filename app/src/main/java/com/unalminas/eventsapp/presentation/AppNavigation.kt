@@ -13,6 +13,7 @@ import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.FormAssistant
 import com.unalminas.eventsapp.presentation.screens.main.MainScreen
 import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
+import com.unalminas.eventsapp.presentation.screens.scanPdf417.MainScreenPdf417
 
 @Composable
 fun AppNavigation() {
@@ -86,6 +87,17 @@ fun AppNavigation() {
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt()
             CameraXGuideTheme(
+                navController = navController,
+                eventId =  id
+            )
+        }
+
+        composable(
+            Screen.CreateAssistantPdf417("{id}").route,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")?.toInt()
+            MainScreenPdf417(
                 navController = navController,
                 eventId =  id
             )

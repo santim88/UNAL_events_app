@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.AssistantFieldEnum
+import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
 import com.unalminas.eventsapp.presentation.ui.TopBar_Title
 import kotlinx.coroutines.CoroutineScope
@@ -120,13 +121,18 @@ fun FormAssistant(
                     onClick = {
                         if (isNewAssistant) {
                             viewModel.createAssistant(assistant)
+                            CoroutineScope(Dispatchers.IO).launch {
+                                withContext(Dispatchers.Main) {
+                                    navController.popBackStack()
+                                }
+                            }
                         } else {
                             viewModel.updateAssistant(assistant)
-                        }
-
-                        CoroutineScope(Dispatchers.IO).launch {
-                            withContext(Dispatchers.Main) {
-                                navController.popBackStack()
+                            CoroutineScope(Dispatchers.IO).launch {
+                                withContext(Dispatchers.Main) {
+                                    val screen = Screen.AssistantScreen(assistant.eventId.toString())
+                                    navController.navigate(screen.createRoute())
+                                }
                             }
                         }
                     },
