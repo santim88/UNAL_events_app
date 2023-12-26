@@ -27,4 +27,8 @@ interface AssistantDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAssistant(vararg users: AssistantEntity)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertAssistantOutId(vararg users: AssistantEntity): List<Long>
+
 }

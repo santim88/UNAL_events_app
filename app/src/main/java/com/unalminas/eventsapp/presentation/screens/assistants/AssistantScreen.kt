@@ -45,7 +45,8 @@ fun AssistantScreen(
     val context = LocalContext.current
     val menuItems = listOf(
         stringResource(id = R.string.enter_assistant),
-        stringResource(id = R.string.register_qr)
+        stringResource(id = R.string.register_qr),
+        "camara demo"
     )
 
     LaunchedEffect(Unit) {

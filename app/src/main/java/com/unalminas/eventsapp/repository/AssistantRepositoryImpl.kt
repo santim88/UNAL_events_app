@@ -30,4 +30,8 @@ class AssistantRepositoryImpl(
     override suspend fun insertAssistant(assistant: Assistant) {
         return assistantDataSource.saveAssistant(assistant)
     }
+
+    override suspend fun insertAssistantOutId(assistant: Assistant): List<Long> {
+        return assistantDataSource.insertAssistantOutId(assistant)
+    }
 }
