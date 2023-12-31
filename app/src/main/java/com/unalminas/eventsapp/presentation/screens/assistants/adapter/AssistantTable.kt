@@ -122,7 +122,7 @@ fun AssistantTable(
                         )
                     },
                     properties = DialogProperties(
-                        dismissOnBackPress = false,
+                        dismissOnBackPress = true,
                         dismissOnClickOutside = true
                     )
                 )

@@ -19,11 +19,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.unalminas.eventsapp.R
 
-
 @Composable
 fun InfoDialogContent(
-/*    @StringRes title: Int = R.string.delete,*/
-    @StringRes title: Int,
+    @StringRes title: Int = R.string.delete,
+//    @StringRes title: Int,
     modifier: Modifier = Modifier,
     onDeleteClick: () -> Unit = {},//debo meterle tira
     onCancel: () -> Unit = {}
