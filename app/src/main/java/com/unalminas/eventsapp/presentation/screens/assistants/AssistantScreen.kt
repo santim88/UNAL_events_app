@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -42,11 +40,9 @@ fun AssistantScreen(
     id: Int? = null
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
-    val context = LocalContext.current
     val menuItems = listOf(
         stringResource(id = R.string.enter_assistant),
         stringResource(id = R.string.register_qr),
-        "camara demo"
     )
 
     LaunchedEffect(Unit) {
@@ -80,13 +76,10 @@ fun AssistantScreen(
                 }
             )
             IndicatorEventBox(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(Color.LightGray)
-                    .fillMaxWidth(),
+                navController = navController,
                 event = eventCurrent
             )
+
             Text(
                 modifier = Modifier.padding(vertical = 16.dp),
                 text = stringResource(id = R.string.dialog_state_format, itemCount),
@@ -102,7 +95,6 @@ fun AssistantScreen(
             isMenuExpanded = isMenuExpanded,
             onMenuExpandedChanged = { isMenuExpanded = it },
             menuItems = menuItems,
-            context = context,
             navController = navController,
             eventId = id
         )

@@ -22,7 +22,7 @@ class AssistantDataSourceImp @Inject constructor(
         assistantDao.deleteAssistantById(assistantId)
     }
 
-    override suspend fun updateAssistantById(assistant: Assistant) {
+    override suspend fun updateAssistant(assistant: Assistant) {
        assistantDao.update(assistant.toAssistantEntity())
     }
 
