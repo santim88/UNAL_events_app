@@ -22,7 +22,6 @@ fun BottomFloatingDropMenu(
     isMenuExpanded: Boolean,
     onMenuExpandedChanged: (Boolean) -> Unit,
     menuItems: List<String>,
-    context: Context,
     navController: NavHostController,
     eventId: Int?
 ) {
@@ -57,11 +56,6 @@ fun BottomFloatingDropMenu(
 
                         if (item == menuItems[1]) {
                             val screen = Screen.CreateAssistantPdf417(eventId.toString())
-                            navController.navigate(screen.createRoute())
-                        }
-
-                        if (item == menuItems[2]) {
-                            val screen = Screen.CreateAssistantCameraScreen(eventId.toString())
                             navController.navigate(screen.createRoute())
                         }
                     }

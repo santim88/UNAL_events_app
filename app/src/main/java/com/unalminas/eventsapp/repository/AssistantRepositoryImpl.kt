@@ -24,7 +24,7 @@ class AssistantRepositoryImpl(
     }
 
     override suspend fun updateAssistant(assistant: Assistant) {
-        return assistantDataSource.updateAssistantById(assistant)
+        return assistantDataSource.updateAssistant(assistant)
     }
 
     override suspend fun insertAssistant(assistant: Assistant) {

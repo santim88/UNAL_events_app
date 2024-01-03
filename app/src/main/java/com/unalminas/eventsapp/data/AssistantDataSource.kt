@@ -8,7 +8,7 @@ interface AssistantDataSource {
 
     suspend fun deleteAssistantById(assistantId: Int)
 
-    suspend fun updateAssistantById(assistant: Assistant)
+    suspend fun updateAssistant(assistant: Assistant)
 
     suspend fun getAssistantById(id: Int): Assistant
 

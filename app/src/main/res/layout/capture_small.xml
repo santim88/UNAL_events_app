@@ -35,22 +35,18 @@
         android:layout_marginRight="185dp"
         android:layout_marginBottom="16dp"
         app:zxing_preview_scaling_strategy="fitXY"
-        app:zxing_use_texture_view="true" />
+        app:zxing_use_texture_view="true">
 
-    <View
-        android:id="@+id/barcodeBorder"
-        android:layout_width="wrap_content"
-        android:layout_height="220dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="197dp"
-        android:layout_marginTop="170dp"
-        android:layout_marginRight="197dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/border_red" />
+        <View
+            android:id="@+id/barcodeBorder"
+            android:layout_width="wrap_content"
+            android:layout_height="220dp"
+            android:layout_marginLeft="197dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginRight="197dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/border_red" />
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
 
     <ImageButton
         android:id="@+id/backButton"
