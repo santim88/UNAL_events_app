@@ -26,7 +26,7 @@ class AssistantMockDataSourceImpl : AssistantDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateAssistantById(assistant: Assistant) {
+    override suspend fun updateAssistant(assistant: Assistant) {
         TODO("Not yet implemented")
     }
 

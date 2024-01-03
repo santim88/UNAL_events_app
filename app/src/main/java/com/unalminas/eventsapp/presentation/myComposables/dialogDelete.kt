@@ -17,15 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.unalminas.eventsapp.R
+import com.unalminas.eventsapp.presentation.screens.events.EventsViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 fun InfoDialogContent(
-    @StringRes title: Int = R.string.delete,
-//    @StringRes title: Int,
+    @StringRes title: Int,
     modifier: Modifier = Modifier,
-    onDeleteClick: () -> Unit = {},//debo meterle tira
-    onCancel: () -> Unit = {}
+    onDeleteClick: () -> Unit = {},
+    onCancel: () -> Unit = {},
 ) {
     Card(
         modifier = modifier
