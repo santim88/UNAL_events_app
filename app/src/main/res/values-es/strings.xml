@@ -31,5 +31,6 @@
 
     <string name="enter_assistant">Añadir asistente</string>
     <string name="register_qr">Registrar Qr</string>
+    <string name="settings">Configuración</string>
 
 </resources>

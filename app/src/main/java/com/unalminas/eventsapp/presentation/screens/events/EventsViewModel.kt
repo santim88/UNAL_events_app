@@ -32,6 +32,10 @@ class EventsViewModel @Inject constructor(
         }
     }
 
+    fun getEventListSize(): Int {
+        return _eventListState.value.size
+    }
+
     fun deleteEventById(id: Int ) {
         viewModelScope.launch(Dispatchers.IO) {
             eventRepository.deleteEventById(id)

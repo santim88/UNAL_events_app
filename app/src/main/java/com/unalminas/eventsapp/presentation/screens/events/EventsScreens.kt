@@ -32,6 +32,7 @@ import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.myComposables.InfoDialogContent
+import com.unalminas.eventsapp.presentation.myComposables.ScaffoldBarUse
 import com.unalminas.eventsapp.presentation.screens.events.adapter.CardEvent
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
@@ -57,11 +58,23 @@ fun EventScreenContent(
 
     val eventListState by viewModel.eventListState.collectAsState(emptyList())
 
+    ScaffoldBarUse(navController = navController, isEventList = true, allowsItemBar = 1) {
+        EventScreenContentSimplify(navController, eventListState, paddingValues = it)
+    }
+}
+
+
+@Composable
+fun EventScreenContentSimplify(
+    navController: NavHostController,
+    eventListState: List<Event>,
+    viewModel: EventsViewModel = hiltViewModel(),
+    paddingValues: PaddingValues,
+) {
     var dialogState by rememberSaveable { mutableStateOf(false) }
+    var currentEvent = Event()
 
-    var currentEvent = Event() //remember
-
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
         EventsList(
             onSwipe = { event ->
                 currentEvent = event
@@ -77,16 +90,6 @@ fun EventScreenContent(
                 navController.navigate(screen.createRoute())
             }
         )
-        FloatingActionButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(20.dp),
-            onClick = {
-                navController.navigate(Screen.CreateEventScreen.route)
-            },
-        ) {
-            Icon(Icons.Filled.Add, "Floating action button.")
-        }
     }
     if (dialogState) {
         InfoDialogContent(
@@ -94,8 +97,7 @@ fun EventScreenContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .height(15.dp)
-            ,
+                .height(15.dp),
             onDeleteClick = { viewModel.deleteEventById(currentEvent.id) },
             onCancel = { dialogState = false }
         )
