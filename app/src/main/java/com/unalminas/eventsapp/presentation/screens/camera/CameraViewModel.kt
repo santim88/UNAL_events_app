@@ -17,21 +17,35 @@ import javax.inject.Inject
 class CameraViewModel @Inject constructor(
     private val imageRepository: ImageRepository
 ) : ViewModel() {
-    private val _bitmaps = MutableStateFlow<List<Bitmap>>(emptyList())
-    val bitmaps = _bitmaps.asStateFlow()
+    private val _allBitmaps = MutableStateFlow<List<Bitmap>>(emptyList())
+    val allBitmaps = _allBitmaps.asStateFlow()
+
+    private val _bitmapsByEvent = MutableStateFlow<List<Bitmap>>(emptyList())
+    val bitmapsByEvent = _bitmapsByEvent.asStateFlow()
+
+
 
     suspend fun saveImage(image: Image) {
         viewModelScope.launch(Dispatchers.IO) {
             imageRepository.insertImage(image)
             val bitmap = BitmapFactory.decodeByteArray(image.imageByteArray, 0, image.imageByteArray.size)
-            _bitmaps.value += bitmap
+            _bitmapsByEvent.value += bitmap
         }
     }
 
     suspend fun getImagesList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _bitmaps.value = imageRepository.getImagesList().map {
+            _allBitmaps.value = imageRepository.getImagesList().map {
                 BitmapFactory.decodeByteArray(it.imageByteArray, 0, it.imageByteArray.size)
+            }
+        }
+    }
+
+    suspend fun getImagesListByEventId(eventId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _bitmapsByEvent.value = imageRepository.getImagesByEventID(eventId).map {
+                BitmapFactory.decodeByteArray(it.imageByteArray, 0, it.imageByteArray.size)
+
             }
         }
     }
@@ -41,6 +55,11 @@ class CameraViewModel @Inject constructor(
             imageRepository.deleteAllImages()
         }
     }
+//    suspend fun deleteImageById(id: Int){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            imageRepository.deleteImageByIt(id)
+//        }
+//    }
 
     suspend fun getImageById(id: Int): Image {
         return imageRepository.getImageById(id)

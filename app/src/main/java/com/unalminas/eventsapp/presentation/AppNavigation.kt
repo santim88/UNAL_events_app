@@ -85,7 +85,7 @@ fun AppNavigation() {
             Screen.CreateAssistantCameraScreen("{id}").route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
-            val id = entry.arguments?.getString("id")?.toInt()
+            val id = entry.arguments?.getString("id")?.toInt() ?: -1
             CameraXGuideTheme(
                 navController = navController,
                 eventId =  id

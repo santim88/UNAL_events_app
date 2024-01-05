@@ -44,10 +44,12 @@ fun Assistant.toAssistantEntity() = AssistantEntity(
 
 fun ImageEntity.toImage() = Image(
     id = id,
+    eventId = eventId,
     imageByteArray = imageByteArray
 )
 
 fun Image.toImageEntity() = ImageEntity(
     id = id,
+    eventId = eventId,
     imageByteArray = imageByteArray
 )

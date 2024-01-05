@@ -18,7 +18,15 @@ class ImageRepositoryImpl(
         imageDataSource.saveImage(image)
     }
 
+    override suspend fun getImagesByEventID(eventId: Int): List<Image> {
+        return imageDataSource.getImagesByEventId(eventId)
+    }
+
     override suspend fun deleteAllImages() {
         imageDataSource.deleteAllImages()
+    }
+
+    override suspend fun deleteImageByIt(id: Int) {
+        imageDataSource.deleteImageById(id)
     }
 }
