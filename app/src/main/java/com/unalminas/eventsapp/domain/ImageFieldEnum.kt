@@ -5,4 +5,5 @@ enum class ImageFieldEnum (
 ){
     @Suppress("SpellCheckingInspection")
     IMAGEBYTEARRAY("description"),
+    EVENTID("eventId")
 }

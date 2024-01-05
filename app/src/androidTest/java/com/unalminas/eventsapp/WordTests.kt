@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp
 
+import android.util.Log
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.runner.AndroidJUnit4
@@ -39,11 +40,17 @@ class WordTests {
 
     @Test
     fun getAssistantsFromEvent() = runBlocking {
+        val event = EventEntity(id = 1, "Test event", "Anything", "M3", null, null)
+        eventDao.insertAll(event)
+        assert(eventDao.getEventById(1) == event)
 
-        val byteArray = byteArrayOf(1, 2, 3) // Replace this with your actual ByteArray
-        val imageEntity = ImageEntity(id = 1, imageByteArray = byteArray)
-        val assitantTest: AssistantEntity
-        eventDao.insertAll(EventEntity(id = 1, description = "hola", name = "que", place = "e", date = "fdsf", hour = "sf"))
+        val image1 = ImageEntity(10, 1, byteArrayOf(0, 0, 0))
+        val image2 = ImageEntity(11, 1, byteArrayOf(0, 0, 1))
+        imageDao.insertImage(image1)
+        imageDao.insertImage(image2)
+        val imagenesRecuperadas = imageDao.getImagesByEventId(1)
+        Log.e("test", "$imagenesRecuperadas")
+        assert(imagenesRecuperadas.size == 2)
 
     }
 

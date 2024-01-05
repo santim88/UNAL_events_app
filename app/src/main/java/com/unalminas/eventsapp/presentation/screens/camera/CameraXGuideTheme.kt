@@ -9,7 +9,6 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
 import androidx.camera.view.CameraController
 import androidx.camera.view.LifecycleCameraController
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -19,12 +18,15 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Photo
+import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -33,15 +35,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.material.icons.filled.Photo
-import androidx.compose.material.icons.filled.PhotoCamera
-import androidx.compose.runtime.LaunchedEffect
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.unalminas.eventsapp.domain.Image
-import com.unalminas.eventsapp.framework.db.entity.ImageEntity
-import com.unalminas.eventsapp.presentation.ui.LoadingSpinner
 import com.unalminas.eventsapp.presentation.ui.theme.PokedexTheme
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -52,7 +49,7 @@ import java.io.ByteArrayOutputStream
 fun CameraXGuideTheme(
     viewModel: CameraViewModel = hiltViewModel(),
     navController: NavController,
-    eventId: Int?
+    eventId: Int
 ) {
     PokedexTheme {
         val context = LocalContext.current
@@ -68,18 +65,19 @@ fun CameraXGuideTheme(
         }
 
         LaunchedEffect(Unit) {
-            viewModel.getImagesList()
-       /*     viewModel.deleteAllImages()*/
+//            viewModel.getImagesList()
+            viewModel.getImagesListByEventId(eventId)
+            /*     viewModel.deleteAllImages()*/
         }
 
-        val bitmaps by viewModel.bitmaps.collectAsState()
+        val bitmapsByEvent by viewModel.bitmapsByEvent.collectAsState()
 
         BottomSheetScaffold(
             scaffoldState = scaffoldState,
             sheetPeekHeight = 0.dp,
             sheetContent = {
                 PhotoBottomSheetContent(
-                    bitmaps = bitmaps,
+                    bitmaps = bitmapsByEvent,
                     modifier = Modifier
                         .fillMaxWidth()
                 )
@@ -132,7 +130,7 @@ fun CameraXGuideTheme(
                         onClick = {
                             takePhoto(
                                 controller = controller,
-                           /*     onPhotoTaken = viewModel::onTakePhoto,*/
+                                eventId = eventId,
                                 context = context.applicationContext,
                                 viewModel = viewModel
                             )
@@ -151,7 +149,7 @@ fun CameraXGuideTheme(
 
 private fun takePhoto(
     controller: LifecycleCameraController,
-/*    onPhotoTaken: (Bitmap) -> Unit,*/
+    eventId: Int,
     context: Context,
     viewModel: CameraViewModel
 ) {
@@ -173,8 +171,8 @@ private fun takePhoto(
                     matrix,
                     true
                 )
-                saveBitmapToDatabase(rotatedBitmap, viewModel)
-/*                onPhotoTaken(rotatedBitmap)*/
+                saveBitmapToDatabase(rotatedBitmap, viewModel, eventId)
+                /*                onPhotoTaken(rotatedBitmap)*/
             }
 
             override fun onError(exception: ImageCaptureException) {
@@ -185,14 +183,14 @@ private fun takePhoto(
     )
 }
 
-private fun saveBitmapToDatabase(rotatedBitmap: Bitmap, viewModel: CameraViewModel) {
+private fun saveBitmapToDatabase(rotatedBitmap: Bitmap, viewModel: CameraViewModel, eventId: Int) {
     val outputStream = ByteArrayOutputStream()
     rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream)
     val byteArray: ByteArray = outputStream.toByteArray()
 
-    val imageInByArray = Image(imageByteArray = byteArray)
+    val imageInByArray = Image(imageByteArray = byteArray, eventId = eventId)
 
-    Log.e("ImageEntity Value", imageInByArray.toString())
+    Log.e("ImageEntity Value", "$imageInByArray $eventId")
     runBlocking {
         viewModel.saveImage(imageInByArray)
     }
