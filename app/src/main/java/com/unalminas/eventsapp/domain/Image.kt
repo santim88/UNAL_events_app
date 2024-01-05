@@ -2,6 +2,7 @@ package com.unalminas.eventsapp.domain
 
 data class Image(
     val id: Int = System.currentTimeMillis().hashCode(),
+    val eventId: Int = 0,
     val imageByteArray: ByteArray = byteArrayOf(0, 0, 0)
 ) {
     override fun equals(other: Any?): Boolean {

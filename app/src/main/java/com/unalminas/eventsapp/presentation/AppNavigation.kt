@@ -1,8 +1,11 @@
 package com.unalminas.eventsapp.presentation
 
+import android.content.Intent
+import android.view.LayoutInflater
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,14 +14,16 @@ import androidx.navigation.navArgument
 import com.unalminas.eventsapp.presentation.screens.camera.CameraXGuideTheme
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.FormAssistant
+import com.unalminas.eventsapp.presentation.screens.calendar.CalendarScreen
 import com.unalminas.eventsapp.presentation.screens.main.MainScreen
 import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
 import com.unalminas.eventsapp.presentation.screens.scanPdf417.MainScreenPdf417
+import com.unalminas.eventsapp.presentation.screens.settings.SettingsScreen
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-
+    val context = LocalContext.current
     NavHost(
         modifier = Modifier.fillMaxSize(),
         navController = navController,
@@ -85,7 +90,7 @@ fun AppNavigation() {
             Screen.CreateAssistantCameraScreen("{id}").route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
-            val id = entry.arguments?.getString("id")?.toInt()
+            val id = entry.arguments?.getString("id")?.toInt() ?: -1
             CameraXGuideTheme(
                 navController = navController,
                 eventId =  id
@@ -102,5 +107,21 @@ fun AppNavigation() {
                 eventId =  id
             )
         }
+
+        composable(Screen.SettingsScreen.route) {
+            SettingsScreen(navController)
+        }
+
+      /*  composable("calendar") {
+            LaunchedEffect(Unit) {
+                val intent = Intent(context, CalendarActivity::class.java)
+                context.startActivity(intent)
+            }
+        }*/
+        composable("calendar") {
+            CalendarScreen(navController)
+        }
     }
 }
+
+

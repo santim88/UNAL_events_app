@@ -17,6 +17,12 @@ interface ImageDao {
     @Query("SELECT * FROM images")
     fun getAll(): List<ImageEntity>
 
-    @Query("DELETE FROM Images")
+    @Query("SELECT * FROM images WHERE eventId = :eventId")
+    fun getImagesByEventId(eventId: Int): List<ImageEntity>
+
+    @Query("DELETE FROM images")
     suspend fun deleteAllImages()
+
+    @Query("DELETE FROM images WHERE id= :id")
+    suspend fun deleteImageById(id: Int)
 }
