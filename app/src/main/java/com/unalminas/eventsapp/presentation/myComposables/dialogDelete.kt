@@ -22,7 +22,6 @@ import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.presentation.screens.events.EventsViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 
-
 @Composable
 fun InfoDialogContent(
     @StringRes title: Int,
