@@ -9,9 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -44,24 +40,13 @@ fun EventsScreens(
     eventViewModel: EventsViewModel = hiltViewModel()
 ) {
 
+    val eventListState by eventViewModel.eventListState.collectAsState(emptyList())
+
     LaunchedEffect(Unit) {
         eventViewModel.getEventList()
     }
 
-    EventScreenContent(navController, eventViewModel)
-}
-
-@Composable
-fun EventScreenContent(
-    navController: NavHostController,
-    viewModel: EventsViewModel = hiltViewModel()
-) {
-
-    val eventListState by viewModel.eventListState.collectAsState(emptyList())
-
-    ScaffoldBarUse(navController = navController, isEventList = true, allowsItemBar = 1) {
-        EventScreenContentSimplify(navController, eventListState, paddingValues = it)
-    }
+    EventScreenContentSimplify(navController, eventListState)
 }
 
 
@@ -69,13 +54,14 @@ fun EventScreenContent(
 fun EventScreenContentSimplify(
     navController: NavHostController,
     eventListState: List<Event>,
-    viewModel: EventsViewModel = hiltViewModel(),
-    paddingValues: PaddingValues,
+    viewModel: EventsViewModel = hiltViewModel()
 ) {
     var dialogState by rememberSaveable { mutableStateOf(false) }
     var currentEvent = Event()
 
-    Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         EventsList(
             onSwipe = { event ->
                 currentEvent = event
@@ -160,5 +146,3 @@ fun EventsList(
         }
     }
 }
-
-

@@ -8,11 +8,5 @@ import com.unalminas.eventsapp.presentation.screens.events.EventsScreens
 fun MainScreen(
     navController: NavHostController,
 ) {
-
-    MainContentScreen { EventsScreens(navController) }
-}
-
-@Composable
-fun MainContentScreen(content: @Composable () -> Unit = {}) {
-    content()
+    EventsScreens(navController)
 }

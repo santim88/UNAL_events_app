@@ -17,10 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.unalminas.eventsapp.R
-import com.unalminas.eventsapp.presentation.screens.events.EventsViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 fun InfoDialogContent(

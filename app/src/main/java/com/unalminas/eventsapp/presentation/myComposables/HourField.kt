@@ -1,7 +1,6 @@
 package com.unalminas.eventsapp.presentation.myComposables
 
 import android.app.TimePickerDialog
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -74,7 +73,8 @@ fun HourField(
                             modifier = Modifier.size(26.dp)
                         )
                     }
-                })
+                }
+            )
         }
     }
 }

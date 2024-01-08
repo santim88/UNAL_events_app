@@ -56,7 +56,7 @@ fun FormEventScreen(
             title = stringResource(id = if (isNewEvent) R.string.create_event else R.string.edit_event),
             showBackButton = true,
             onBackButtonClick = {
-                navController.navigate(Screen.MainScreen.route)
+                navController.navigate(Screen.HomeScreen.MainScreen.route)
             }
         )
 
@@ -170,7 +170,7 @@ fun FormEventScreen(
 
                         CoroutineScope(Dispatchers.IO).launch {
                             withContext(Dispatchers.Main) {
-                                navController.navigate(Screen.MainScreen.route)
+                                navController.navigate(Screen.HomeScreen.MainScreen.route)
                             }
                         }
                     },

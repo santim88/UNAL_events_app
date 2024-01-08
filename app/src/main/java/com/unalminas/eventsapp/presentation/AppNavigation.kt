@@ -1,36 +1,42 @@
 package com.unalminas.eventsapp.presentation
 
-import android.content.Intent
-import android.view.LayoutInflater
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.unalminas.eventsapp.presentation.screens.camera.CameraXGuideTheme
+import com.unalminas.eventsapp.presentation.myComposables.ScaffoldBarUse
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.FormAssistant
 import com.unalminas.eventsapp.presentation.screens.calendar.CalendarScreen
-import com.unalminas.eventsapp.presentation.screens.main.MainScreen
+import com.unalminas.eventsapp.presentation.screens.camera.CameraXGuideTheme
 import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
+import com.unalminas.eventsapp.presentation.screens.main.MainScreen
 import com.unalminas.eventsapp.presentation.screens.scanPdf417.MainScreenPdf417
 import com.unalminas.eventsapp.presentation.screens.settings.SettingsScreen
+import kotlinx.coroutines.delay
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-    val context = LocalContext.current
+
     NavHost(
         modifier = Modifier.fillMaxSize(),
         navController = navController,
-        startDestination = Screen.MainScreen.route
+        startDestination = Screen.SplashScreen.route
     ) {
-        composable(Screen.MainScreen.route) {
-            MainScreen(navController)
+
+        composable(Screen.SplashScreen.route) {
+            LaunchedEffect(Unit) {
+                delay(100)
+                navController.navigate(Screen.HomeScreen.MainScreen.route)
+            }
         }
 
         composable(Screen.CreateEventScreen.route) {
@@ -46,7 +52,7 @@ fun AppNavigation() {
                 navController = navController,
                 id = null,
                 isNewAssistant = true,
-                eventId =  eventId
+                eventId = eventId
             )
         }
 
@@ -82,7 +88,7 @@ fun AppNavigation() {
                 navController = navController,
                 id = id,
                 isNewAssistant = false,
-                eventId =  null
+                eventId = null
             )
         }
 
@@ -93,7 +99,7 @@ fun AppNavigation() {
             val id = entry.arguments?.getString("id")?.toInt() ?: -1
             CameraXGuideTheme(
                 navController = navController,
-                eventId =  id
+                eventId = id
             )
         }
 
@@ -104,24 +110,63 @@ fun AppNavigation() {
             val id = entry.arguments?.getString("id")?.toInt()
             MainScreenPdf417(
                 navController = navController,
-                eventId =  id
+                eventId = id
             )
         }
 
-        composable(Screen.SettingsScreen.route) {
-            SettingsScreen(navController)
-        }
+        composable(
+            Screen.HomeScreen.TemplateRoute.route,
+            arguments = listOf(navArgument("sub_section") { type = NavType.StringType })
+        ) {
+            val subSection = it.arguments?.getString("sub_section")
 
-      /*  composable("calendar") {
-            LaunchedEffect(Unit) {
-                val intent = Intent(context, CalendarActivity::class.java)
-                context.startActivity(intent)
-            }
-        }*/
-        composable("calendar") {
-            CalendarScreen(navController)
+            val subRoute = subSection?.let {
+                Screen.HomeScreen.TemplateRoute.route.replace("{sub_section}", subSection)
+            } ?: Screen.HomeScreen.MainScreen.route
+
+            HomeMainScreen(subRoute)
         }
     }
 }
 
+@Composable
+fun HomeMainScreen(
+    subSection: String = Screen.HomeScreen.MainScreen.route
+) {
+    val navBottomController = rememberNavController()
 
+    LaunchedEffect(subSection) {
+        delay(100)
+        navBottomController.navigate(subSection)
+    }
+
+    ScaffoldBarUse(
+        navController = navBottomController,
+        allowsItemBar = 1,
+        onNavSectionSelected = { index, bottomNavigationItem ->
+            navBottomController.navigate(bottomNavigationItem.route)
+        }
+    ) {
+        NavHost(
+            modifier = Modifier.fillMaxSize(),
+            navController = navBottomController,
+            startDestination = Screen.HomeScreen.MainScreen.route
+        ) {
+            composable(Screen.HomeScreen.MainScreen.route) {
+                MainScreen(navBottomController)
+            }
+
+            composable(Screen.HomeScreen.SettingsScreen.route) {
+                SettingsScreen(navBottomController)
+            }
+
+            composable(Screen.HomeScreen.CalendarScreen.route) {
+                CalendarScreen(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(8.dp)
+                )
+            }
+        }
+    }
+}
