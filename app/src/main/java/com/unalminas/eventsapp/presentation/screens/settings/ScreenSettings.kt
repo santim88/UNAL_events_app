@@ -17,7 +17,7 @@ fun SettingsScreen(
             title = stringResource(id = R.string.settings),
             showBackButton = true,
             onBackButtonClick = {
-                navController.navigate(Screen.MainScreen.route)
+                navController.navigate(Screen.HomeScreen.MainScreen.route)
             }
         )
     }

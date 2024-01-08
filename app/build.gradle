@@ -67,7 +67,7 @@ dependencies {
 
     implementation("androidx.compose.material:material-icons-extended:1.5.1")
 
-    implementation("androidx.navigation:navigation-compose:2.7.0")
+    implementation("androidx.navigation:navigation-compose:2.7.6")
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0' // Retrofit library
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0" // Moshi converter for Retrofit

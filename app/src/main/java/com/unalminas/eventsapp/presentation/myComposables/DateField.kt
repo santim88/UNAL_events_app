@@ -57,9 +57,12 @@ fun DateField(
         singleLine = true,
         modifier = Modifier.fillMaxWidth(),
         trailingIcon = {
-            IconButton(modifier = Modifier, onClick = {
-                myDatePickerDialog.show()
-            }) {
+            IconButton(
+                modifier = Modifier,
+                onClick = {
+                    myDatePickerDialog.show()
+                }
+            ) {
                 Image(
                     painterResource(R.drawable.baseline_calendar_today_24),
                     contentDescription = "edit event",

@@ -4,6 +4,7 @@ package com.unalminas.eventsapp.presentation.myComposables
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
@@ -50,72 +51,87 @@ fun ScaffoldBarUse(
     isEventList: Boolean = false,
     allowsItemBar: Int,
     viewModel: EventsViewModel = hiltViewModel(),
+    onNavSectionSelected: (Int, BottomNavigationItem) -> Unit = { _, _ -> },
     content: @Composable (PaddingValues) -> Unit,
 ) {
+
     val eventListState by viewModel.eventListState.collectAsState(emptyList())
 
     val quantityEvent = eventListState.size
 
-    val items = listOf(
+    val navItemList = listOf(
         BottomNavigationItem(
             title = "Calendar",
             selectedIcon = Icons.Filled.DateRange,
             unselectedIcon = Icons.Outlined.DateRange,
-            route = "calendar",
+            route = Screen.HomeScreen.CalendarScreen.route,
             hasNews = false,
         ),
         BottomNavigationItem(
             title = "List",
             selectedIcon = Icons.Filled.ListAlt,
-            route = Screen.MainScreen.route,
+            route = Screen.HomeScreen.MainScreen.route,
             unselectedIcon = Icons.Outlined.ListAlt,
             hasNews = false,
             bagCount = quantityEvent
         ),
         BottomNavigationItem(
             title = "Settings",
-            route = Screen.SettingsScreen.route,
+            route = Screen.HomeScreen.SettingsScreen.route,
             selectedIcon = Icons.Filled.Settings,
             unselectedIcon = Icons.Outlined.Settings,
             hasNews = true,
         )
     )
+
     var selectedItemIndex by rememberSaveable {
         mutableIntStateOf(allowsItemBar)
     }
+
     Scaffold(
         bottomBar = {
             NavigationBar {
-                items.forEachIndexed { index, bottomNavigationItem ->
-                    NavigationBarItem(
-                        selected = selectedItemIndex == index,
-                        onClick = {
-                            selectedItemIndex = index
-                            navController.navigate(bottomNavigationItem.route)
-                        },
-                        label = {
-                            Text(text = bottomNavigationItem.title)
-                        },
-                        icon = {
-                            BadgedBox(
-                                badge = {
-                                    if (bottomNavigationItem.bagCount != null) {
-                                        Badge {
-                                            Text(text = bottomNavigationItem.bagCount.toString())
-                                        }
-                                    } else if (bottomNavigationItem.hasNews) {
-                                        Badge()
-                                    }
-                                }
-                            ) {
-                                Icon(
-                                    imageVector = if (index == selectedItemIndex) {
-                                        bottomNavigationItem.selectedIcon
-                                    } else bottomNavigationItem.unselectedIcon,
-                                    contentDescription = bottomNavigationItem.title
-                                )
-                            }
-                        })
+                navItemList.forEachIndexed { index, bottomNavigationItem ->
+                    NavItem(
+                        selectedItemIndex = selectedItemIndex,
+                        index = index,
+                        bottomNavigationItem = bottomNavigationItem
+                    ) {
+                        onNavSectionSelected(index, bottomNavigationItem)
+                        selectedItemIndex = index
+//                        navController.navigate(bottomNavigationItem.route)
+                    }
+
+//                    NavigationBarItem(
+//                        selected = selectedItemIndex == index,
+//                        onClick = {
+//                            selectedItemIndex = index
+//                            navController.navigate(bottomNavigationItem.route)
+//                        },
+//                        label = {
+//                            Text(text = bottomNavigationItem.title)
+//                        },
+//                        icon = {
+//                            BadgedBox(
+//                                badge = {
+//                                    if (bottomNavigationItem.bagCount != null) {
+//                                        Badge {
+//                                            Text(text = bottomNavigationItem.bagCount.toString())
+//                                        }
+//                                    } else if (bottomNavigationItem.hasNews) {
+//                                        Badge()
+//                                    }
+//                                }
+//                            ) {
+//                                Icon(
+//                                    imageVector = if (index == selectedItemIndex) {
+//                                        bottomNavigationItem.selectedIcon
+//                                    } else bottomNavigationItem.unselectedIcon,
+//                                    contentDescription = bottomNavigationItem.title
+//                                )
+//                            }
+//                        }
+//                    )
                 }
             }
         },
@@ -134,4 +150,44 @@ fun ScaffoldBarUse(
     ) {
         content(it)
     }
+}
+
+@Composable
+fun RowScope.NavItem(
+    selectedItemIndex: Int,
+    index: Int,
+    bottomNavigationItem: BottomNavigationItem,
+    onItemClick: () -> Unit = {}
+) {
+    NavigationBarItem(
+        selected = selectedItemIndex == index,
+        onClick = onItemClick,
+//        {
+//            selectedItemIndex = index
+//            navController.navigate(bottomNavigationItem.route)
+//        }
+        label = {
+            Text(text = bottomNavigationItem.title)
+        },
+        icon = {
+            BadgedBox(
+                badge = {
+                    if (bottomNavigationItem.bagCount != null) {
+                        Badge {
+                            Text(text = bottomNavigationItem.bagCount.toString())
+                        }
+                    } else if (bottomNavigationItem.hasNews) {
+                        Badge()
+                    }
+                }
+            ) {
+                Icon(
+                    imageVector = if (index == selectedItemIndex) {
+                        bottomNavigationItem.selectedIcon
+                    } else bottomNavigationItem.unselectedIcon,
+                    contentDescription = bottomNavigationItem.title
+                )
+            }
+        }
+    )
 }
