@@ -46,9 +46,7 @@ fun EventsScreens(
         eventViewModel.getEventList()
     }
 
-//    ScaffoldBarUse(navController = navController, isEventList = true, allowsItemBar = 1) {
     EventScreenContentSimplify(navController, eventListState)
-//    }
 }
 
 
@@ -148,5 +146,3 @@ fun EventsList(
         }
     }
 }
-
-

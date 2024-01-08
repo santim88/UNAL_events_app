@@ -34,7 +34,6 @@ import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.screens.events.EventsViewModel
 
-
 data class BottomNavigationItem(
     val title: String,
     val route: String,
@@ -99,39 +98,7 @@ fun ScaffoldBarUse(
                     ) {
                         onNavSectionSelected(index, bottomNavigationItem)
                         selectedItemIndex = index
-//                        navController.navigate(bottomNavigationItem.route)
                     }
-
-//                    NavigationBarItem(
-//                        selected = selectedItemIndex == index,
-//                        onClick = {
-//                            selectedItemIndex = index
-//                            navController.navigate(bottomNavigationItem.route)
-//                        },
-//                        label = {
-//                            Text(text = bottomNavigationItem.title)
-//                        },
-//                        icon = {
-//                            BadgedBox(
-//                                badge = {
-//                                    if (bottomNavigationItem.bagCount != null) {
-//                                        Badge {
-//                                            Text(text = bottomNavigationItem.bagCount.toString())
-//                                        }
-//                                    } else if (bottomNavigationItem.hasNews) {
-//                                        Badge()
-//                                    }
-//                                }
-//                            ) {
-//                                Icon(
-//                                    imageVector = if (index == selectedItemIndex) {
-//                                        bottomNavigationItem.selectedIcon
-//                                    } else bottomNavigationItem.unselectedIcon,
-//                                    contentDescription = bottomNavigationItem.title
-//                                )
-//                            }
-//                        }
-//                    )
                 }
             }
         },
@@ -162,10 +129,6 @@ fun RowScope.NavItem(
     NavigationBarItem(
         selected = selectedItemIndex == index,
         onClick = onItemClick,
-//        {
-//            selectedItemIndex = index
-//            navController.navigate(bottomNavigationItem.route)
-//        }
         label = {
             Text(text = bottomNavigationItem.title)
         },
