@@ -24,15 +24,12 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.presentation.Screen
-import com.unalminas.eventsapp.presentation.screens.events.EventsViewModel
 
 data class BottomNavigationItem(
     val title: String,
@@ -45,18 +42,13 @@ data class BottomNavigationItem(
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ScaffoldBarUse(
+fun ScaffoldMainScreen(
     navController: NavHostController,
-    isEventList: Boolean = false,
+    showFloatingButton: Boolean = false,
     allowsItemBar: Int,
-    viewModel: EventsViewModel = hiltViewModel(),
     onNavSectionSelected: (Int, BottomNavigationItem) -> Unit = { _, _ -> },
     content: @Composable (PaddingValues) -> Unit,
 ) {
-
-    val eventListState by viewModel.eventListState.collectAsState(emptyList())
-
-    val quantityEvent = eventListState.size
 
     val navItemList = listOf(
         BottomNavigationItem(
@@ -69,10 +61,9 @@ fun ScaffoldBarUse(
         BottomNavigationItem(
             title = "List",
             selectedIcon = Icons.Filled.ListAlt,
-            route = Screen.HomeScreen.MainScreen.route,
+            route = Screen.HomeScreen.EventsRoute.route,
             unselectedIcon = Icons.Outlined.ListAlt,
             hasNews = false,
-            bagCount = quantityEvent
         ),
         BottomNavigationItem(
             title = "Settings",
@@ -103,7 +94,7 @@ fun ScaffoldBarUse(
             }
         },
         floatingActionButton = {
-            if (isEventList) {
+            if (showFloatingButton) {
                 FloatingActionButton(
                     onClick = {
                         navController.navigate(Screen.CreateEventScreen.route)

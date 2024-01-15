@@ -5,7 +5,7 @@ sealed class Screen(val route: String) {
     object CreateEventScreen : Screen("CreateEventScreen")
     sealed class HomeScreen(subRoute: String) : Screen("HomeScreen/${subRoute}") {
         object TemplateRoute : HomeScreen("{sub_section}")
-        object MainScreen : HomeScreen("MainScreen")
+        object EventsRoute : HomeScreen("MainScreen")
         object SettingsScreen : HomeScreen("SettingsScreen")
         object CalendarScreen : HomeScreen("CalendarScreen")
     }

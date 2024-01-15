@@ -1,23 +1,26 @@
 package com.unalminas.eventsapp.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.unalminas.eventsapp.presentation.myComposables.ScaffoldBarUse
+import com.unalminas.eventsapp.presentation.myComposables.ScaffoldMainScreen
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.FormAssistant
 import com.unalminas.eventsapp.presentation.screens.calendar.CalendarScreen
 import com.unalminas.eventsapp.presentation.screens.camera.CameraXGuideTheme
+import com.unalminas.eventsapp.presentation.screens.events.EventsScreens
 import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
-import com.unalminas.eventsapp.presentation.screens.main.MainScreen
 import com.unalminas.eventsapp.presentation.screens.scanPdf417.MainScreenPdf417
 import com.unalminas.eventsapp.presentation.screens.settings.SettingsScreen
 import kotlinx.coroutines.delay
@@ -35,7 +38,7 @@ fun AppNavigation() {
         composable(Screen.SplashScreen.route) {
             LaunchedEffect(Unit) {
                 delay(100)
-                navController.navigate(Screen.HomeScreen.MainScreen.route)
+                navController.navigate(Screen.HomeScreen.EventsRoute.route)
             }
         }
 
@@ -118,31 +121,26 @@ fun AppNavigation() {
             Screen.HomeScreen.TemplateRoute.route,
             arguments = listOf(navArgument("sub_section") { type = NavType.StringType })
         ) {
-            val subSection = it.arguments?.getString("sub_section")
-
-            val subRoute = subSection?.let {
-                Screen.HomeScreen.TemplateRoute.route.replace("{sub_section}", subSection)
-            } ?: Screen.HomeScreen.MainScreen.route
-
-            HomeMainScreen(subRoute)
+            val bottomNavController = rememberNavController()
+            HomeMainScreen(
+                navController,
+                bottomNavController
+            )
         }
     }
 }
 
 @Composable
 fun HomeMainScreen(
-    subSection: String = Screen.HomeScreen.MainScreen.route
+    navController: NavHostController,
+    navBottomController: NavHostController
 ) {
-    val navBottomController = rememberNavController()
+    var showFloatingButton by remember { mutableStateOf(false) }
 
-    LaunchedEffect(subSection) {
-        delay(100)
-        navBottomController.navigate(subSection)
-    }
-
-    ScaffoldBarUse(
-        navController = navBottomController,
+    ScaffoldMainScreen(
+        navController = navController,
         allowsItemBar = 1,
+        showFloatingButton = showFloatingButton,
         onNavSectionSelected = { index, bottomNavigationItem ->
             navBottomController.navigate(bottomNavigationItem.route)
         }
@@ -150,21 +148,29 @@ fun HomeMainScreen(
         NavHost(
             modifier = Modifier.fillMaxSize(),
             navController = navBottomController,
-            startDestination = Screen.HomeScreen.MainScreen.route
+            startDestination = Screen.HomeScreen.EventsRoute.route
         ) {
-            composable(Screen.HomeScreen.MainScreen.route) {
-                MainScreen(navBottomController)
+            composable(Screen.HomeScreen.EventsRoute.route) {
+                showFloatingButton = true
+                EventsScreens(
+                    modifier = Modifier.fillMaxSize(),
+                    navController = navController
+                )
             }
 
             composable(Screen.HomeScreen.SettingsScreen.route) {
-                SettingsScreen(navBottomController)
+                showFloatingButton = false
+                SettingsScreen(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    navController = navController
+                )
             }
 
             composable(Screen.HomeScreen.CalendarScreen.route) {
+                showFloatingButton = false
                 CalendarScreen(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(8.dp)
+                    modifier = Modifier.fillMaxSize()
                 )
             }
         }
