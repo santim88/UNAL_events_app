@@ -29,38 +29,27 @@ import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.myComposables.InfoDialogContent
-import com.unalminas.eventsapp.presentation.myComposables.ScaffoldBarUse
 import com.unalminas.eventsapp.presentation.screens.events.adapter.CardEvent
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
 @Composable
 fun EventsScreens(
+    modifier: Modifier = Modifier,
     navController: NavHostController,
     eventViewModel: EventsViewModel = hiltViewModel()
 ) {
 
     val eventListState by eventViewModel.eventListState.collectAsState(emptyList())
+    var dialogState by rememberSaveable { mutableStateOf(false) }
+    var currentEvent = Event()
 
     LaunchedEffect(Unit) {
         eventViewModel.getEventList()
     }
 
-    EventScreenContentSimplify(navController, eventListState)
-}
-
-
-@Composable
-fun EventScreenContentSimplify(
-    navController: NavHostController,
-    eventListState: List<Event>,
-    viewModel: EventsViewModel = hiltViewModel()
-) {
-    var dialogState by rememberSaveable { mutableStateOf(false) }
-    var currentEvent = Event()
-
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier
     ) {
         EventsList(
             onSwipe = { event ->
@@ -90,7 +79,7 @@ fun EventScreenContentSimplify(
                         .padding(16.dp),
                     onDeleteClick = {
                         currentEvent.id.let { nonNullId ->
-                            viewModel.deleteEventById(nonNullId)
+                            eventViewModel.deleteEventById(nonNullId)
                         }
                         dialogState = false
                     },

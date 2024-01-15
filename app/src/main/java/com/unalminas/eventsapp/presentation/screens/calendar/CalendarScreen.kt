@@ -38,71 +38,68 @@ fun CalendarScreen(
         Event(name = "evebt 3", date = "23:32"),
     )
 
-    Column(
+    LazyColumn(
         modifier = modifier
     ) {
-        CustomCalendarView(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        )
-
-        ElevatedCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Row(
+        item {
+            CustomCalendarView(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.primary)
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                ) {
-                    Text(
-                        text = "6 March",
-                        color = Color.White,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontStyle = MaterialTheme.typography.titleLarge.fontStyle,
-                    )
-                    Text(
-                        text = "THURSDAY",
-                        color = Color.White,
-                        style = MaterialTheme.typography.titleSmall
-                    )
-                }
-
-                IconButton(modifier = Modifier, onClick = {}) {
-                    Image(
-                        painterResource(R.drawable.baseline_post_add_24),
-                        contentDescription = "edit event",
-                        modifier = Modifier.size(37.dp)
-                    )
-                }
-            }
+                    .padding(8.dp)
+            )
         }
 
-        LazyColumn(
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .fillMaxSize()
-        ) {
-            items(events) { event ->
-                EventItem(
+        item {
+            ElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
-                    event = event
-                )
+                        .background(MaterialTheme.colorScheme.primary)
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                    ) {
+                        Text(
+                            text = "6 March",
+                            color = Color.White,
+                            style = MaterialTheme.typography.titleLarge,
+                            fontStyle = MaterialTheme.typography.titleLarge.fontStyle,
+                        )
+                        Text(
+                            text = "THURSDAY",
+                            color = Color.White,
+                            style = MaterialTheme.typography.titleSmall
+                        )
+                    }
+
+                    IconButton(modifier = Modifier, onClick = {}) {
+                        Image(
+                            painterResource(R.drawable.baseline_post_add_24),
+                            contentDescription = "edit event",
+                            modifier = Modifier.size(37.dp)
+                        )
+                    }
+                }
             }
         }
+
+        items(events) { event ->
+            EventItem(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                event = event
+            )
+        }
     }
-    /*       CalendarScreenContent()*/
 }
 
 @Preview
