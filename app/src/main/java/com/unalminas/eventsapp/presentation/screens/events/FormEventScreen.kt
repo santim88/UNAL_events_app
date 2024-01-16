@@ -37,9 +37,13 @@ fun FormEventScreen(
     navController: NavHostController,
     id: Int? = null,
     isNewEvent: Boolean,
+    dateEvent: String? = null,
     viewModel: FormEventViewModel = hiltViewModel()
 ) {
     val event by viewModel.eventState.collectAsState()
+    if(dateEvent != null){
+        event.date = dateEvent
+    }
 
     LaunchedEffect(isNewEvent) {
         if (!isNewEvent) id?.let {
@@ -120,23 +124,7 @@ fun FormEventScreen(
                         id = R.string.hour_event
                     )
                 )
-                /*OutlinedTextField(
-                    value = event.hour,
-                    onValueChange = { newHour ->
-                        viewModel.editEventField(EventFieldEnum.HOUR, newHour)
-                    },
-                    label = {
-                        Text(
-                            text = stringResource(
-                                id = R.string.hour_event
-                            )
-                        )
-                    },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
-                )*/
             }
-
             item {
                 OutlinedTextField(
                     value = event.place,
@@ -163,12 +151,7 @@ fun FormEventScreen(
                         } else {
                             viewModel.updateEvent(event)
                         }
-
-                        CoroutineScope(Dispatchers.IO).launch {
-                            withContext(Dispatchers.Main) {
-                                navController.navigate(Screen.HomeScreen.EventsRoute.route)
-                            }
-                        }
+                        navController.popBackStack()
                     },
                     modifier = Modifier
                         .fillMaxWidth()

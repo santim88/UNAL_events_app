@@ -3,6 +3,9 @@ package com.unalminas.eventsapp.presentation
 sealed class Screen(val route: String) {
     object SplashScreen : Screen("SplashScreen")
     object CreateEventScreen : Screen("CreateEventScreen")
+    data class CreateEventScreenWithDate(val date: String) : Screen("CreateEventScreenWithDate/{date}") {
+        fun createRoute() = "CreateEventScreenWithDate/$date"
+    }
     sealed class HomeScreen(subRoute: String) : Screen("HomeScreen/${subRoute}") {
         object TemplateRoute : HomeScreen("{sub_section}")
         object EventsRoute : HomeScreen("MainScreen")

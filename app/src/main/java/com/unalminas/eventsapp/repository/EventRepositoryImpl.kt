@@ -30,4 +30,11 @@ class EventRepositoryImpl(
     override suspend fun deleteEventById(id: Int) {
         return  eventDataSource.deleteEventById(id)
     }
+
+    override suspend fun getEventsByDate(date: String): List<Event> {
+        return eventDataSource.getEventsByDate(date)
+    }
+    override suspend fun getEventsWithAssistantCount(date: String): List<Event> {
+        return eventDataSource.getEventsWithAssistantCount(date)
+    }
 }
