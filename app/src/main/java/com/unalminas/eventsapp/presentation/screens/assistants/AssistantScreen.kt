@@ -29,7 +29,7 @@ import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.AssistantTable
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.BottomFloatingDropMenu
 import com.unalminas.eventsapp.presentation.screens.events.adapter.IndicatorEventBox
-import com.unalminas.eventsapp.presentation.ui.TopBar_Title
+import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 
 @Composable
 fun AssistantScreen(
@@ -66,7 +66,7 @@ fun AssistantScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBar_Title(
+            TopBarTitle(
                 title = stringResource(id = R.string.list_assistants),
                 showBackButton = true,
                 onBackButtonClick = {

@@ -23,7 +23,7 @@ import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.AssistantFieldEnum
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
-import com.unalminas.eventsapp.presentation.ui.TopBar_Title
+import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,7 +48,7 @@ fun FormAssistant(
     }
 
     Column {
-        TopBar_Title(
+        TopBarTitle(
             title = stringResource(id = if (isNewAssistant) R.string.create_assistant else R.string.edit_assistant),
             showBackButton = true,
             onBackButtonClick = {

@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.presentation.Screen
-import com.unalminas.eventsapp.presentation.ui.TopBar_Title
+import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 
 @Composable
 fun SettingsScreen(
@@ -18,7 +18,7 @@ fun SettingsScreen(
     Box(
         modifier = modifier
     ) {
-        TopBar_Title(
+        TopBarTitle(
             modifier = Modifier.fillMaxWidth(),
             title = stringResource(id = R.string.settings),
             showBackButton = true,
