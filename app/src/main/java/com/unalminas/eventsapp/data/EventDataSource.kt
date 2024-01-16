@@ -15,4 +15,8 @@ interface  EventDataSource {
     suspend fun updateEvent(event: Event)
 
     suspend fun getEventById(id: Int): Event
+
+    suspend fun getEventsByDate(date: String): List<Event>
+
+    suspend fun getEventsWithAssistantCount(date: String): List<Event>
 }

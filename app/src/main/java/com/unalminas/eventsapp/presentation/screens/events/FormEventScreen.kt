@@ -47,9 +47,13 @@ fun FormEventScreen(
     navController: NavHostController,
     id: Int? = null,
     isNewEvent: Boolean,
-    viewModel: FormEventViewModel = hiltViewModel(),
+    dateEvent: String? = null,
+    viewModel: FormEventViewModel = hiltViewModel()
 ) {
     val event by viewModel.eventState.collectAsState()
+    if(dateEvent != null){
+        event.date = dateEvent
+    }
 
     LaunchedEffect(isNewEvent) {
         if (!isNewEvent) id?.let {

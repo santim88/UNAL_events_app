@@ -70,7 +70,7 @@ fun AssistantScreen(
                 title = stringResource(id = R.string.list_assistants),
                 showBackButton = true,
                 onBackButtonClick = {
-                    navController.navigate(Screen.HomeScreen.EventsRoute.route)
+                    navController.popBackStack()
                 }
             )
             IndicatorEventBox(

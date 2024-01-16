@@ -36,4 +36,16 @@ class EventDataSourceImpl(
         val eventEntity = eventDao.getEventById(id)
         return eventEntity.toEvent()
     }
+
+    override suspend fun getEventsByDate(date: String): List<Event> {
+        return eventDao.getEventsByDate(date).map {
+            it.toEvent()
+        }
+    }
+
+    override suspend fun getEventsWithAssistantCount(date: String): List<Event> {
+        return eventDao.getEventsWithAssistantCount(date).map {
+            it.toEvent()
+        }
+    }
 }
