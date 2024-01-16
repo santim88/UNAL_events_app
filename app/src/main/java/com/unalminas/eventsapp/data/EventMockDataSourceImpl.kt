@@ -45,4 +45,12 @@ class EventMockDataSourceImpl : EventDataSource{
     override suspend fun getEventById(id: Int): Event {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getEventsByDate(date: String): List<Event> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getEventsWithAssistantCount(date: String): List<Event> {
+        TODO("Not yet implemented")
+    }
 }

@@ -5,6 +5,7 @@ import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.domain.Image
 import com.unalminas.eventsapp.framework.db.entity.AssistantEntity
 import com.unalminas.eventsapp.framework.db.entity.EventEntity
+import com.unalminas.eventsapp.framework.db.entity.EventWithAssistantCount
 import com.unalminas.eventsapp.framework.db.entity.ImageEntity
 
 
@@ -52,4 +53,14 @@ fun Image.toImageEntity() = ImageEntity(
     id = id,
     eventId = eventId,
     imageByteArray = imageByteArray
+)
+
+fun EventWithAssistantCount.toEvent() = Event(
+    id = event.id,
+    name = event.name ?: "",
+    description = event.description,
+    place = event.place ?: "",
+    date = event.date ?: "",
+    hour = event.hour ?: "",
+    assistantCount = quantityAssistants
 )

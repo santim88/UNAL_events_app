@@ -38,7 +38,7 @@ fun DateField(
     val myDatePickerDialog = DatePickerDialog(
         LocalContext.current,
         { _, year: Int, month: Int, day: Int ->
-            fecha = "$day/${month + 1}/$year"
+            fecha = "${day.toString().padStart(2, '0')}-${(month + 1).toString().padStart(2, '0')}-$year"
             onValueChange(fecha)
         },
         year,

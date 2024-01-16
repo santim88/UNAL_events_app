@@ -1,6 +1,7 @@
 package com.unalminas.eventsapp.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -44,6 +45,18 @@ fun AppNavigation() {
 
         composable(Screen.CreateEventScreen.route) {
             FormEventScreen(navController = navController, isNewEvent = true)
+        }
+
+        composable(
+            Screen.CreateEventScreenWithDate("{date}").route,
+            arguments = listOf(navArgument("date") { type = NavType.StringType })
+        ) { entry ->
+            val date = entry.arguments?.getString("date")
+            FormEventScreen(
+                navController = navController,
+                isNewEvent = true,
+                dateEvent = date
+            )
         }
 
         composable(
@@ -144,7 +157,7 @@ fun HomeMainScreen(
         onNavSectionSelected = { index, bottomNavigationItem ->
             navBottomController.navigate(bottomNavigationItem.route)
         }
-    ) {
+    ) { paddingValues ->
         NavHost(
             modifier = Modifier.fillMaxSize(),
             navController = navBottomController,
@@ -153,7 +166,7 @@ fun HomeMainScreen(
             composable(Screen.HomeScreen.EventsRoute.route) {
                 showFloatingButton = true
                 EventsScreens(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().padding(paddingValues),
                     navController = navController
                 )
             }
@@ -162,7 +175,7 @@ fun HomeMainScreen(
                 showFloatingButton = false
                 SettingsScreen(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .fillMaxSize().padding(paddingValues),
                     navController = navController
                 )
             }
@@ -170,7 +183,8 @@ fun HomeMainScreen(
             composable(Screen.HomeScreen.CalendarScreen.route) {
                 showFloatingButton = false
                 CalendarScreen(
-                    modifier = Modifier.fillMaxSize()
+                    navController = navController,
+                    modifier = Modifier.fillMaxSize().padding(paddingValues),
                 )
             }
         }
