@@ -2,9 +2,19 @@ package com.unalminas.eventsapp.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.unalminas.eventsapp.R
+
+val FiraFont = FontFamily(
+    Font(R.font.fira_sans_regular),
+    Font(R.font.fira_sans_bold, FontWeight.Bold),
+    Font(R.font.fira_sans_black, FontWeight.Black),
+    Font(R.font.fira_sans_italic, style = FontStyle.Italic)
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(

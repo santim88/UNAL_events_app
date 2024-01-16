@@ -1,7 +1,6 @@
 package com.unalminas.eventsapp.presentation.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -13,23 +12,27 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.unalminas.eventsapp.presentation.ui.theme.FiraFont
+import com.unalminas.eventsapp.presentation.ui.theme.TextBlack
 
 @Preview
 @Composable
-fun TopBar_Title(
+fun TopBarTitle(
     modifier: Modifier = Modifier,
     title: String = "Empty Title",
     showBackButton: Boolean = true,
     backButtonColor: Color = Color.Black,
-    onBackButtonClick: () -> Unit = {}
+    onBackButtonClick: () -> Unit = {},
 ) {
     Box(
         modifier = modifier.background(Color.Transparent),
@@ -41,20 +44,26 @@ fun TopBar_Title(
                 .statusBarsPadding(),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            if (showBackButton) Icon(
+            if (showBackButton) IconButton(
                 modifier = Modifier
-                    .padding(10.dp)
-                    .clickable(onClick = onBackButtonClick),
-                imageVector = Icons.Filled.ArrowBack,
-                contentDescription = "Back",
-                tint = backButtonColor
-            )
+                    .padding(10.dp),
+                onClick = onBackButtonClick
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = backButtonColor
+                )
+            }
             Text(
-                text = title,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
-                    .padding(start = 20.dp, top = 5.dp, bottom = 5.dp)
+                    .padding(start = 5.dp, top = 5.dp, bottom = 5.dp)
                     .weight(1f),
+                text = title,
+                fontFamily = FiraFont,
+                fontWeight = FontWeight.Bold,
+                color = TextBlack,
                 style = MaterialTheme.typography.titleMedium,
             )
         }
