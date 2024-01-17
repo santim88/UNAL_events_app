@@ -1,6 +1,5 @@
 package com.unalminas.eventsapp.presentation.screens.assistants.adapter
 
-import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons

@@ -40,7 +40,7 @@ fun DateField(
 ) {
     var date by rememberSaveable { mutableStateOf(valueDate) }
     var isValidDate by remember { mutableStateOf(true) }
-    val dateRegex = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\\d\\d$".toRegex()
+    val dateRegex = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)\\d\\d$".toRegex()
     val year: Int
     val month: Int
     val day: Int
@@ -55,7 +55,7 @@ fun DateField(
         { _, year: Int, month: Int, day: Int ->
             val formattedMonth = (month + 1).toString().padStart(2, '0')
             val formattedDay = day.toString().padStart(2, '0')
-            date = "$formattedDay/$formattedMonth/$year"
+            date = "$formattedDay-$formattedMonth-$year"
             isValidDate = date.matches(dateRegex)
             onValueChange(date)
         },
