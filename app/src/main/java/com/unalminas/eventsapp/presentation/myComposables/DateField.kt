@@ -26,11 +26,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import com.unalminas.eventsapp.R
-import com.unalminas.eventsapp.presentation.ui.theme.Beige
-import com.unalminas.eventsapp.presentation.ui.theme.Buff
-import com.unalminas.eventsapp.presentation.ui.theme.Cornsilk
-import com.unalminas.eventsapp.presentation.ui.theme.FiraFont
-import com.unalminas.eventsapp.presentation.ui.theme.TextBlack
+import com.unalminas.eventsapp.presentation.ui.theme.DesertSand
+import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
+import com.unalminas.eventsapp.presentation.ui.theme.Melon
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 
 @Composable
 fun DateField(
@@ -72,18 +72,18 @@ fun DateField(
             onValueChange(date)
         },
         textStyle = TextStyle(
-            fontFamily = FiraFont
+            fontFamily = LatoFont
         ),
         label = {
             Text(
                 text = label,
-                fontFamily = FiraFont,
+                fontFamily = LatoFont,
             )
         },
         placeholder = {
             Text(
                 text = stringResource(R.string.dd_mm_yyyy),
-                fontFamily = FiraFont,
+                fontFamily = LatoFont,
                 fontStyle = FontStyle.Italic
             )
         },
@@ -97,7 +97,8 @@ fun DateField(
                 Icon(
                     imageVector = Icons.Filled.CalendarToday,
                     contentDescription = "edit event",
-                    modifier = Modifier.size(26.dp)
+                    modifier = Modifier.size(26.dp),
+                    tint = OxfordBlue
                 )
             }
         },
@@ -105,18 +106,18 @@ fun DateField(
         singleLine = true,
         shape = RoundedCornerShape(20.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            unfocusedContainerColor = Beige,
-            focusedContainerColor = Beige,
-            errorContainerColor = Buff,
-            unfocusedBorderColor = Cornsilk,
-            focusedBorderColor = Cornsilk,
-            unfocusedTextColor = TextBlack,
-            focusedTextColor = TextBlack,
+            unfocusedContainerColor = LavenderBlush,
+            focusedContainerColor = LavenderBlush,
+            errorContainerColor = DesertSand,
+            unfocusedBorderColor = Melon,
+            focusedBorderColor = Melon,
+            unfocusedTextColor = OxfordBlue,
+            focusedTextColor = OxfordBlue,
             errorTextColor = MaterialTheme.colorScheme.error,
-            unfocusedLabelColor = Buff,
-            focusedLabelColor = Buff,
+            unfocusedLabelColor = OxfordBlue,
+            focusedLabelColor = OxfordBlue,
             errorLabelColor = MaterialTheme.colorScheme.error,
-            cursorColor = TextBlack
+            cursorColor = OxfordBlue
         )
     )
 }

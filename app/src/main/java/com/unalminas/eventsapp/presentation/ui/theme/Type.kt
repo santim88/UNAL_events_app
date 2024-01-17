@@ -9,11 +9,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.unalminas.eventsapp.R
 
-val FiraFont = FontFamily(
-    Font(R.font.fira_sans_regular),
-    Font(R.font.fira_sans_bold, FontWeight.Bold),
-    Font(R.font.fira_sans_black, FontWeight.Black),
-    Font(R.font.fira_sans_italic, style = FontStyle.Italic)
+val LatoFont = FontFamily(
+    Font(R.font.lato_regular),
+    Font(R.font.lato_bold, FontWeight.Bold),
+    Font(R.font.lato_black, FontWeight.Black),
+    Font(R.font.lato_italic, style = FontStyle.Italic)
 )
 
 // Set of Material typography styles to start with
