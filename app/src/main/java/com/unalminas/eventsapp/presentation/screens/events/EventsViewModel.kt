@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,10 +37,13 @@ class EventsViewModel @Inject constructor(
         return _eventListState.value.size
     }
 
-    fun deleteEventById(id: Int ) {
+    fun deleteEventById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             eventRepository.deleteEventById(id)
-            _eventListState.value = eventRepository.getEventList()
+            val updatedList = eventRepository.getEventList()
+            withContext(Dispatchers.Main) {
+                _eventListState.value = updatedList
+            }
         }
     }
 }

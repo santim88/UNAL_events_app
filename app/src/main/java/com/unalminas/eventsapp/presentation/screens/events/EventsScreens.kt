@@ -15,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -42,7 +43,7 @@ fun EventsScreens(
 
     val eventListState by eventViewModel.eventListState.collectAsState(emptyList())
     var dialogState by rememberSaveable { mutableStateOf(false) }
-    var currentEvent = Event()
+    var currentEvent by remember { mutableStateOf(Event()) }
 
     LaunchedEffect(Unit) {
         eventViewModel.getEventList()

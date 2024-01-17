@@ -24,12 +24,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import androidx.compose.ui.graphics.Color
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.screens.camera.CameraViewModel
