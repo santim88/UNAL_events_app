@@ -35,11 +35,10 @@ import com.unalminas.eventsapp.presentation.screens.camera.CameraViewModel
 fun IndicatorEventBox(
     navController: NavController,
     event: Event,
-    viewModel: CameraViewModel = hiltViewModel()
 ) {
     Row(
         modifier = Modifier
-            .padding(horizontal = 1.dp)
+            .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(Color.LightGray)
             .fillMaxWidth(),
