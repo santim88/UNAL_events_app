@@ -1,11 +1,14 @@
 package com.unalminas.eventsapp.presentation.screens.calendar
 
 import android.widget.CalendarView
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -14,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CoPresent
+import androidx.compose.material.icons.filled.PostAdd
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ElevatedCard
@@ -28,11 +32,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -42,6 +46,12 @@ import androidx.navigation.NavController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
+import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
+import com.unalminas.eventsapp.presentation.ui.theme.Melon
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -50,7 +60,7 @@ import java.util.Locale
 fun CalendarScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: CalendarViewModel = hiltViewModel()
+    viewModel: CalendarViewModel = hiltViewModel(),
 ) {
     val selectDate by viewModel.formattedDataState.collectAsState()
     val selectDateOnlyDay by viewModel.formattedDateStateOnlyDay.collectAsState()
@@ -61,24 +71,45 @@ fun CalendarScreen(
         viewModel.getEventsWithAssistantCount(currentDate)
     }
 
-    LazyColumn(
+    Column(
         modifier = modifier
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(OxfordBlue, Snow),
+                    startY = 280f,
+                    endY = 285f
+                )
+            ),
+        verticalArrangement = Arrangement.Top
     ) {
-        item {
-            CustomCalendarView()
-        }
-
-        item {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 38.dp, top = 16.dp, bottom = 16.dp),
+            text = stringResource(R.string.calendar),
+            fontFamily = LatoFont,
+            fontWeight = FontWeight.Black,
+            color = Melon,
+            style = MaterialTheme.typography.titleLarge,
+        )
+        CustomCalendarView()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Melon, RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp))
+                .padding(top = 16.dp)
+                .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
+        ) {
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(12.dp),
-                shape = RoundedCornerShape(10.dp)
+                shape = RoundedCornerShape(26.dp)
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(MaterialTheme.colorScheme.primary)
+                        .background(LavenderBlush)
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -88,57 +119,66 @@ fun CalendarScreen(
                     ) {
                         Text(
                             text = selectDate,
-                            color = Color.White,
+                            fontFamily = LatoFont,
+                            fontWeight = FontWeight.Bold,
+                            color = PrussianBlue,
                             style = MaterialTheme.typography.titleLarge,
                             fontStyle = MaterialTheme.typography.titleLarge.fontStyle,
                         )
                         Text(
                             text = selectDateOnlyDay,
-                            color = Color.White,
+                            fontFamily = LatoFont,
+                            fontWeight = FontWeight.Bold,
+                            color = PrussianBlue,
                             style = MaterialTheme.typography.titleSmall
                         )
                         Text(
                             text = currentDate,
-                            color = Color.White,
+                            fontFamily = LatoFont,
+                            fontWeight = FontWeight.Bold,
+                            color = PrussianBlue,
                             style = MaterialTheme.typography.titleSmall
                         )
                     }
-
                     IconButton(
                         modifier = Modifier,
                         onClick = {
                             val screen = Screen.CreateEventScreenWithDate(currentDate)
                             navController.navigate(screen.createRoute())
-                        }) {
-                        Image(
-                            painterResource(R.drawable.baseline_post_add_24),
-                            contentDescription = "edit event",
-                            modifier = Modifier.size(37.dp)
+                        }
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(38.dp),
+                            imageVector = Icons.Filled.PostAdd,
+                            contentDescription = "create event",
+                            tint = OxfordBlue
                         )
                     }
                 }
             }
-        }
-
-        items(eventList) { event ->
-            EventItem(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                event = event,
-                navController = navController
-            )
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                items(eventList) { event ->
+                    EventItem(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        event = event,
+                        navController = navController
+                    )
+                }
+            }
         }
     }
 }
-
 
 @Composable
 fun CustomCalendarView(
     viewModel: CalendarViewModel = hiltViewModel(),
 ) {
     val calendarView = Calendar.getInstance()
-    var selectedDate by remember { mutableStateOf(calendarView) }
+    val selectedDate by remember { mutableStateOf(calendarView) }
 
     AndroidView(
         factory = { context ->
@@ -159,11 +199,15 @@ fun CustomCalendarView(
                 }
             }
         },
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Snow, RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp))
+            .padding(top = 8.dp)
+            .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun EventItem(
     event: Event,
@@ -172,12 +216,12 @@ fun EventItem(
 ) {
     ElevatedCard(
         modifier = modifier,
-        shape = RoundedCornerShape(10.dp)
+        shape = RoundedCornerShape(26.dp)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xC9C1D9))
+                .background(Snow)
         )
         {
             Row(
@@ -191,27 +235,33 @@ fun EventItem(
                         .weight(1f)
                 ) {
                     Text(
+                        modifier = Modifier
+                            .fillMaxWidth(0.90f)
+                            .basicMarquee(),
                         text = stringResource(
                             id = R.string.event_description_format,
                             event.name
                         ),
-                        color = Color.Black,
-                        fontWeight = FontWeight.Normal,
+                        color = OxfordBlue,
+                        fontFamily = LatoFont,
+                        fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     Text(
                         text = stringResource(id = R.string.event_date_format, event.date),
-                        color = Color.Black,
+                        color = OxfordBlue,
+                        fontFamily = LatoFont,
+                        fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     Text(
                         text = stringResource(id = R.string.event_hour_format, event.hour),
-                        color = Color.Black,
-                        fontWeight = FontWeight.Normal,
+                        color = OxfordBlue,
+                        fontFamily = LatoFont,
+                        fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }
-
                 BadgedBox(
                     badge = {
                         Badge {

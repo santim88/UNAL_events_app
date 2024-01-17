@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -24,6 +25,7 @@ import com.unalminas.eventsapp.presentation.screens.events.EventsScreens
 import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
 import com.unalminas.eventsapp.presentation.screens.scanPdf417.MainScreenPdf417
 import com.unalminas.eventsapp.presentation.screens.settings.SettingsScreen
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import kotlinx.coroutines.delay
 
 @Composable
@@ -184,7 +186,9 @@ fun HomeMainScreen(
                 showFloatingButton = false
                 CalendarScreen(
                     navController = navController,
-                    modifier = Modifier.fillMaxSize().padding(paddingValues),
+                    modifier = Modifier
+                        .fillMaxSize().
+                        padding(paddingValues)
                 )
             }
         }

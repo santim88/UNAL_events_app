@@ -20,19 +20,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.unalminas.eventsapp.presentation.ui.theme.FiraFont
-import com.unalminas.eventsapp.presentation.ui.theme.TextBlack
+import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 
-@Preview
 @Composable
 fun TopBarTitle(
     modifier: Modifier = Modifier,
-    title: String = "Empty Title",
+    title: String,
     showBackButton: Boolean = true,
-    backButtonColor: Color = Color.Black,
-    onBackButtonClick: () -> Unit = {},
+    backButtonColor: Color = OxfordBlue,
+    onBackButtonClick: () -> Unit,
 ) {
     Box(
         modifier = modifier.background(Color.Transparent),
@@ -42,7 +40,7 @@ fun TopBarTitle(
                 .fillMaxWidth()
                 .height(IntrinsicSize.Min)
                 .statusBarsPadding(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalArrangement = Arrangement.spacedBy(0.dp),
         ) {
             if (showBackButton) IconButton(
                 modifier = Modifier
@@ -58,12 +56,12 @@ fun TopBarTitle(
             Text(
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
-                    .padding(start = 5.dp, top = 5.dp, bottom = 5.dp)
+                    .padding(start = 0.dp, top = 5.dp, bottom = 5.dp)
                     .weight(1f),
                 text = title,
-                fontFamily = FiraFont,
-                fontWeight = FontWeight.Bold,
-                color = TextBlack,
+                fontFamily = LatoFont,
+                fontWeight = FontWeight.Black,
+                color = backButtonColor,
                 style = MaterialTheme.typography.titleMedium,
             )
         }

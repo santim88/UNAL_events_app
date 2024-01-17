@@ -3,8 +3,10 @@
 package com.unalminas.eventsapp.presentation.myComposables
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
@@ -21,6 +23,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,8 +31,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.presentation.Screen
+import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
+import com.unalminas.eventsapp.presentation.ui.theme.Melon
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
 
 data class BottomNavigationItem(
     val title: String,
@@ -37,7 +49,7 @@ data class BottomNavigationItem(
     val selectedIcon: androidx.compose.ui.graphics.vector.ImageVector,
     val unselectedIcon: androidx.compose.ui.graphics.vector.ImageVector,
     val hasNews: Boolean,
-    val bagCount: Int? = null
+    val bagCount: Int? = null,
 )
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -80,7 +92,14 @@ fun ScaffoldMainScreen(
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                modifier = Modifier
+                    .background(
+                        Melon,
+                        RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp)
+                    )
+                    .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
+            ) {
                 navItemList.forEachIndexed { index, bottomNavigationItem ->
                     NavItem(
                         selectedItemIndex = selectedItemIndex,
@@ -99,8 +118,9 @@ fun ScaffoldMainScreen(
                     onClick = {
                         navController.navigate(Screen.CreateEventScreen.route)
                     },
+                    containerColor = PrussianBlue
                 ) {
-                    Icon(Icons.Filled.Add, "Add Event")
+                    Icon(Icons.Filled.Add, "Add Event", tint = LavenderBlush)
                 }
             }
         },
@@ -110,25 +130,37 @@ fun ScaffoldMainScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RowScope.NavItem(
     selectedItemIndex: Int,
     index: Int,
     bottomNavigationItem: BottomNavigationItem,
-    onItemClick: () -> Unit = {}
+    onItemClick: () -> Unit = {},
 ) {
     NavigationBarItem(
         selected = selectedItemIndex == index,
         onClick = onItemClick,
         label = {
-            Text(text = bottomNavigationItem.title)
+            Text(
+                text = bottomNavigationItem.title,
+                fontFamily = LatoFont,
+                fontWeight = FontWeight.Bold,
+                color = OxfordBlue
+            )
         },
+        colors = NavigationBarItemDefaults.colors(
+// Add after
+        ),
         icon = {
             BadgedBox(
                 badge = {
                     if (bottomNavigationItem.bagCount != null) {
                         Badge {
-                            Text(text = bottomNavigationItem.bagCount.toString())
+                            Text(
+                                text = bottomNavigationItem.bagCount.toString(),
+                                fontFamily = LatoFont
+                            )
                         }
                     } else if (bottomNavigationItem.hasNews) {
                         Badge()

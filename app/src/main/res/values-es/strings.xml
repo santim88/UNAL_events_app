@@ -33,5 +33,7 @@
     <string name="register_qr">Registrar Qr</string>
     <string name="settings">Configuración</string>
     <string name="dd_mm_yyyy">DD/MM/AAAA</string>
+    <string name="events">Eventos</string>
+    <string name="calendar">Calendario</string>
 
 </resources>

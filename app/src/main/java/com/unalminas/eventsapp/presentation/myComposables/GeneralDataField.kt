@@ -8,11 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.unalminas.eventsapp.presentation.ui.theme.Beige
-import com.unalminas.eventsapp.presentation.ui.theme.Buff
-import com.unalminas.eventsapp.presentation.ui.theme.Cornsilk
-import com.unalminas.eventsapp.presentation.ui.theme.FiraFont
-import com.unalminas.eventsapp.presentation.ui.theme.TextBlack
+import com.unalminas.eventsapp.presentation.ui.theme.DesertSand
+import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
+import com.unalminas.eventsapp.presentation.ui.theme.Melon
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 
 @Composable
 fun DataField(
@@ -30,22 +30,22 @@ fun DataField(
         singleLine = singleLine,
 
         textStyle = TextStyle(
-            fontFamily = FiraFont
+            fontFamily = LatoFont
         ),
         shape = RoundedCornerShape(20.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            unfocusedContainerColor = Beige,
-            focusedContainerColor = Beige,
-            errorContainerColor = Buff,
-            unfocusedBorderColor = Cornsilk,
-            focusedBorderColor = Cornsilk,
-            unfocusedTextColor = TextBlack,
-            focusedTextColor = TextBlack,
+            unfocusedContainerColor = LavenderBlush,
+            focusedContainerColor = LavenderBlush,
+            errorContainerColor = DesertSand,
+            unfocusedBorderColor = Melon,
+            focusedBorderColor = Melon,
+            unfocusedTextColor = OxfordBlue,
+            focusedTextColor = OxfordBlue,
             errorTextColor = MaterialTheme.colorScheme.error,
-            unfocusedLabelColor = Buff,
-            focusedLabelColor = Buff,
+            unfocusedLabelColor = OxfordBlue,
+            focusedLabelColor = OxfordBlue,
             errorLabelColor = MaterialTheme.colorScheme.error,
-            cursorColor = TextBlack
+            cursorColor = OxfordBlue
         )
     )
 }

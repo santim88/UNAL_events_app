@@ -19,9 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,10 +31,10 @@ import com.unalminas.eventsapp.presentation.myComposables.DataField
 import com.unalminas.eventsapp.presentation.myComposables.DateField
 import com.unalminas.eventsapp.presentation.myComposables.HourField
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
-import com.unalminas.eventsapp.presentation.ui.theme.Buff
-import com.unalminas.eventsapp.presentation.ui.theme.FiraFont
-import com.unalminas.eventsapp.presentation.ui.theme.PapayaWhip
-import com.unalminas.eventsapp.presentation.ui.theme.TeaGreen
+import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,10 +46,10 @@ fun FormEventScreen(
     id: Int? = null,
     isNewEvent: Boolean,
     dateEvent: String? = null,
-    viewModel: FormEventViewModel = hiltViewModel()
+    viewModel: FormEventViewModel = hiltViewModel(),
 ) {
     val event by viewModel.eventState.collectAsState()
-    if(dateEvent != null){
+    if (dateEvent != null) {
         event.date = dateEvent
     }
 
@@ -64,7 +62,7 @@ fun FormEventScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(TeaGreen)
+            .background(Snow)
     ) {
         TopBarTitle(
             title = stringResource(id = if (isNewEvent) R.string.create_event else R.string.edit_event),
@@ -92,7 +90,7 @@ fun FormEventScreen(
                             text = stringResource(
                                 id = R.string.name_event
                             ),
-                            fontFamily = FiraFont
+                            fontFamily = LatoFont
                         )
                     },
                     singleLine = true,
@@ -110,7 +108,7 @@ fun FormEventScreen(
                             text = stringResource(
                                 id = R.string.description_event
                             ),
-                            fontFamily = FiraFont
+                            fontFamily = LatoFont
                         )
                     },
                     singleLine = true,
@@ -150,7 +148,7 @@ fun FormEventScreen(
                             text = stringResource(
                                 id = R.string.place_event
                             ),
-                            fontFamily = FiraFont
+                            fontFamily = LatoFont
                         )
                     },
                     singleLine = true,
@@ -173,17 +171,17 @@ fun FormEventScreen(
                             }
                         }
                     },
-                    shape = RoundedCornerShape(20.dp),
+                    shape = RoundedCornerShape(16.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Buff,
-                        contentColor = PapayaWhip
+                        containerColor = OxfordBlue,
+                        contentColor = LavenderBlush
                     )
                 ) {
                     Text(
                         text = stringResource(
                             id = if (isNewEvent) R.string.create_event else R.string.save_event
                         ),
-                        fontFamily = FiraFont,
+                        fontFamily = LatoFont,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.titleMedium
                     )
