@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -60,7 +61,7 @@ import java.util.Locale
 fun CalendarScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: CalendarViewModel = hiltViewModel(),
+    viewModel: CalendarViewModel = hiltViewModel()
 ) {
     val selectDate by viewModel.formattedDataState.collectAsState()
     val selectDateOnlyDay by viewModel.formattedDateStateOnlyDay.collectAsState()
@@ -262,21 +263,21 @@ fun EventItem(
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }
-                BadgedBox(
-                    badge = {
-                        Badge {
-                            Text(
-                                text =
-                                event.assistantCount.toString(),
-                            )
-                        }
-                    },
-                    modifier = Modifier.padding(horizontal = 6.dp)
-                ) {
-                    IconButton(modifier = Modifier, onClick = {
+                IconButton(modifier = Modifier.size(70.dp), onClick = {
                         val screen = Screen.AssistantScreen(event.id.toString())
                         navController.navigate(screen.createRoute())
-                    }) {
+                }) {
+                    BadgedBox(
+                        badge = {
+                            Badge {
+                                Text(
+                                    text =
+                                    event.assistantCount.toString(),
+                                )
+                            }
+                        },
+                        modifier = Modifier.padding(horizontal = 6.dp)
+                    ) {
                         Icon(
                             modifier = Modifier.size(24.dp),
                             imageVector = Icons.Filled.CoPresent,
