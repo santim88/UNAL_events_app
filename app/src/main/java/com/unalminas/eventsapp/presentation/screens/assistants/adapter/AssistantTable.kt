@@ -11,18 +11,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -35,6 +36,8 @@ import com.unalminas.eventsapp.domain.Assistant
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.myComposables.InfoDialogContent
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
+import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
@@ -42,7 +45,7 @@ import me.saket.swipe.SwipeableActionsBox
 fun AssistantTable(
     eventListState: List<Assistant> = listOf(),
     navController: NavController,
-    assistantViewModel: AssistantScreenViewModel = hiltViewModel()
+    assistantViewModel: AssistantScreenViewModel = hiltViewModel(),
 ) {
 
     var dialogState by remember { mutableStateOf(false) }
@@ -55,27 +58,35 @@ fun AssistantTable(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = Color.LightGray)
-                .padding(12.dp),
+                .background(Melon, RoundedCornerShape(30))
+                .padding(12.dp)
+                .clip(shape = RoundedCornerShape(30)),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "#")
+            Text(
+                text = "#",
+                fontFamily = LatoFont,
+                fontWeight = FontWeight.Black
+            )
             Text(
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 16.dp),
                 text = stringResource(id = R.string.name_assistant),
-                fontWeight = FontWeight.Bold
+                fontFamily = LatoFont,
+                fontWeight = FontWeight.Black
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = stringResource(id = R.string.identification_assistant),
-                fontWeight = FontWeight.Bold
+                fontFamily = LatoFont,
+                fontWeight = FontWeight.Black
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = stringResource(id = R.string.email_assistant),
-                fontWeight = FontWeight.Bold
+                fontFamily = LatoFont,
+                fontWeight = FontWeight.Black
             )
         }
 

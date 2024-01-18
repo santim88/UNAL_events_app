@@ -19,23 +19,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
-import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.AssistantTable
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.BottomFloatingDropMenu
 import com.unalminas.eventsapp.presentation.screens.events.adapter.IndicatorEventBox
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
+import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @Composable
 fun AssistantScreen(
     navController: NavHostController,
     viewModel: AssistantScreenViewModel = hiltViewModel(),
-    id: Int? = null
+    id: Int? = null,
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
     val menuItems = listOf(
@@ -59,7 +61,7 @@ fun AssistantScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Snow)
     ) {
         Column(
             modifier = Modifier,
@@ -77,15 +79,15 @@ fun AssistantScreen(
                 navController = navController,
                 event = eventCurrent
             )
-
             Text(
                 modifier = Modifier.padding(vertical = 16.dp),
                 text = stringResource(id = R.string.dialog_state_format, itemCount),
+                fontFamily = LatoFont,
+                fontWeight = FontWeight.Black,
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray)
             )
             AssistantTable(assistantListState, navController)
         }
-
         BottomFloatingDropMenu(
             modifier = Modifier
                 .padding(20.dp)

@@ -31,6 +31,7 @@ import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
 import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
 
 @Composable
 fun DateField(
@@ -98,13 +99,13 @@ fun DateField(
                     imageVector = Icons.Filled.CalendarToday,
                     contentDescription = "edit event",
                     modifier = Modifier.size(26.dp),
-                    tint = OxfordBlue
+                    tint = PrussianBlue
                 )
             }
         },
         isError = !isValidDate,
         singleLine = true,
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(30),
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedContainerColor = LavenderBlush,
             focusedContainerColor = LavenderBlush,

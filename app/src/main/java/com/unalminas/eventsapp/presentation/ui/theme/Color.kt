@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 
 val DesertSand = Color(0xFFD8B4A0)
 val OxfordBlue = Color(0xFF132742)
-val PrussianBlue = Color(0xFF18304C)
-val Melon = Color(0xFFFDB6AF)
+val PrussianBlue = Color(0xFF345E7A)
+val Melon = Color(0xFFFFCCCB)
 val LavenderBlush = Color(0xFFFFEFEF)
 val Snow = Color(0xFFFDF9F9)

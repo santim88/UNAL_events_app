@@ -23,6 +23,8 @@ import com.unalminas.eventsapp.presentation.ui.theme.DesertSand
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @Composable
 fun InfoDialogContent(
@@ -34,9 +36,9 @@ fun InfoDialogContent(
     Card(
         modifier = modifier
             .fillMaxWidth(),
-        shape = RoundedCornerShape(17.dp),
+        shape = RoundedCornerShape(20),
         colors = CardDefaults.cardColors(
-            containerColor = DesertSand,
+            containerColor = Snow,
         )
     ) {
         Column(
@@ -54,24 +56,24 @@ fun InfoDialogContent(
                 color = OxfordBlue
             )
             Row(
-                horizontalArrangement = Arrangement.spacedBy(13.dp)
+                horizontalArrangement = Arrangement.spacedBy(14.dp)
             ) {
                 Button(
                     onClick = onCancel,
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(20),
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = DesertSand,
-                        containerColor = OxfordBlue
+                        contentColor = Snow,
+                        containerColor = PrussianBlue
                     )
                 ) {
                     Text(text = stringResource(id = R.string.cancel), fontFamily = LatoFont)
                 }
                 Button(
                     onClick = onDeleteClick,
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(20),
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = DesertSand,
-                        containerColor = OxfordBlue
+                        contentColor = Snow,
+                        containerColor = PrussianBlue
                     )
                 ) {
                     Text(text = stringResource(id = R.string.delete), fontFamily = LatoFont)
