@@ -1,7 +1,9 @@
 package com.unalminas.eventsapp.presentation.screens.events.adapter
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,8 +21,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +38,7 @@ import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -49,10 +57,15 @@ fun CardEvent(
     changeScreen: () -> Unit = {},
     editEvent: () -> Unit = {},
 ) {
+
+    var expanded by remember { mutableStateOf(false) }
+
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp),
+            .padding(horizontal = 8.dp)
+            .clip(RoundedCornerShape(15))
+            .clickable { expanded = !expanded },
         shape = RoundedCornerShape(26.dp),
         colors = CardDefaults.elevatedCardColors(
             contentColor = Snow
@@ -60,7 +73,7 @@ fun CardEvent(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.SpaceAround
         ) {
             Row(
                 Modifier
@@ -83,12 +96,14 @@ fun CardEvent(
                     Icon(
                         imageVector = Icons.Filled.Edit,
                         contentDescription = "edit event",
-                        tint = OxfordBlue
+                        tint = PrussianBlue
                     )
                 }
             }
             Column(
-                modifier = Modifier.padding(horizontal = 14.dp),
+                modifier = Modifier
+                    .padding(horizontal = 14.dp)
+                    .padding(bottom = 12.dp),
                 verticalArrangement = Arrangement.SpaceAround
             ) {
                 Text(
@@ -100,6 +115,7 @@ fun CardEvent(
                     color = OxfordBlue,
                     fontFamily = LatoFont,
                     fontWeight = FontWeight.Bold,
+                    maxLines = 1,
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
@@ -125,23 +141,25 @@ fun CardEvent(
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
-            Button(
-                onClick = changeScreen,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .align(Alignment.CenterHorizontally),
-                shape = RoundedCornerShape(16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = Melon,
-                    containerColor = OxfordBlue
-                )
-            ) {
-                Text(
-                    text = stringResource(id = R.string.take_asistence),
-                    fontFamily = LatoFont,
-                    fontSize = 16.sp
-                )
+            AnimatedVisibility(visible = expanded) {
+                Button(
+                    onClick = changeScreen,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, bottom = 10.dp, top = 0.dp)
+                        .align(Alignment.CenterHorizontally),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = Snow,
+                        containerColor = PrussianBlue
+                    )
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.take_asistence),
+                        fontFamily = LatoFont,
+                        fontSize = 16.sp
+                    )
+                }
             }
         }
     }

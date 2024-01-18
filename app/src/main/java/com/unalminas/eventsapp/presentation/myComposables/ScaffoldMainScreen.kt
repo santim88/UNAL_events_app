@@ -92,14 +92,7 @@ fun ScaffoldMainScreen(
 
     Scaffold(
         bottomBar = {
-            NavigationBar(
-                modifier = Modifier
-                    .background(
-                        Melon,
-                        RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp)
-                    )
-                    .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
-            ) {
+            NavigationBar {
                 navItemList.forEachIndexed { index, bottomNavigationItem ->
                     NavItem(
                         selectedItemIndex = selectedItemIndex,

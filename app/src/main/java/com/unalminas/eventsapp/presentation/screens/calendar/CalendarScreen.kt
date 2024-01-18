@@ -36,10 +36,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -61,7 +59,7 @@ import java.util.Locale
 fun CalendarScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: CalendarViewModel = hiltViewModel()
+    viewModel: CalendarViewModel = hiltViewModel(),
 ) {
     val selectDate by viewModel.formattedDataState.collectAsState()
     val selectDateOnlyDay by viewModel.formattedDateStateOnlyDay.collectAsState()
@@ -90,22 +88,24 @@ fun CalendarScreen(
             text = stringResource(R.string.calendar),
             fontFamily = LatoFont,
             fontWeight = FontWeight.Black,
-            color = Melon,
+            color = Snow,
             style = MaterialTheme.typography.titleLarge,
         )
         CustomCalendarView()
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Melon, RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp))
+                .padding(4.dp)
+                .background(Melon, RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
                 .padding(top = 16.dp)
-                .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
+                .clip(shape = RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
+
         ) {
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(12.dp),
-                shape = RoundedCornerShape(26.dp)
+                shape = RoundedCornerShape(20)
             ) {
                 Row(
                     modifier = Modifier
@@ -122,7 +122,7 @@ fun CalendarScreen(
                             text = selectDate,
                             fontFamily = LatoFont,
                             fontWeight = FontWeight.Bold,
-                            color = PrussianBlue,
+                            color = OxfordBlue,
                             style = MaterialTheme.typography.titleLarge,
                             fontStyle = MaterialTheme.typography.titleLarge.fontStyle,
                         )
@@ -130,14 +130,14 @@ fun CalendarScreen(
                             text = selectDateOnlyDay,
                             fontFamily = LatoFont,
                             fontWeight = FontWeight.Bold,
-                            color = PrussianBlue,
+                            color = OxfordBlue,
                             style = MaterialTheme.typography.titleSmall
                         )
                         Text(
                             text = currentDate,
                             fontFamily = LatoFont,
                             fontWeight = FontWeight.Bold,
-                            color = PrussianBlue,
+                            color = OxfordBlue,
                             style = MaterialTheme.typography.titleSmall
                         )
                     }
@@ -152,7 +152,7 @@ fun CalendarScreen(
                             modifier = Modifier.size(38.dp),
                             imageVector = Icons.Filled.PostAdd,
                             contentDescription = "create event",
-                            tint = OxfordBlue
+                            tint = PrussianBlue
                         )
                     }
                 }
@@ -202,9 +202,9 @@ fun CustomCalendarView(
         },
         modifier = Modifier
             .fillMaxWidth()
-            .background(Snow, RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp))
+            .background(Snow, RoundedCornerShape(topStartPercent = 11, topEndPercent = 11))
             .padding(top = 8.dp)
-            .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
+            .clip(shape = RoundedCornerShape(topStartPercent = 11, topEndPercent = 11)),
     )
 }
 
@@ -217,7 +217,7 @@ fun EventItem(
 ) {
     ElevatedCard(
         modifier = modifier,
-        shape = RoundedCornerShape(26.dp)
+        shape = RoundedCornerShape(20)
     ) {
         Box(
             modifier = Modifier
@@ -240,7 +240,7 @@ fun EventItem(
                             .fillMaxWidth(0.90f)
                             .basicMarquee(),
                         text = stringResource(
-                            id = R.string.event_description_format,
+                            id = R.string.event_name_format,
                             event.name
                         ),
                         color = OxfordBlue,
@@ -264,8 +264,8 @@ fun EventItem(
                     )
                 }
                 IconButton(modifier = Modifier.size(70.dp), onClick = {
-                        val screen = Screen.AssistantScreen(event.id.toString())
-                        navController.navigate(screen.createRoute())
+                    val screen = Screen.AssistantScreen(event.id.toString())
+                    navController.navigate(screen.createRoute())
                 }) {
                     BadgedBox(
                         badge = {

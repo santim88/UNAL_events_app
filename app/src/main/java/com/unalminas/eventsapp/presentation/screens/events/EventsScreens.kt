@@ -65,7 +65,7 @@ fun EventsScreens(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(1.dp)
+//            .padding(horizontal = 1.dp)
             .background(Snow)
     ) {
         Row {
@@ -133,9 +133,9 @@ fun EventsList(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(Melon, RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp))
+            .background(Melon, RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
             .padding(top = 32.dp)
-            .clip(shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
+            .clip(shape = RoundedCornerShape(topStartPercent = 10, topEndPercent = 10)),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(vertical = 10.dp)
     ) {

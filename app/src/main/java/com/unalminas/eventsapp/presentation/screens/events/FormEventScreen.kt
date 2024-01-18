@@ -27,13 +27,13 @@ import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.EventFieldEnum
 import com.unalminas.eventsapp.presentation.Screen
-import com.unalminas.eventsapp.presentation.myComposables.DataField
+import com.unalminas.eventsapp.presentation.myComposables.GeneralDataField
 import com.unalminas.eventsapp.presentation.myComposables.DateField
 import com.unalminas.eventsapp.presentation.myComposables.HourField
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
 import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
-import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -79,7 +79,7 @@ fun FormEventScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
-                DataField(
+                GeneralDataField(
                     modifier = Modifier.fillMaxWidth(),
                     value = event.name,
                     onValueChange = { newName ->
@@ -97,7 +97,7 @@ fun FormEventScreen(
                 )
             }
             item {
-                DataField(
+                GeneralDataField(
                     modifier = Modifier.fillMaxWidth(),
                     value = event.description,
                     onValueChange = { newDescription ->
@@ -137,7 +137,7 @@ fun FormEventScreen(
                 )
             }
             item {
-                DataField(
+                GeneralDataField(
                     modifier = Modifier.fillMaxWidth(),
                     value = event.place,
                     onValueChange = { newPlace ->
@@ -157,7 +157,7 @@ fun FormEventScreen(
             item {
                 Button(
                     modifier = Modifier
-                        .weight(0.33f)
+                        .fillMaxWidth(0.4f)
                         .height(50.dp),
                     onClick = {
                         if (isNewEvent) {
@@ -173,7 +173,7 @@ fun FormEventScreen(
                     },
                     shape = RoundedCornerShape(16.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = OxfordBlue,
+                        containerColor = PrussianBlue,
                         contentColor = LavenderBlush
                     )
                 ) {

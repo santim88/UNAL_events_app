@@ -15,7 +15,7 @@ import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 
 @Composable
-fun DataField(
+fun GeneralDataField(
     modifier: Modifier,
     value: String,
     onValueChange: (String) -> Unit,
@@ -32,7 +32,7 @@ fun DataField(
         textStyle = TextStyle(
             fontFamily = LatoFont
         ),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(30),
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedContainerColor = LavenderBlush,
             focusedContainerColor = LavenderBlush,
