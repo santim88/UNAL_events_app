@@ -3,10 +3,8 @@
 package com.unalminas.eventsapp.presentation.myComposables
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
@@ -31,17 +29,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.presentation.Screen
+import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
-import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
-import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 data class BottomNavigationItem(
     val title: String,
@@ -111,9 +105,9 @@ fun ScaffoldMainScreen(
                     onClick = {
                         navController.navigate(Screen.CreateEventScreen.route)
                     },
-                    containerColor = PrussianBlue
+                    containerColor = BlueGreen
                 ) {
-                    Icon(Icons.Filled.Add, "Add Event", tint = LavenderBlush)
+                    Icon(Icons.Filled.Add, "Add Event", tint = Snow)
                 }
             }
         },

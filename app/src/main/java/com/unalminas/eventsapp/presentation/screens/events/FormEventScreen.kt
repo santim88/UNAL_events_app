@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,13 +26,13 @@ import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.EventFieldEnum
 import com.unalminas.eventsapp.presentation.Screen
-import com.unalminas.eventsapp.presentation.myComposables.GeneralDataField
 import com.unalminas.eventsapp.presentation.myComposables.DateField
+import com.unalminas.eventsapp.presentation.myComposables.GeneralDataField
 import com.unalminas.eventsapp.presentation.myComposables.HourField
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
+import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
-import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,11 +61,12 @@ fun FormEventScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Snow)
+            .background(OxfordBlue)
     ) {
         TopBarTitle(
             title = stringResource(id = if (isNewEvent) R.string.create_event else R.string.edit_event),
             showBackButton = true,
+            backButtonColor = Snow,
             onBackButtonClick = {
                 navController.popBackStack()
             }
@@ -157,8 +157,8 @@ fun FormEventScreen(
             item {
                 Button(
                     modifier = Modifier
-                        .fillMaxWidth(0.4f)
-                        .height(50.dp),
+                        .fillMaxWidth(0.6f),
+//                        .height(50.dp),
                     onClick = {
                         if (isNewEvent) {
                             viewModel.insertEvent(event)
@@ -173,8 +173,8 @@ fun FormEventScreen(
                     },
                     shape = RoundedCornerShape(16.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = PrussianBlue,
-                        contentColor = LavenderBlush
+                        containerColor = BlueGreen,
+                        contentColor = Snow
                     )
                 ) {
                     Text(

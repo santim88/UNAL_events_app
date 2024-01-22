@@ -37,7 +37,9 @@ import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.myComposables.InfoDialogContent
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.Melon
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Platinum
+import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
@@ -58,7 +60,7 @@ fun AssistantTable(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Melon, RoundedCornerShape(30))
+                .background(Platinum, RoundedCornerShape(30))
                 .padding(12.dp)
                 .clip(shape = RoundedCornerShape(30)),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -66,7 +68,8 @@ fun AssistantTable(
             Text(
                 text = "#",
                 fontFamily = LatoFont,
-                fontWeight = FontWeight.Black
+                fontWeight = FontWeight.Black,
+                color = OxfordBlue
             )
             Text(
                 modifier = Modifier
@@ -74,19 +77,22 @@ fun AssistantTable(
                     .padding(start = 16.dp),
                 text = stringResource(id = R.string.name_assistant),
                 fontFamily = LatoFont,
-                fontWeight = FontWeight.Black
+                fontWeight = FontWeight.Black,
+                color = OxfordBlue
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = stringResource(id = R.string.identification_assistant),
                 fontFamily = LatoFont,
-                fontWeight = FontWeight.Black
+                fontWeight = FontWeight.Black,
+                color = OxfordBlue
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = stringResource(id = R.string.email_assistant),
                 fontFamily = LatoFont,
-                fontWeight = FontWeight.Black
+                fontWeight = FontWeight.Black,
+                color = OxfordBlue
             )
         }
 
@@ -95,7 +101,7 @@ fun AssistantTable(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
         contentPadding = PaddingValues(vertical = 10.dp)
     ) {
         var currentAssistant = Assistant()
@@ -114,7 +120,7 @@ fun AssistantTable(
                         tint = Color.White
                     )
                 },
-                background = Color.LightGray
+                background = Color.Transparent
             )
             if (dialogState) {
                 Dialog(
@@ -142,14 +148,18 @@ fun AssistantTable(
             }
             SwipeableActionsBox(
                 swipeThreshold = 50.dp,
-                endActions = listOf(delete)
+                endActions = listOf(delete),
+                backgroundUntilSwipeThreshold = Color.Transparent
             ) {
-                CardAssistant(modifier = Modifier.clickable {
-                    item.id?.let { nonNullId ->
-                        val screen = Screen.EditAssistantScreen(nonNullId.toString())
-                        navController.navigate(screen.createRoute())
-                    }
-                }, index + 1, item)
+                CardAssistant(modifier = Modifier
+                    .background(Snow, RoundedCornerShape(30))
+                    .clickable {
+                        item.id?.let { nonNullId ->
+                            val screen = Screen.EditAssistantScreen(nonNullId.toString())
+                            navController.navigate(screen.createRoute())
+                        }
+                    }, index + 1, item
+                )
             }
         }
     }

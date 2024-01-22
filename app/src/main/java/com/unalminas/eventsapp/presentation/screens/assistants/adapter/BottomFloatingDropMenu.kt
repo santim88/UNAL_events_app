@@ -8,12 +8,17 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.presentation.Screen
+import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
+import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @Composable
 fun BottomFloatingDropMenu(
@@ -24,7 +29,6 @@ fun BottomFloatingDropMenu(
     navController: NavHostController,
     eventId: Int?
 ) {
-
     Box(
         modifier = modifier
     ) {
@@ -32,10 +36,11 @@ fun BottomFloatingDropMenu(
             onClick = {
                 onMenuExpandedChanged(!isMenuExpanded)
             },
+            containerColor = BlueGreen,
+            contentColor = Snow
         ) {
             Icon(Icons.Filled.Add, "Floating action button.")
         }
-
         DropdownMenu(
             expanded = isMenuExpanded,
             onDismissRequest = { onMenuExpandedChanged(false) },
@@ -44,7 +49,7 @@ fun BottomFloatingDropMenu(
         ) {
             menuItems.forEach { item ->
                 DropdownMenuItem(
-                    text = { Text(text = "$item") },
+                    text = { Text(text = "$item", fontFamily = LatoFont) },
                     onClick = {
                         onMenuExpandedChanged(false)
 
@@ -57,7 +62,10 @@ fun BottomFloatingDropMenu(
                             val screen = Screen.CreateAssistantPdf417(eventId.toString())
                             navController.navigate(screen.createRoute())
                         }
-                    }
+                    },
+                    colors = MenuDefaults.itemColors(
+                        textColor = OxfordBlue
+                    )
                 )
             }
         }

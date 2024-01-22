@@ -22,14 +22,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @Composable
 fun TopBarTitle(
     modifier: Modifier = Modifier,
     title: String,
     showBackButton: Boolean = true,
-    backButtonColor: Color = OxfordBlue,
+    backButtonColor: Color = Snow,
     onBackButtonClick: () -> Unit,
 ) {
     Box(

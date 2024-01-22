@@ -1,6 +1,8 @@
 package com.unalminas.eventsapp.presentation
 
-import androidx.compose.foundation.background
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -25,7 +27,6 @@ import com.unalminas.eventsapp.presentation.screens.events.EventsScreens
 import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
 import com.unalminas.eventsapp.presentation.screens.scanPdf417.MainScreenPdf417
 import com.unalminas.eventsapp.presentation.screens.settings.SettingsScreen
-import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import kotlinx.coroutines.delay
 
 @Composable
@@ -45,12 +46,40 @@ fun AppNavigation() {
             }
         }
 
-        composable(Screen.CreateEventScreen.route) {
+        composable(
+            Screen.CreateEventScreen.route,
+            enterTransition = {
+                slideInVertically(
+                    initialOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
+            exitTransition = {
+                slideOutVertically(
+                    targetOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
+
+            ) {
             FormEventScreen(navController = navController, isNewEvent = true)
         }
 
         composable(
             Screen.CreateEventScreenWithDate("{date}").route,
+            enterTransition = {
+                slideInVertically(
+                    initialOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
+            exitTransition = {
+                slideOutVertically(
+                    targetOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
+
             arguments = listOf(navArgument("date") { type = NavType.StringType })
         ) { entry ->
             val date = entry.arguments?.getString("date")
@@ -63,6 +92,18 @@ fun AppNavigation() {
 
         composable(
             Screen.CreateAssistantScreen("{eventId}").route,
+            enterTransition = {
+                slideInVertically(
+                    initialOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
+            exitTransition = {
+                slideOutVertically(
+                    targetOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
             arguments = listOf(navArgument("eventId") { type = NavType.StringType })
         ) { entry ->
             val eventId = entry.arguments?.getString("eventId")?.toInt()
@@ -87,6 +128,18 @@ fun AppNavigation() {
 
         composable(
             Screen.EditEventScreen("{id}").route,
+            enterTransition = {
+                slideInVertically(
+                    initialOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
+            exitTransition = {
+                slideOutVertically(
+                    targetOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt()
@@ -99,6 +152,18 @@ fun AppNavigation() {
 
         composable(
             Screen.EditAssistantScreen("{id}").route,
+            enterTransition = {
+                slideInVertically(
+                    initialOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
+            exitTransition = {
+                slideOutVertically(
+                    targetOffsetY = { fullHeight -> fullHeight },
+                    animationSpec = tween(1000)
+                )
+            },
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt()
@@ -168,7 +233,9 @@ fun HomeMainScreen(
             composable(Screen.HomeScreen.EventsRoute.route) {
                 showFloatingButton = true
                 EventsScreens(
-                    modifier = Modifier.fillMaxSize().padding(paddingValues),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues),
                     navController = navController
                 )
             }
@@ -177,7 +244,8 @@ fun HomeMainScreen(
                 showFloatingButton = false
                 SettingsScreen(
                     modifier = Modifier
-                        .fillMaxSize().padding(paddingValues),
+                        .fillMaxSize()
+                        .padding(paddingValues),
                     navController = navController
                 )
             }
@@ -187,8 +255,8 @@ fun HomeMainScreen(
                 CalendarScreen(
                     navController = navController,
                     modifier = Modifier
-                        .fillMaxSize().
-                        padding(paddingValues)
+                        .fillMaxSize()
+                        .padding(paddingValues)
                 )
             }
         }

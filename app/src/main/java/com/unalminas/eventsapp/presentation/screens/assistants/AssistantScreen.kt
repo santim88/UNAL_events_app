@@ -16,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -28,9 +27,10 @@ import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.AssistantTable
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.BottomFloatingDropMenu
-import com.unalminas.eventsapp.presentation.screens.events.adapter.IndicatorEventBox
+import com.unalminas.eventsapp.presentation.screens.assistants.adapter.IndicatorEventBox
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @Composable
@@ -61,7 +61,7 @@ fun AssistantScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Snow)
+            .background(OxfordBlue)
     ) {
         Column(
             modifier = Modifier,
@@ -71,6 +71,7 @@ fun AssistantScreen(
             TopBarTitle(
                 title = stringResource(id = R.string.list_assistants),
                 showBackButton = true,
+                backButtonColor = Snow,
                 onBackButtonClick = {
                     navController.popBackStack()
                 }
@@ -84,7 +85,7 @@ fun AssistantScreen(
                 text = stringResource(id = R.string.dialog_state_format, itemCount),
                 fontFamily = LatoFont,
                 fontWeight = FontWeight.Black,
-                style = TextStyle(fontSize = 16.sp, color = Color.Gray)
+                style = TextStyle(fontSize = 16.sp, color = Snow)
             )
             AssistantTable(assistantListState, navController)
         }
