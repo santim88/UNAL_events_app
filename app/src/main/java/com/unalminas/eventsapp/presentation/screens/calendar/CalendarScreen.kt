@@ -269,7 +269,10 @@ fun EventItem(
                 }) {
                     BadgedBox(
                         badge = {
-                            Badge {
+                            Badge(
+                                containerColor = PrussianBlue,
+                                contentColor = Snow,
+                            ) {
                                 Text(
                                     text =
                                     event.assistantCount.toString(),
@@ -304,4 +307,8 @@ fun formatDateOnlyDay(day: Int, month: Int, year: Int): String {
 
     val format = SimpleDateFormat("EEEE", Locale("es", "ES"))
     return format.format(calendar.time)
+}
+
+fun main(){
+
 }

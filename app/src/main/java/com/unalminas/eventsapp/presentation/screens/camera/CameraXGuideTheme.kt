@@ -1,9 +1,17 @@
 package com.unalminas.eventsapp.presentation.screens.camera
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.net.Uri
+import android.provider.Settings
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
@@ -35,6 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -44,13 +53,34 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.ByteArrayOutputStream
 
+private val permissionsToRequest = arrayOf(
+    Manifest.permission.CAMERA,
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CameraXGuideTheme(
     viewModel: CameraViewModel = hiltViewModel(),
     navController: NavController,
-    eventId: Int
+    eventId: Int,
 ) {
+
+    val multiplePermissionResultLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions(),
+        onResult = { perms ->
+            permissionsToRequest.forEach { permission ->
+                viewModel.onPermissionResult(
+                    permission = permission,
+                    isGranted = perms[permission] == true
+                )
+            }
+        }
+    )
+    val dialogQueue = viewModel.visiblePermissionDialogQueue
+    LaunchedEffect(Unit) {
+        multiplePermissionResultLauncher.launch(permissionsToRequest)
+    }
+
     PokedexTheme {
         val context = LocalContext.current
         val scope = rememberCoroutineScope()
@@ -65,9 +95,7 @@ fun CameraXGuideTheme(
         }
 
         LaunchedEffect(Unit) {
-//            viewModel.getImagesList()
             viewModel.getImagesListByEventId(eventId)
-            /*     viewModel.deleteAllImages()*/
         }
 
         val bitmapsByEvent by viewModel.bitmapsByEvent.collectAsState()
@@ -145,6 +173,26 @@ fun CameraXGuideTheme(
             }
         }
     }
+    dialogQueue
+        .reversed()
+        .forEach { permission ->
+            PermissionDialog(
+                permissionTextProvider = when (permission) {
+                    Manifest.permission.CAMERA -> {
+                        CameraPermissionTextProvider()
+                    }
+                    else -> return@forEach
+                },
+                isPermanentlyDeclined = !hasPermissionRationale(permission),
+                onDismiss = { viewModel.dismissDialog() },
+                onOkClick = {
+                    viewModel.dismissDialog()
+                    multiplePermissionResultLauncher.launch(
+                        arrayOf(permission)
+                    )
+                },
+            )
+        }
 }
 
 private fun takePhoto(
@@ -172,7 +220,6 @@ private fun takePhoto(
                     true
                 )
                 saveBitmapToDatabase(rotatedBitmap, viewModel, eventId)
-                /*                onPhotoTaken(rotatedBitmap)*/
             }
 
             override fun onError(exception: ImageCaptureException) {
@@ -193,5 +240,14 @@ private fun saveBitmapToDatabase(rotatedBitmap: Bitmap, viewModel: CameraViewMod
     Log.e("ImageEntity Value", "$imageInByArray $eventId")
     runBlocking {
         viewModel.saveImage(imageInByArray)
+    }
+}
+
+@Composable
+fun hasPermissionRationale(permission: String): Boolean {
+    val context = LocalContext.current
+    return when (PackageManager.PERMISSION_GRANTED) {
+        ContextCompat.checkSelfPermission(context, permission) -> false
+        else -> ActivityCompat.shouldShowRequestPermissionRationale(context as Activity, permission)
     }
 }

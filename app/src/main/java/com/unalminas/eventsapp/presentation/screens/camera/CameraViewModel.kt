@@ -2,6 +2,7 @@ package com.unalminas.eventsapp.presentation.screens.camera
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.unalminas.eventsapp.domain.Image
@@ -17,6 +18,21 @@ import javax.inject.Inject
 class CameraViewModel @Inject constructor(
     private val imageRepository: ImageRepository
 ) : ViewModel() {
+    val visiblePermissionDialogQueue = mutableStateListOf<String>()
+
+    fun dismissDialog() {
+        visiblePermissionDialogQueue.removeFirst()
+    }
+
+    fun onPermissionResult(
+        permission: String,
+        isGranted: Boolean
+    ) {
+        if (!isGranted && !visiblePermissionDialogQueue.contains(permission)) {
+            visiblePermissionDialogQueue.add(permission)
+        }
+    }
+
     private val _allBitmaps = MutableStateFlow<List<Bitmap>>(emptyList())
     val allBitmaps = _allBitmaps.asStateFlow()
 

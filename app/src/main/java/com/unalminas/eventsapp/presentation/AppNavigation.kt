@@ -117,7 +117,7 @@ fun AppNavigation() {
             val id = entry.arguments?.getString("id")?.toInt() ?: -1
             CameraXGuideTheme(
                 navController = navController,
-                eventId = id
+                eventId = id,
             )
         }
 
