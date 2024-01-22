@@ -45,6 +45,7 @@ import androidx.navigation.NavController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
+import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Platinum
@@ -271,7 +272,7 @@ fun EventItem(
                     BadgedBox(
                         badge = {
                             Badge(
-                                containerColor = PrussianBlue,
+                                containerColor = BlueGreen,
                                 contentColor = Snow,
                             ) {
                                 Text(
@@ -310,6 +311,6 @@ fun formatDateOnlyDay(day: Int, month: Int, year: Int): String {
     return format.format(calendar.time)
 }
 
-fun main(){
+fun main() {
 
 }

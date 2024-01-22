@@ -3,7 +3,7 @@ package com.unalminas.eventsapp.presentation.screens.assistants.adapter
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -52,14 +52,16 @@ fun AssistantTable(
 
     var dialogState by remember { mutableStateOf(false) }
 
-    Box(
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .fillMaxSize()
+            .background(OxfordBlue, RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
+            .padding(top = 32.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 16.dp)
                 .background(Platinum, RoundedCornerShape(30))
                 .padding(12.dp)
                 .clip(shape = RoundedCornerShape(30)),
@@ -95,71 +97,70 @@ fun AssistantTable(
                 color = OxfordBlue
             )
         }
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+            contentPadding = PaddingValues(vertical = 10.dp)
+        ) {
+            var currentAssistant = Assistant()
+            itemsIndexed(items = eventListState) { index, item ->
 
-    }
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-        contentPadding = PaddingValues(vertical = 10.dp)
-    ) {
-        var currentAssistant = Assistant()
-        itemsIndexed(items = eventListState) { index, item ->
-
-            val delete = SwipeAction(
-                onSwipe = {
-                    currentAssistant = item
-                    dialogState = true
-                },
-                icon = {
-                    Icon(
-                        modifier = Modifier.padding(16.dp),
-                        imageVector = Icons.Filled.Delete,
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                },
-                background = Color.Transparent
-            )
-            if (dialogState) {
-                Dialog(
-                    onDismissRequest = { dialogState = false },
-                    content = {
-                        InfoDialogContent(
-                            R.string.message_delete_assistant,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            onDeleteClick = {
-                                currentAssistant.id?.let { nonNullId ->
-                                    assistantViewModel.deleteAssistantById(nonNullId)
-                                }
-                                dialogState = false
-                            },
-                            onCancel = { dialogState = false }
+                val delete = SwipeAction(
+                    onSwipe = {
+                        currentAssistant = item
+                        dialogState = true
+                    },
+                    icon = {
+                        Icon(
+                            modifier = Modifier.padding(16.dp),
+                            imageVector = Icons.Filled.Delete,
+                            contentDescription = null,
+                            tint = Color.White
                         )
                     },
-                    properties = DialogProperties(
-                        dismissOnBackPress = true,
-                        dismissOnClickOutside = true
+                    background = Color.Transparent
+                )
+                if (dialogState) {
+                    Dialog(
+                        onDismissRequest = { dialogState = false },
+                        content = {
+                            InfoDialogContent(
+                                R.string.message_delete_assistant,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                onDeleteClick = {
+                                    currentAssistant.id?.let { nonNullId ->
+                                        assistantViewModel.deleteAssistantById(nonNullId)
+                                    }
+                                    dialogState = false
+                                },
+                                onCancel = { dialogState = false }
+                            )
+                        },
+                        properties = DialogProperties(
+                            dismissOnBackPress = true,
+                            dismissOnClickOutside = true
+                        )
                     )
-                )
-            }
-            SwipeableActionsBox(
-                swipeThreshold = 50.dp,
-                endActions = listOf(delete),
-                backgroundUntilSwipeThreshold = Color.Transparent
-            ) {
-                CardAssistant(modifier = Modifier
-                    .background(Snow, RoundedCornerShape(30))
-                    .clickable {
-                        item.id?.let { nonNullId ->
-                            val screen = Screen.EditAssistantScreen(nonNullId.toString())
-                            navController.navigate(screen.createRoute())
-                        }
-                    }, index + 1, item
-                )
+                }
+                SwipeableActionsBox(
+                    swipeThreshold = 50.dp,
+                    endActions = listOf(delete),
+                    backgroundUntilSwipeThreshold = Color.Transparent
+                ) {
+                    CardAssistant(modifier = Modifier
+                        .background(Snow, RoundedCornerShape(30))
+                        .clickable {
+                            item.id?.let { nonNullId ->
+                                val screen = Screen.EditAssistantScreen(nonNullId.toString())
+                                navController.navigate(screen.createRoute())
+                            }
+                        }, index + 1, item
+                    )
+                }
             }
         }
     }
