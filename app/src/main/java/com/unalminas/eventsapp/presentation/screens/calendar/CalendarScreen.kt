@@ -46,10 +46,8 @@ import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
-import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
-import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Platinum
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -95,8 +93,11 @@ fun CalendarScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(4.dp)
-                .background(Melon, RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
+                .padding(horizontal = 4.dp)
+                .background(
+                    OxfordBlue,
+                    RoundedCornerShape(topStartPercent = 10, topEndPercent = 10)
+                )
                 .padding(top = 16.dp)
                 .clip(shape = RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
 
@@ -110,7 +111,7 @@ fun CalendarScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(LavenderBlush)
+                        .background(Platinum)
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -152,7 +153,7 @@ fun CalendarScreen(
                             modifier = Modifier.size(38.dp),
                             imageVector = Icons.Filled.PostAdd,
                             contentDescription = "create event",
-                            tint = PrussianBlue
+                            tint = OxfordBlue
                         )
                     }
                 }

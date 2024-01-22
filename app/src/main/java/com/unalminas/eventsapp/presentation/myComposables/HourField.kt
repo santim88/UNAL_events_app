@@ -24,12 +24,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.unalminas.eventsapp.presentation.ui.theme.DesertSand
+import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
-import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Platinum
 import java.util.Calendar
 
 @Composable
@@ -64,7 +63,7 @@ fun HourField(
             }
 
             val formattedMinute = minute.toString().padStart(2, '0')
-            val time = "$formattedHour:$formattedMinute $amPm"
+            time = "$formattedHour:$formattedMinute $amPm"
             onValueChange(time)
         },
         hourOfDay,
@@ -101,22 +100,22 @@ fun HourField(
                             imageVector = Icons.Filled.AccessTime,
                             contentDescription = "edit event",
                             modifier = Modifier.size(26.dp),
-                            tint = PrussianBlue
+                            tint = OxfordBlue
                         )
                     }
                 },
                 shape = RoundedCornerShape(30),
                 colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedContainerColor = LavenderBlush,
-                    focusedContainerColor = LavenderBlush,
-                    errorContainerColor = DesertSand,
-                    unfocusedBorderColor = Melon,
-                    focusedBorderColor = Melon,
+                    unfocusedContainerColor = Platinum,
+                    focusedContainerColor = Platinum,
+                    errorContainerColor = Melon,
+                    unfocusedBorderColor = BlueGreen,
+                    focusedBorderColor = BlueGreen,
                     unfocusedTextColor = OxfordBlue,
                     focusedTextColor = OxfordBlue,
                     errorTextColor = MaterialTheme.colorScheme.error,
-                    unfocusedLabelColor = OxfordBlue,
-                    focusedLabelColor = OxfordBlue,
+                    unfocusedLabelColor = BlueGreen,
+                    focusedLabelColor = BlueGreen,
                     errorLabelColor = MaterialTheme.colorScheme.error,
                     cursorColor = OxfordBlue
                 )

@@ -2,9 +2,6 @@ package com.unalminas.eventsapp.presentation.screens.scanPdf417
 
 
 import android.content.Intent
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.zxing.integration.android.IntentIntegrator

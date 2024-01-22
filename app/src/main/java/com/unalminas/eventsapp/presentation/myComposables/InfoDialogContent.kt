@@ -19,11 +19,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.unalminas.eventsapp.R
-import com.unalminas.eventsapp.presentation.ui.theme.DesertSand
+import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
-import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Platinum
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @Composable
@@ -38,7 +37,7 @@ fun InfoDialogContent(
             .fillMaxWidth(),
         shape = RoundedCornerShape(20),
         colors = CardDefaults.cardColors(
-            containerColor = Snow,
+            containerColor = Platinum,
         )
     ) {
         Column(
@@ -63,20 +62,28 @@ fun InfoDialogContent(
                     shape = RoundedCornerShape(20),
                     colors = ButtonDefaults.buttonColors(
                         contentColor = Snow,
-                        containerColor = PrussianBlue
+                        containerColor = BlueGreen
                     )
                 ) {
-                    Text(text = stringResource(id = R.string.cancel), fontFamily = LatoFont)
+                    Text(
+                        text = stringResource(id = R.string.cancel),
+                        fontFamily = LatoFont,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
                 Button(
                     onClick = onDeleteClick,
                     shape = RoundedCornerShape(20),
                     colors = ButtonDefaults.buttonColors(
                         contentColor = Snow,
-                        containerColor = PrussianBlue
+                        containerColor = BlueGreen
                     )
                 ) {
-                    Text(text = stringResource(id = R.string.delete), fontFamily = LatoFont)
+                    Text(
+                        text = stringResource(id = R.string.delete),
+                        fontFamily = LatoFont,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }

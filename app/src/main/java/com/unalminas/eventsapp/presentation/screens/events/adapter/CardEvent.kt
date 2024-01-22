@@ -21,9 +21,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,16 +36,15 @@ import androidx.compose.ui.unit.sp
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
-import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 fun CardEvent(
-    modifier: Modifier = Modifier.padding(vertical = 2.dp),
+    modifier: Modifier = Modifier,
     event: Event = Event(
         id = 100,
         name = "Event 1",
@@ -96,7 +95,7 @@ fun CardEvent(
                     Icon(
                         imageVector = Icons.Filled.Edit,
                         contentDescription = "edit event",
-                        tint = PrussianBlue
+                        tint = OxfordBlue
                     )
                 }
             }
@@ -151,7 +150,7 @@ fun CardEvent(
                     shape = RoundedCornerShape(16.dp),
                     colors = ButtonDefaults.buttonColors(
                         contentColor = Snow,
-                        containerColor = PrussianBlue
+                        containerColor = BlueGreen
                     )
                 ) {
                     Text(

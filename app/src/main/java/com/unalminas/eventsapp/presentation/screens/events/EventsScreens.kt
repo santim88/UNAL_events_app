@@ -41,7 +41,6 @@ import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.myComposables.InfoDialogContent
 import com.unalminas.eventsapp.presentation.screens.events.adapter.CardEvent
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import me.saket.swipe.SwipeAction
@@ -133,7 +132,7 @@ fun EventsList(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(Melon, RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
+            .background(OxfordBlue, RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
             .padding(top = 32.dp)
             .clip(shape = RoundedCornerShape(topStartPercent = 10, topEndPercent = 10)),
         verticalArrangement = Arrangement.spacedBy(8.dp),

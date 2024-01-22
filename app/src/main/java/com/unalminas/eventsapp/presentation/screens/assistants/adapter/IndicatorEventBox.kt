@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens.events.adapter
+package com.unalminas.eventsapp.presentation.screens.assistants.adapter
 
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -30,11 +30,9 @@ import androidx.navigation.NavController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
-import com.unalminas.eventsapp.presentation.ui.theme.DesertSand
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
-import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -47,7 +45,7 @@ fun IndicatorEventBox(
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(20))
-            .background(DesertSand)
+            .background(Snow)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -59,7 +57,7 @@ fun IndicatorEventBox(
         ) {
             Text(
                 modifier = Modifier
-                    .fillMaxWidth(0.80f)
+                    .fillMaxWidth()
                     .padding(horizontal = 16.dp)
                     .padding(top = 16.dp)
                     .basicMarquee(),
@@ -94,6 +92,7 @@ fun IndicatorEventBox(
         Column(
             modifier = Modifier.padding(5.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             IconButton(modifier = Modifier
                 .padding(5.dp)
@@ -108,7 +107,7 @@ fun IndicatorEventBox(
                     modifier = Modifier.size(40.dp),
                     imageVector = Icons.Filled.AddPhotoAlternate,
                     contentDescription = "add photo",
-                    tint = PrussianBlue
+                    tint = OxfordBlue
                 )
             }
         }

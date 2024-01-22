@@ -21,17 +21,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
-import com.unalminas.eventsapp.R
-import com.unalminas.eventsapp.presentation.ui.theme.DesertSand
+import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
-import com.unalminas.eventsapp.presentation.ui.theme.LavenderBlush
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
-import com.unalminas.eventsapp.presentation.ui.theme.PrussianBlue
+import com.unalminas.eventsapp.presentation.ui.theme.Platinum
 
 @Composable
 fun DateField(
@@ -81,13 +77,6 @@ fun DateField(
                 fontFamily = LatoFont,
             )
         },
-        placeholder = {
-            Text(
-                text = stringResource(R.string.dd_mm_yyyy),
-                fontFamily = LatoFont,
-                fontStyle = FontStyle.Italic
-            )
-        },
         trailingIcon = {
             IconButton(
                 modifier = Modifier,
@@ -99,7 +88,7 @@ fun DateField(
                     imageVector = Icons.Filled.CalendarToday,
                     contentDescription = "edit event",
                     modifier = Modifier.size(26.dp),
-                    tint = PrussianBlue
+                    tint = OxfordBlue
                 )
             }
         },
@@ -107,16 +96,16 @@ fun DateField(
         singleLine = true,
         shape = RoundedCornerShape(30),
         colors = OutlinedTextFieldDefaults.colors(
-            unfocusedContainerColor = LavenderBlush,
-            focusedContainerColor = LavenderBlush,
-            errorContainerColor = DesertSand,
-            unfocusedBorderColor = Melon,
-            focusedBorderColor = Melon,
+            unfocusedContainerColor = Platinum,
+            focusedContainerColor = Platinum,
+            errorContainerColor = Melon,
+            unfocusedBorderColor = BlueGreen,
+            focusedBorderColor = BlueGreen,
             unfocusedTextColor = OxfordBlue,
             focusedTextColor = OxfordBlue,
             errorTextColor = MaterialTheme.colorScheme.error,
-            unfocusedLabelColor = OxfordBlue,
-            focusedLabelColor = OxfordBlue,
+            unfocusedLabelColor = BlueGreen,
+            focusedLabelColor = BlueGreen,
             errorLabelColor = MaterialTheme.colorScheme.error,
             cursorColor = OxfordBlue
         )
