@@ -101,6 +101,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.44"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
     implementation 'androidx.compose.material3:material3:1.2.0-alpha02'
+    implementation 'androidx.compose.material:material:1.2.0'
     implementation "me.saket.swipe:swipe:1.2.0"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

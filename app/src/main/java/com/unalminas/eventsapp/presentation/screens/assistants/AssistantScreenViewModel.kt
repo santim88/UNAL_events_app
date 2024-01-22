@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp.presentation.screens.assistants
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.unalminas.eventsapp.domain.Assistant
