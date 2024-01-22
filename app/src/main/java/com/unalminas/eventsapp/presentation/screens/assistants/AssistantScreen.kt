@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -48,6 +49,7 @@ fun AssistantScreen(
     LaunchedEffect(Unit) {
         id?.let {
             viewModel.getAssistantListByEvent(id)
+            viewModel.getAssistantList()
         }
         id?.let {
             viewModel.getEventById(id)
@@ -61,7 +63,7 @@ fun AssistantScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(OxfordBlue)
+            .background(Snow)
     ) {
         Column(
             modifier = Modifier,
@@ -71,7 +73,7 @@ fun AssistantScreen(
             TopBarTitle(
                 title = stringResource(id = R.string.list_assistants),
                 showBackButton = true,
-                backButtonColor = Snow,
+                backButtonColor = OxfordBlue,
                 onBackButtonClick = {
                     navController.popBackStack()
                 }
@@ -85,7 +87,7 @@ fun AssistantScreen(
                 text = stringResource(id = R.string.dialog_state_format, itemCount),
                 fontFamily = LatoFont,
                 fontWeight = FontWeight.Black,
-                style = TextStyle(fontSize = 16.sp, color = Snow)
+                style = TextStyle(fontSize = 16.sp, color = Color.Gray)
             )
             AssistantTable(assistantListState, navController)
         }

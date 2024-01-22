@@ -45,7 +45,7 @@ fun IndicatorEventBox(
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(20))
-            .background(Snow)
+            .background(OxfordBlue)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -64,7 +64,7 @@ fun IndicatorEventBox(
                 text = stringResource(id = R.string.event_name_format, event.name),
                 fontFamily = LatoFont,
                 fontWeight = FontWeight.Bold,
-                color = OxfordBlue,
+                color = Snow,
                 style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
             )
             Text(
@@ -74,7 +74,7 @@ fun IndicatorEventBox(
                 text = stringResource(id = R.string.event_date_format, event.date),
                 fontFamily = LatoFont,
                 fontWeight = FontWeight.Bold,
-                color = OxfordBlue,
+                color = Snow,
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray),
                 maxLines = 2
             )
@@ -85,7 +85,7 @@ fun IndicatorEventBox(
                 text = stringResource(id = R.string.event_place_format, event.place),
                 fontFamily = LatoFont,
                 fontWeight = FontWeight.Bold,
-                color = OxfordBlue,
+                color = Snow,
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray)
             )
         }
@@ -107,7 +107,7 @@ fun IndicatorEventBox(
                     modifier = Modifier.size(40.dp),
                     imageVector = Icons.Filled.AddPhotoAlternate,
                     contentDescription = "add photo",
-                    tint = OxfordBlue
+                    tint = Snow
                 )
             }
         }
