@@ -31,7 +31,7 @@ import com.unalminas.eventsapp.presentation.myComposables.GeneralDataField
 import com.unalminas.eventsapp.presentation.myComposables.HourField
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import kotlinx.coroutines.CoroutineScope
@@ -90,7 +90,7 @@ fun FormEventScreen(
                             text = stringResource(
                                 id = R.string.name_event
                             ),
-                            fontFamily = LatoFont
+                            fontFamily = NunitoFont
                         )
                     },
                     singleLine = true,
@@ -108,7 +108,7 @@ fun FormEventScreen(
                             text = stringResource(
                                 id = R.string.description_event
                             ),
-                            fontFamily = LatoFont
+                            fontFamily = NunitoFont
                         )
                     },
                     singleLine = true,
@@ -148,7 +148,7 @@ fun FormEventScreen(
                             text = stringResource(
                                 id = R.string.place_event
                             ),
-                            fontFamily = LatoFont
+                            fontFamily = NunitoFont
                         )
                     },
                     singleLine = true,
@@ -181,7 +181,7 @@ fun FormEventScreen(
                         text = stringResource(
                             id = if (isNewEvent) R.string.create_event else R.string.save_event
                         ),
-                        fontFamily = LatoFont,
+                        fontFamily = NunitoFont,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.titleMedium
                     )

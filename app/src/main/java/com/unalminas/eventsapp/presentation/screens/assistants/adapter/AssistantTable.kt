@@ -36,7 +36,7 @@ import com.unalminas.eventsapp.domain.Assistant
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.myComposables.InfoDialogContent
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Platinum
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
@@ -69,7 +69,7 @@ fun AssistantTable(
         ) {
             Text(
                 text = "#",
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = OxfordBlue
             )
@@ -78,21 +78,21 @@ fun AssistantTable(
                     .weight(1f)
                     .padding(start = 16.dp),
                 text = stringResource(id = R.string.name_assistant),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = OxfordBlue
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = stringResource(id = R.string.identification_assistant),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = OxfordBlue
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = stringResource(id = R.string.email_assistant),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = OxfordBlue
             )

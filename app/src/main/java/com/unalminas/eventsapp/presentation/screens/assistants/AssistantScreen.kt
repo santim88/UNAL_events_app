@@ -30,7 +30,7 @@ import com.unalminas.eventsapp.presentation.screens.assistants.adapter.Assistant
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.BottomFloatingDropMenu
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.IndicatorEventBox
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
@@ -85,7 +85,7 @@ fun AssistantScreen(
             Text(
                 modifier = Modifier.padding(vertical = 16.dp),
                 text = stringResource(id = R.string.dialog_state_format, itemCount),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray)
             )

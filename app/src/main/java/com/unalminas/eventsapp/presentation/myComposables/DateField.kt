@@ -24,7 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Platinum
@@ -69,12 +69,12 @@ fun DateField(
             onValueChange(date)
         },
         textStyle = TextStyle(
-            fontFamily = LatoFont
+            fontFamily = NunitoFont
         ),
         label = {
             Text(
                 text = label,
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
             )
         },
         trailingIcon = {

@@ -30,7 +30,7 @@ import androidx.navigation.NavController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
@@ -62,7 +62,7 @@ fun IndicatorEventBox(
                     .padding(top = 16.dp)
                     .basicMarquee(),
                 text = stringResource(id = R.string.event_name_format, event.name),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Bold,
                 color = Snow,
                 style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
@@ -72,7 +72,7 @@ fun IndicatorEventBox(
                     .padding(horizontal = 16.dp)
                     .padding(vertical = 8.dp),
                 text = stringResource(id = R.string.event_date_format, event.date),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Bold,
                 color = Snow,
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray),
@@ -83,7 +83,7 @@ fun IndicatorEventBox(
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 16.dp),
                 text = stringResource(id = R.string.event_place_format, event.place),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Bold,
                 color = Snow,
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray)

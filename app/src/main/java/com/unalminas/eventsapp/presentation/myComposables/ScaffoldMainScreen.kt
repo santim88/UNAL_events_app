@@ -33,7 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
@@ -131,7 +131,7 @@ fun RowScope.NavItem(
         label = {
             Text(
                 text = bottomNavigationItem.title,
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Bold,
                 color = OxfordBlue
             )
@@ -146,7 +146,7 @@ fun RowScope.NavItem(
                         Badge {
                             Text(
                                 text = bottomNavigationItem.bagCount.toString(),
-                                fontFamily = LatoFont
+                                fontFamily = NunitoFont
                             )
                         }
                     } else if (bottomNavigationItem.hasNews) {

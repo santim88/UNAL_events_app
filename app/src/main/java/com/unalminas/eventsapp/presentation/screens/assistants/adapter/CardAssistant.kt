@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unalminas.eventsapp.domain.Assistant
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 
 @Preview
@@ -38,7 +38,7 @@ fun CardAssistant(
         ) {
             Text(
                 text = index.toString(),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Bold,
                 color = OxfordBlue
             )
@@ -47,21 +47,21 @@ fun CardAssistant(
                     .padding(start = 16.dp)
                     .weight(1f),
                 text = item.name,
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Bold,
                 color = OxfordBlue
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = item.identification,
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Bold,
                 color = OxfordBlue
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = item.email,
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Bold,
                 color = OxfordBlue
             )

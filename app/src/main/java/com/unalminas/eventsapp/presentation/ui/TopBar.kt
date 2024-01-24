@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @Composable
@@ -59,7 +59,7 @@ fun TopBarTitle(
                     .padding(start = 0.dp, top = 5.dp, bottom = 5.dp)
                     .weight(1f),
                 text = title,
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = backButtonColor,
                 style = MaterialTheme.typography.titleMedium,

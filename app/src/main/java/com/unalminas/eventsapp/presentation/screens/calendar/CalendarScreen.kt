@@ -46,7 +46,7 @@ import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Platinum
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
@@ -85,7 +85,7 @@ fun CalendarScreen(
                 .fillMaxWidth()
                 .padding(start = 38.dp, top = 16.dp, bottom = 16.dp),
             text = stringResource(R.string.calendar),
-            fontFamily = LatoFont,
+            fontFamily = NunitoFont,
             fontWeight = FontWeight.Black,
             color = Snow,
             style = MaterialTheme.typography.titleLarge,
@@ -122,7 +122,7 @@ fun CalendarScreen(
                     ) {
                         Text(
                             text = selectDate,
-                            fontFamily = LatoFont,
+                            fontFamily = NunitoFont,
                             fontWeight = FontWeight.Bold,
                             color = OxfordBlue,
                             style = MaterialTheme.typography.titleLarge,
@@ -130,14 +130,14 @@ fun CalendarScreen(
                         )
                         Text(
                             text = selectDateOnlyDay,
-                            fontFamily = LatoFont,
+                            fontFamily = NunitoFont,
                             fontWeight = FontWeight.Bold,
                             color = OxfordBlue,
                             style = MaterialTheme.typography.titleSmall
                         )
                         Text(
                             text = currentDate,
-                            fontFamily = LatoFont,
+                            fontFamily = NunitoFont,
                             fontWeight = FontWeight.Bold,
                             color = OxfordBlue,
                             style = MaterialTheme.typography.titleSmall
@@ -246,21 +246,21 @@ fun EventItem(
                             event.name
                         ),
                         color = OxfordBlue,
-                        fontFamily = LatoFont,
+                        fontFamily = NunitoFont,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     Text(
                         text = stringResource(id = R.string.event_date_format, event.date),
                         color = OxfordBlue,
-                        fontFamily = LatoFont,
+                        fontFamily = NunitoFont,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     Text(
                         text = stringResource(id = R.string.event_hour_format, event.hour),
                         color = OxfordBlue,
-                        fontFamily = LatoFont,
+                        fontFamily = NunitoFont,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyMedium,
                     )

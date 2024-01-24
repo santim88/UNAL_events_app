@@ -29,7 +29,7 @@ import com.unalminas.eventsapp.presentation.myComposables.GeneralDataField
 import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import kotlinx.coroutines.CoroutineScope
@@ -154,7 +154,7 @@ fun FormAssistant(
                     text = stringResource(
                         id = R.string.save_assistant
                     ),
-                    fontFamily = LatoFont,
+                    fontFamily = NunitoFont,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.titleMedium
                 )

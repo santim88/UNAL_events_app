@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
@@ -86,7 +86,7 @@ fun CardEvent(
                         .padding(10.dp)
                         .basicMarquee(),
                     text = "${event.name} | ${event.place}",
-                    fontFamily = LatoFont,
+                    fontFamily = NunitoFont,
                     fontWeight = FontWeight.Bold,
                     color = OxfordBlue,
                     style = MaterialTheme.typography.headlineSmall,
@@ -112,7 +112,7 @@ fun CardEvent(
                         event.description
                     ),
                     color = OxfordBlue,
-                    fontFamily = LatoFont,
+                    fontFamily = NunitoFont,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     style = MaterialTheme.typography.bodyMedium,
@@ -124,7 +124,7 @@ fun CardEvent(
                         event.date
                     ),
                     color = OxfordBlue,
-                    fontFamily = LatoFont,
+                    fontFamily = NunitoFont,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodyMedium,
                 )
@@ -135,7 +135,7 @@ fun CardEvent(
                         event.hour
                     ),
                     color = OxfordBlue,
-                    fontFamily = LatoFont,
+                    fontFamily = NunitoFont,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodyMedium,
                 )
@@ -155,7 +155,7 @@ fun CardEvent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.take_asistence),
-                        fontFamily = LatoFont,
+                        fontFamily = NunitoFont,
                         fontSize = 16.sp
                     )
                 }
