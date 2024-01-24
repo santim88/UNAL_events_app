@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Platinum
@@ -29,7 +29,7 @@ fun GeneralDataField(
         singleLine = singleLine,
 
         textStyle = TextStyle(
-            fontFamily = LatoFont
+            fontFamily = NunitoFont
         ),
         shape = RoundedCornerShape(30),
         colors = OutlinedTextFieldDefaults.colors(

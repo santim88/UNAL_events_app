@@ -40,7 +40,7 @@ import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.myComposables.InfoDialogContent
 import com.unalminas.eventsapp.presentation.screens.events.adapter.CardEvent
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 import me.saket.swipe.SwipeAction
@@ -74,7 +74,7 @@ fun EventsScreens(
                     .align(Alignment.CenterVertically)
                     .padding(start = 38.dp, top = 16.dp, bottom = 16.dp),
                 text = stringResource(R.string.events),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = OxfordBlue,
                 style = MaterialTheme.typography.titleLarge,

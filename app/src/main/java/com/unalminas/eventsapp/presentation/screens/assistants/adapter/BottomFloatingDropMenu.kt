@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
@@ -49,7 +49,7 @@ fun BottomFloatingDropMenu(
         ) {
             menuItems.forEach { item ->
                 DropdownMenuItem(
-                    text = { Text(text = "$item", fontFamily = LatoFont) },
+                    text = { Text(text = "$item", fontFamily = NunitoFont) },
                     onClick = {
                         onMenuExpandedChanged(false)
 

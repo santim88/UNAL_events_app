@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.LatoFont
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Platinum
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
@@ -50,7 +50,7 @@ fun InfoDialogContent(
             Text(
                 modifier = Modifier,
                 text = stringResource(id = title),
-                fontFamily = LatoFont,
+                fontFamily = NunitoFont,
                 fontWeight = FontWeight.Bold,
                 color = OxfordBlue
             )
@@ -67,7 +67,7 @@ fun InfoDialogContent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.cancel),
-                        fontFamily = LatoFont,
+                        fontFamily = NunitoFont,
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -81,7 +81,7 @@ fun InfoDialogContent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.delete),
-                        fontFamily = LatoFont,
+                        fontFamily = NunitoFont,
                         fontWeight = FontWeight.Bold
                     )
                 }
