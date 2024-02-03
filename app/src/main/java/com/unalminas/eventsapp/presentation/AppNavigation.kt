@@ -27,6 +27,7 @@ import com.unalminas.eventsapp.presentation.screens.events.EventsScreens
 import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
 import com.unalminas.eventsapp.presentation.screens.scanPdf417.MainScreenPdf417
 import com.unalminas.eventsapp.presentation.screens.settings.SettingsScreen
+import com.unalminas.eventsapp.presentation.screens.splash.SplashScreen
 import kotlinx.coroutines.delay
 
 @Composable
@@ -40,10 +41,12 @@ fun AppNavigation() {
     ) {
 
         composable(Screen.SplashScreen.route) {
-            LaunchedEffect(Unit) {
-                delay(100)
-                navController.navigate(Screen.HomeScreen.EventsRoute.route)
-            }
+            SplashScreen(navController = navController)
+
+//            LaunchedEffect(Unit) {
+//                delay(100)
+//                navController.navigate(Screen.HomeScreen.EventsRoute.route)
+//            }
         }
 
         composable(
@@ -51,13 +54,13 @@ fun AppNavigation() {
             enterTransition = {
                 slideInVertically(
                     initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
             exitTransition = {
                 slideOutVertically(
                     targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
 
@@ -70,13 +73,13 @@ fun AppNavigation() {
             enterTransition = {
                 slideInVertically(
                     initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
             exitTransition = {
                 slideOutVertically(
                     targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
 
@@ -95,13 +98,13 @@ fun AppNavigation() {
             enterTransition = {
                 slideInVertically(
                     initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
             exitTransition = {
                 slideOutVertically(
                     targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
             arguments = listOf(navArgument("eventId") { type = NavType.StringType })
@@ -131,13 +134,13 @@ fun AppNavigation() {
             enterTransition = {
                 slideInVertically(
                     initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
             exitTransition = {
                 slideOutVertically(
                     targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
             arguments = listOf(navArgument("id") { type = NavType.StringType })
@@ -155,13 +158,13 @@ fun AppNavigation() {
             enterTransition = {
                 slideInVertically(
                     initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
             exitTransition = {
                 slideOutVertically(
                     targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(1000)
+                    animationSpec = tween(500)
                 )
             },
             arguments = listOf(navArgument("id") { type = NavType.StringType })
