@@ -14,30 +14,32 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.unalminas.eventsapp.presentation.screens.events.FormEventViewModel
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Platinum
+
 
 @Composable
 fun DateField(
     valueDate: String,
     onValueChange: (String) -> Unit,
     label: String,
+    viewModel: FormEventViewModel = hiltViewModel()
 ) {
     var date by rememberSaveable { mutableStateOf(valueDate) }
-    var isValidDate by remember { mutableStateOf(true) }
-    val dateRegex = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)\\d\\d$".toRegex()
     val year: Int
     val month: Int
     val day: Int
@@ -53,7 +55,7 @@ fun DateField(
             val formattedMonth = (month + 1).toString().padStart(2, '0')
             val formattedDay = day.toString().padStart(2, '0')
             date = "$formattedDay-$formattedMonth-$year"
-            isValidDate = date.matches(dateRegex)
+            viewModel.isValidDate(date)
             onValueChange(date)
         },
         year,
@@ -62,10 +64,10 @@ fun DateField(
     )
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
-        value = date,
+        value = valueDate,
         onValueChange = {
             date = it
-            isValidDate = date.matches(dateRegex)
+            viewModel.isValidDate(date)
             onValueChange(date)
         },
         textStyle = TextStyle(
@@ -92,7 +94,7 @@ fun DateField(
                 )
             }
         },
-        isError = !isValidDate,
+        isError = !viewModel.isValidDateState.collectAsState().value,
         singleLine = true,
         shape = RoundedCornerShape(30),
         colors = OutlinedTextFieldDefaults.colors(

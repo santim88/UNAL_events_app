@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp.presentation.screens.events
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -52,6 +54,8 @@ fun FormEventScreen(
         event.date = dateEvent
     }
 
+    val context = LocalContext.current
+
     LaunchedEffect(isNewEvent) {
         if (!isNewEvent) id?.let {
             viewModel.getEventById(it)
@@ -83,6 +87,7 @@ fun FormEventScreen(
                     modifier = Modifier.fillMaxWidth(),
                     value = event.name,
                     onValueChange = { newName ->
+                        viewModel.isValidName(newName)
                         viewModel.editEventField(EventFieldEnum.NAME, newName)
                     },
                     label = {
@@ -94,6 +99,7 @@ fun FormEventScreen(
                         )
                     },
                     singleLine = true,
+                    isError = !viewModel.isValidNameState.collectAsState().value
                 )
             }
             item {
@@ -112,6 +118,7 @@ fun FormEventScreen(
                         )
                     },
                     singleLine = true,
+                    isError = false
                 )
             }
             item {
@@ -127,7 +134,7 @@ fun FormEventScreen(
             }
             item {
                 HourField(
-                    value = event.hour,
+                    hour = event.hour,
                     onValueChange = { newHour ->
                         viewModel.editEventField(EventFieldEnum.HOUR, newHour)
                     },
@@ -141,6 +148,7 @@ fun FormEventScreen(
                     modifier = Modifier.fillMaxWidth(),
                     value = event.place,
                     onValueChange = { newPlace ->
+                        viewModel.isValidPlace(newPlace)
                         viewModel.editEventField(EventFieldEnum.PLACE, newPlace)
                     },
                     label = {
@@ -152,6 +160,7 @@ fun FormEventScreen(
                         )
                     },
                     singleLine = true,
+                    isError = !viewModel.isValidPlaceState.collectAsState().value
                 )
             }
             item {
@@ -160,15 +169,24 @@ fun FormEventScreen(
                         .fillMaxWidth(0.6f),
 //                        .height(50.dp),
                     onClick = {
-                        if (isNewEvent) {
-                            viewModel.insertEvent(event)
-                        } else {
-                            viewModel.updateEvent(event)
-                        }
-                        CoroutineScope(Dispatchers.IO).launch {
-                            withContext(Dispatchers.Main) {
-                                navController.navigate(Screen.HomeScreen.EventsRoute.route)
+                        if (viewModel.areAllValidFields(event)) {
+                            if (isNewEvent) {
+                                viewModel.insertEvent(event)
+                            } else {
+                                viewModel.updateEvent(event)
                             }
+                            CoroutineScope(Dispatchers.IO).launch {
+                                withContext(Dispatchers.Main) {
+                                    navController.navigate(Screen.HomeScreen.EventsRoute.route)
+                                }
+                            }
+                        } else {
+                            val text = context.getString(R.string.complete_all_required_fields)
+                            Toast.makeText(
+                                context,
+                                text,
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     },
                     shape = RoundedCornerShape(16.dp),

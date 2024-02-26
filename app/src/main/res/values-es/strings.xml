@@ -35,5 +35,6 @@
     <string name="dd_mm_yyyy">DD/MM/AAAA</string>
     <string name="events">Eventos</string>
     <string name="calendar">Calendario</string>
+    <string name="complete_all_required_fields">Complete todos los campos obligatorios</string>
 
 </resources>
