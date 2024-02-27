@@ -72,7 +72,7 @@ fun FormEventScreen(
             showBackButton = true,
             backButtonColor = Snow,
             onBackButtonClick = {
-                navController.popBackStack()
+                navController.navigate(Screen.HomeScreen.EventsRoute.route)
             }
         )
         LazyColumn(

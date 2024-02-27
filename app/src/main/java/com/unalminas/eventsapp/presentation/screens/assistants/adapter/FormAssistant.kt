@@ -1,5 +1,6 @@
 package com.unalminas.eventsapp.presentation.screens.assistants.adapter
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,6 +48,8 @@ fun FormAssistant(
     viewModel: AssistantScreenViewModel = hiltViewModel()
 ) {
     val assistant by viewModel.assistantState.collectAsState()
+
+    val context = LocalContext.current
 
     LaunchedEffect(isNewAssistant) {
         if (!isNewAssistant) id?.let {
@@ -78,6 +82,7 @@ fun FormAssistant(
                 modifier = Modifier.fillMaxWidth(),
                 value = assistant.name,
                 onValueChange = { newName ->
+                    viewModel.isValidName(newName)
                     viewModel.editAssistantField(AssistantFieldEnum.NAME, newName)
                 },
                 label = {
@@ -88,12 +93,13 @@ fun FormAssistant(
                     )
                 },
                 singleLine = true,
-                isError = false
+                isError = !viewModel.isValidNameState.collectAsState().value
             )
             GeneralDataField(
                 modifier = Modifier.fillMaxWidth(),
                 value = assistant.identification,
                 onValueChange = { newIdentification ->
+                    viewModel.isValidIdentification(newIdentification)
                     viewModel.editAssistantField(
                         AssistantFieldEnum.IDENTIFICATION,
                         newIdentification
@@ -107,12 +113,13 @@ fun FormAssistant(
                     )
                 },
                 singleLine = true,
-                isError = false
+                isError = !viewModel.isValidIdentificationState.collectAsState().value
             )
             GeneralDataField(
                 modifier = Modifier.fillMaxWidth(),
                 value = assistant.email,
                 onValueChange = { newEmail ->
+                    viewModel.isValidEmail(newEmail)
                     viewModel.editAssistantField(AssistantFieldEnum.EMAIL, newEmail)
                 },
                 label = {
@@ -123,25 +130,35 @@ fun FormAssistant(
                     )
                 },
                 singleLine = true,
-                isError = false
+                isError = !viewModel.isValidEmailState.collectAsState().value
             )
             Button(
                 onClick = {
-                    if (isNewAssistant) {
-                        viewModel.createAssistant(assistant)
-                        CoroutineScope(Dispatchers.IO).launch {
-                            withContext(Dispatchers.Main) {
-                                navController.popBackStack()
+                    if (viewModel.areAllValidFields(assistant)) {
+                        if (isNewAssistant) {
+                            viewModel.createAssistant(assistant)
+                            CoroutineScope(Dispatchers.IO).launch {
+                                withContext(Dispatchers.Main) {
+                                    navController.popBackStack()
+                                }
+                            }
+                        } else {
+                            viewModel.updateAssistant(assistant)
+                            CoroutineScope(Dispatchers.IO).launch {
+                                withContext(Dispatchers.Main) {
+                                    val screen =
+                                        Screen.AssistantScreen(assistant.eventId.toString())
+                                    navController.navigate(screen.createRoute())
+                                }
                             }
                         }
                     } else {
-                        viewModel.updateAssistant(assistant)
-                        CoroutineScope(Dispatchers.IO).launch {
-                            withContext(Dispatchers.Main) {
-                                val screen = Screen.AssistantScreen(assistant.eventId.toString())
-                                navController.navigate(screen.createRoute())
-                            }
-                        }
+                        val text = context.getString(R.string.complete_all_required_fields)
+                        Toast.makeText(
+                            context,
+                            text,
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 },
                 shape = RoundedCornerShape(16.dp),

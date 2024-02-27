@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
+import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 
@@ -24,7 +25,7 @@ fun SettingsScreen(
             showBackButton = true,
             backButtonColor = OxfordBlue,
             onBackButtonClick = {
-                navController.popBackStack()
+                navController.navigate(Screen.HomeScreen.EventsRoute.route)
             }
         )
     }

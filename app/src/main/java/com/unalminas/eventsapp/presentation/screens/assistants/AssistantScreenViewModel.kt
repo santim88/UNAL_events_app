@@ -27,6 +27,36 @@ class AssistantScreenViewModel @Inject constructor(
     private val _assistantState = MutableStateFlow(Assistant())
     val assistantState = _assistantState.asStateFlow()
 
+    private val _isValidNameState = MutableStateFlow(true)
+    val isValidNameState = _isValidNameState.asStateFlow()
+
+    private val _isValidIdentificationState = MutableStateFlow(true)
+    val isValidIdentificationState = _isValidIdentificationState.asStateFlow()
+
+    private val _isValidEmailState = MutableStateFlow(true)
+    val isValidEmailState = _isValidEmailState.asStateFlow()
+
+    fun isValidName(name: String) {
+        _isValidNameState.value = name.isNotEmpty()
+    }
+
+    fun isValidIdentification(identification: String) {
+        _isValidIdentificationState.value = identification.isNotEmpty()
+    }
+
+    fun isValidEmail(email: String) {
+        _isValidEmailState.value = email.isNotEmpty()
+    }
+
+    fun areAllValidFields(assistant: Assistant): Boolean {
+        _isValidNameState.value = assistant.name.isNotEmpty()
+        _isValidIdentificationState.value = assistant.identification.isNotEmpty()
+        _isValidEmailState.value = assistant.email.isNotEmpty()
+        return assistant.name.isNotEmpty()
+                && assistant.identification.isNotEmpty()
+                && assistant.email.isNotEmpty()
+    }
+
     private val _eventCurrentState = MutableStateFlow(Event())
     val eventCurrentState = _eventCurrentState.asStateFlow()
 
