@@ -26,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
+import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.AssistantTable
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.BottomFloatingDropMenu
 import com.unalminas.eventsapp.presentation.screens.assistants.adapter.IndicatorEventBox
@@ -75,7 +76,7 @@ fun AssistantScreen(
                 showBackButton = true,
                 backButtonColor = OxfordBlue,
                 onBackButtonClick = {
-                    navController.popBackStack()
+                    navController.navigate(Screen.HomeScreen.EventsRoute.route)
                 }
             )
             IndicatorEventBox(
