@@ -75,6 +75,7 @@ fun FormAssistant(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             GeneralDataField(
+                modifier = Modifier.fillMaxWidth(),
                 value = assistant.name,
                 onValueChange = { newName ->
                     viewModel.editAssistantField(AssistantFieldEnum.NAME, newName)
@@ -87,9 +88,10 @@ fun FormAssistant(
                     )
                 },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                isError = false
             )
             GeneralDataField(
+                modifier = Modifier.fillMaxWidth(),
                 value = assistant.identification,
                 onValueChange = { newIdentification ->
                     viewModel.editAssistantField(
@@ -105,9 +107,10 @@ fun FormAssistant(
                     )
                 },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                isError = false
             )
             GeneralDataField(
+                modifier = Modifier.fillMaxWidth(),
                 value = assistant.email,
                 onValueChange = { newEmail ->
                     viewModel.editAssistantField(AssistantFieldEnum.EMAIL, newEmail)
@@ -120,7 +123,7 @@ fun FormAssistant(
                     )
                 },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth()
+                isError = false
             )
             Button(
                 onClick = {

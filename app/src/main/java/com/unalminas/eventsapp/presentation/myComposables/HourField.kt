@@ -15,6 +15,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -24,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.unalminas.eventsapp.presentation.screens.events.FormEventViewModel
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
@@ -33,12 +36,13 @@ import java.util.Calendar
 
 @Composable
 fun HourField(
-    value: String,
+    hour: String,
     onValueChange: (String) -> Unit,
     label: String,
+    viewModel: FormEventViewModel = hiltViewModel()
 ) {
     var time by rememberSaveable {
-        mutableStateOf("")
+        mutableStateOf(hour)
     }
     val hourOfDay: Int
     val minute: Int
@@ -64,6 +68,7 @@ fun HourField(
 
             val formattedMinute = minute.toString().padStart(2, '0')
             time = "$formattedHour:$formattedMinute $amPm"
+            viewModel.isValidHour(time)
             onValueChange(time)
         },
         hourOfDay,
@@ -77,8 +82,12 @@ fun HourField(
         ) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = value,
-                onValueChange = onValueChange,
+                value = hour,
+                onValueChange = {
+                    time = it
+                    viewModel.isValidHour(time)
+                    onValueChange(time)
+                                },
                 textStyle = TextStyle(
                     fontFamily = NunitoFont
                 ),
@@ -104,6 +113,7 @@ fun HourField(
                         )
                     }
                 },
+                isError = !viewModel.isValidHourState.collectAsState().value,
                 shape = RoundedCornerShape(30),
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedContainerColor = Platinum,
