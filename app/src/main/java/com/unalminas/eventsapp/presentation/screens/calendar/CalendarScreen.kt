@@ -310,7 +310,3 @@ fun formatDateOnlyDay(day: Int, month: Int, year: Int): String {
     val format = SimpleDateFormat("EEEE", Locale("es", "ES"))
     return format.format(calendar.time)
 }
-
-fun main() {
-
-}

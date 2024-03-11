@@ -83,14 +83,16 @@ fun AssistantTable(
                 color = OxfordBlue
             )
             Text(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f),
                 text = stringResource(id = R.string.identification_assistant),
                 fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = OxfordBlue
             )
             Text(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f),
                 text = stringResource(id = R.string.email_assistant),
                 fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
@@ -151,14 +153,15 @@ fun AssistantTable(
                     endActions = listOf(delete),
                     backgroundUntilSwipeThreshold = Color.Transparent
                 ) {
-                    CardAssistant(modifier = Modifier
-                        .background(Snow, RoundedCornerShape(30))
-                        .clickable {
-                            item.id?.let { nonNullId ->
-                                val screen = Screen.EditAssistantScreen(nonNullId.toString())
-                                navController.navigate(screen.createRoute())
-                            }
-                        }, index + 1, item
+                    CardAssistant(
+                        modifier = Modifier
+                            .background(Snow, RoundedCornerShape(30))
+                            .clickable {
+                                item.id?.let { nonNullId ->
+                                    val screen = Screen.EditAssistantScreen(nonNullId.toString())
+                                    navController.navigate(screen.createRoute())
+                                }
+                            }, index + 1, item
                     )
                 }
             }

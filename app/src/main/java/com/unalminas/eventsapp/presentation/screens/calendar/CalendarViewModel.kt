@@ -1,7 +1,5 @@
 package com.unalminas.eventsapp.presentation.screens.calendar
 
-import android.util.Log
-import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.unalminas.eventsapp.domain.Event

@@ -26,16 +26,16 @@ class EventsViewModel @Inject constructor(
         }
     }
 
-    fun deleteEvent(event: Event) {
-        viewModelScope.launch(Dispatchers.IO) {
-            eventRepository.deleteEvent(event)
-            _eventListState.value = eventRepository.getEventList()
-        }
-    }
+//    fun deleteEvent(event: Event) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            eventRepository.deleteEvent(event)
+//            _eventListState.value = eventRepository.getEventList()
+//        }
+//    }
 
-    fun getEventListSize(): Int {
-        return _eventListState.value.size
-    }
+//    fun getEventListSize(): Int {
+//        return _eventListState.value.size
+//    }
 
     fun deleteEventById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {

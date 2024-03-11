@@ -21,7 +21,7 @@ class ScreenPdfViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _scannedValue = MutableStateFlow<String?>(null)
-    val scannedValue = _scannedValue.asStateFlow()
+//    val scannedValue = _scannedValue.asStateFlow()
 
     private val _lastAssistantId = MutableStateFlow<String?>(null)
     val lastAssistantId = _lastAssistantId.asStateFlow()

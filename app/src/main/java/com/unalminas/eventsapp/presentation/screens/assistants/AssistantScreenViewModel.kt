@@ -1,6 +1,5 @@
 package com.unalminas.eventsapp.presentation.screens.assistants
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.unalminas.eventsapp.domain.Assistant
@@ -20,6 +19,10 @@ class AssistantScreenViewModel @Inject constructor(
     private val assistantRepository: AssistantRepository,
     private val eventRepository: EventRepository
 ) : ViewModel() {
+
+    private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$".toRegex()
+
+    private val identificationRegex = "^\\d{1,18}\$".toRegex()
 
     private val _assistantListState = MutableStateFlow(emptyList<Assistant>())
     val assistantListState = _assistantListState.asStateFlow()
@@ -41,20 +44,20 @@ class AssistantScreenViewModel @Inject constructor(
     }
 
     fun isValidIdentification(identification: String) {
-        _isValidIdentificationState.value = identification.isNotEmpty()
+        _isValidIdentificationState.value = identification.matches(identificationRegex)
     }
 
     fun isValidEmail(email: String) {
-        _isValidEmailState.value = email.isNotEmpty()
+        _isValidEmailState.value = email.matches(emailRegex)
     }
 
     fun areAllValidFields(assistant: Assistant): Boolean {
         _isValidNameState.value = assistant.name.isNotEmpty()
-        _isValidIdentificationState.value = assistant.identification.isNotEmpty()
-        _isValidEmailState.value = assistant.email.isNotEmpty()
+        _isValidIdentificationState.value = assistant.identification.matches(identificationRegex)
+        _isValidEmailState.value = assistant.email.matches(emailRegex)
         return assistant.name.isNotEmpty()
-                && assistant.identification.isNotEmpty()
-                && assistant.email.isNotEmpty()
+                && assistant.identification.matches(identificationRegex)
+                && assistant.email.matches(emailRegex)
     }
 
     private val _eventCurrentState = MutableStateFlow(Event())
