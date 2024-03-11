@@ -167,7 +167,6 @@ fun FormEventScreen(
                 Button(
                     modifier = Modifier
                         .fillMaxWidth(0.6f),
-//                        .height(50.dp),
                     onClick = {
                         if (viewModel.areAllValidFields(event)) {
                             if (isNewEvent) {

@@ -168,7 +168,6 @@ fun FormAssistant(
                 ),
                 modifier = Modifier
                     .fillMaxWidth(0.6f)
-//                    .height(50.dp),
             ) {
                 Text(
                     text = stringResource(

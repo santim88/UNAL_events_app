@@ -17,9 +17,9 @@ class FormEventViewModel @Inject constructor(
     private val eventRepository: EventRepository
 ) : ViewModel() {
 
-    val dateRegex = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)\\d\\d$".toRegex()
+    private val dateRegex = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)\\d\\d$".toRegex()
 
-    val hourRegex = "^(0?[1-9]|1[0-2]):([0-5][0-9])\\s?(AM|PM)$".toRegex()
+    private val hourRegex = "^(0?[1-9]|1[0-2]):([0-5][0-9])\\s?(AM|PM)$".toRegex()
 
     private val _eventState = MutableStateFlow(Event())
     val eventState = _eventState.asStateFlow()
