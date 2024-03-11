@@ -35,7 +35,7 @@ fun MainScreenPdf417(
     viewModel: ScreenPdfViewModel = hiltViewModel()
 ) {
 
-    val scannedValue by viewModel.scannedValue.collectAsState()
+//    val scannedValue by viewModel.scannedValue.collectAsState()
     val idAssistant by viewModel.lastAssistantId.collectAsState()
 
     val context = LocalContext.current
@@ -70,12 +70,6 @@ fun MainScreenPdf417(
         ) {
             Text("Scan Barcode", fontSize = 18.sp)
         }
-
-        /*Spacer(modifier = Modifier.height(16.dp))
-
-        scannedValue?.let { it ->
-            Text("El valor escaneado es: $it", fontSize = 16.sp)
-        }*/
     }
 }
 

@@ -30,18 +30,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
+import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
-import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @OptIn(ExperimentalFoundationApi::class)
-@Preview
 @Composable
 fun CardEvent(
     modifier: Modifier = Modifier,
@@ -163,4 +161,3 @@ fun CardEvent(
         }
     }
 }
-

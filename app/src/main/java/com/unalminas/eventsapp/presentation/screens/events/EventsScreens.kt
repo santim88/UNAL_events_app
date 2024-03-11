@@ -64,7 +64,6 @@ fun EventsScreens(
     Column(
         modifier = modifier
             .fillMaxSize()
-//            .padding(horizontal = 1.dp)
             .background(Snow)
     ) {
         Row {
