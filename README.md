@@ -1,4 +1,4 @@
-# <h1 align = "center">Unal Assistance App developed with Jetpack Compose</h1>
+# <h1 align = "center">UNAL Attendance App developed with Jetpack Compose</h1>
 
 ## Getting Started
 
