@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.unalminas.eventsapp.presentation.screens.events.FormEventViewModel
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
-import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.Melon
+import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Platinum
 import java.util.Calendar
@@ -87,7 +87,7 @@ fun HourField(
                     time = it
                     viewModel.isValidHour(time)
                     onValueChange(time)
-                                },
+                },
                 textStyle = TextStyle(
                     fontFamily = NunitoFont
                 ),

@@ -44,7 +44,7 @@ class EventDataSourceImpl(
     }
 
     override suspend fun getEventsWithAssistantCount(date: String): List<Event> {
-        return eventDao.getEventsWithAssistantCount(date).map {
+        return eventDao.getEventsWithAttendantCount(date).map {
             it.toEvent()
         }
     }

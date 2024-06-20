@@ -36,23 +36,23 @@ fun MainScreenPdf417(
 ) {
 
 //    val scannedValue by viewModel.scannedValue.collectAsState()
-    val idAssistant by viewModel.lastAssistantId.collectAsState()
+    val idAttendant by viewModel.lastAttendantId.collectAsState()
 
     val context = LocalContext.current
     val scannerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (viewModel.handleScanResult(result.resultCode, result.data, eventId)) {
-            idAssistant?.let {
-                val screen = Screen.EditAssistantScreen(it)
+            idAttendant?.let {
+                val screen = Screen.EditAttendantScreen(it)
                 navController.navigate(screen.createRoute())
             }
         }
     }
 
-    LaunchedEffect(idAssistant) {
-        idAssistant?.let {
-            val screen = Screen.EditAssistantScreen(it)
+    LaunchedEffect(idAttendant) {
+        idAttendant?.let {
+            val screen = Screen.EditAttendantScreen(it)
             navController.navigate(screen.createRoute())
         }
     }

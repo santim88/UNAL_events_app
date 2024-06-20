@@ -13,9 +13,6 @@ import com.unalminas.eventsapp.presentation.screens.scanPdf417.ScreenPdfViewMode
 
 import javax.inject.Inject;
 
-/**
- * This activity has a margin.
- */
 public class SmallCaptureActivity extends CaptureActivity {
     private NavController navController;
     private boolean isFlashOn = false;
@@ -29,10 +26,9 @@ public class SmallCaptureActivity extends CaptureActivity {
     protected DecoratedBarcodeView initializeContent() {
 
         setContentView(R.layout.capture_small);
-        barcodeView = (DecoratedBarcodeView) findViewById(R.id.zxing_barcode_scanner);
-        ImageButton backButton = (ImageButton) findViewById(R.id.backButton);
+        barcodeView = findViewById(R.id.zxing_barcode_scanner);
+        ImageButton backButton = findViewById(R.id.backButton);
         ImageButton activateFlash = findViewById(R.id.activateFlash);
-
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +40,6 @@ public class SmallCaptureActivity extends CaptureActivity {
         activateFlash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
 
@@ -59,8 +54,7 @@ public class SmallCaptureActivity extends CaptureActivity {
             isFlashOn = !isFlashOn;
         });
 
-
-        return (DecoratedBarcodeView) findViewById(R.id.zxing_barcode_scanner);
+        return findViewById(R.id.zxing_barcode_scanner);
 
     }
 }

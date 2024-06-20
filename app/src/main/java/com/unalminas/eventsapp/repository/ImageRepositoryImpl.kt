@@ -5,7 +5,7 @@ import com.unalminas.eventsapp.domain.Image
 
 class ImageRepositoryImpl(
     private val imageDataSource: ImageDataSource
-) : ImageRepository{
+) : ImageRepository {
     override suspend fun getImageById(id: Int): Image {
         return imageDataSource.getImagesById(id)
     }

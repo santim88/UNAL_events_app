@@ -6,7 +6,6 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,8 +18,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.unalminas.eventsapp.presentation.myComposables.ScaffoldMainScreen
-import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreen
-import com.unalminas.eventsapp.presentation.screens.assistants.adapter.FormAssistant
+import com.unalminas.eventsapp.presentation.screens.Attendants.AttendantScreen
+import com.unalminas.eventsapp.presentation.screens.attendants.adapter.FormAttendant
 import com.unalminas.eventsapp.presentation.screens.calendar.CalendarScreen
 import com.unalminas.eventsapp.presentation.screens.camera.CameraXGuideTheme
 import com.unalminas.eventsapp.presentation.screens.events.EventsScreens
@@ -28,7 +27,6 @@ import com.unalminas.eventsapp.presentation.screens.events.FormEventScreen
 import com.unalminas.eventsapp.presentation.screens.scanPdf417.MainScreenPdf417
 import com.unalminas.eventsapp.presentation.screens.settings.SettingsScreen
 import com.unalminas.eventsapp.presentation.screens.splash.SplashScreen
-import kotlinx.coroutines.delay
 
 @Composable
 fun AppNavigation() {
@@ -42,7 +40,6 @@ fun AppNavigation() {
 
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
-
 //            LaunchedEffect(Unit) {
 //                delay(100)
 //                navController.navigate(Screen.HomeScreen.EventsRoute.route)
@@ -53,14 +50,12 @@ fun AppNavigation() {
             Screen.CreateEventScreen.route,
             enterTransition = {
                 slideInVertically(
-                    initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
+                    initialOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
                 )
             },
             exitTransition = {
                 slideOutVertically(
-                    targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
+                    targetOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
                 )
             },
 
@@ -68,118 +63,84 @@ fun AppNavigation() {
             FormEventScreen(navController = navController, isNewEvent = true)
         }
 
-        composable(
-            Screen.CreateEventScreenWithDate("{date}").route,
-            enterTransition = {
-                slideInVertically(
-                    initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
-                )
-            },
-            exitTransition = {
-                slideOutVertically(
-                    targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
-                )
-            },
+        composable(Screen.CreateEventScreenWithDate("{date}").route, enterTransition = {
+            slideInVertically(
+                initialOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
+            )
+        }, exitTransition = {
+            slideOutVertically(
+                targetOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
+            )
+        },
 
             arguments = listOf(navArgument("date") { type = NavType.StringType })
         ) { entry ->
             val date = entry.arguments?.getString("date")
             FormEventScreen(
-                navController = navController,
-                isNewEvent = true,
-                dateEvent = date
+                navController = navController, isNewEvent = true, dateEvent = date
             )
         }
 
-        composable(
-            Screen.CreateAssistantScreen("{eventId}").route,
-            enterTransition = {
-                slideInVertically(
-                    initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
-                )
-            },
-            exitTransition = {
-                slideOutVertically(
-                    targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
-                )
-            },
-            arguments = listOf(navArgument("eventId") { type = NavType.StringType })
+        composable(Screen.CreateAttendantScreen("{eventId}").route, enterTransition = {
+            slideInVertically(
+                initialOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
+            )
+        }, exitTransition = {
+            slideOutVertically(
+                targetOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
+            )
+        }, arguments = listOf(navArgument("eventId") { type = NavType.StringType })
         ) { entry ->
             val eventId = entry.arguments?.getString("eventId")?.toInt()
-            FormAssistant(
-                navController = navController,
-                id = null,
-                isNewAssistant = true,
-                eventId = eventId
+            FormAttendant(
+                navController = navController, id = null, isNewAttendant = true, eventId = eventId
             )
         }
 
         composable(
-            Screen.AssistantScreen("{id}").route,
+            Screen.AttendantScreen("{id}").route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt()
-            AssistantScreen(
-                navController = navController,
-                id = id
+            AttendantScreen(
+                navController = navController, id = id
             )
         }
 
-        composable(
-            Screen.EditEventScreen("{id}").route,
-            enterTransition = {
-                slideInVertically(
-                    initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
-                )
-            },
-            exitTransition = {
-                slideOutVertically(
-                    targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
-                )
-            },
-            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        composable(Screen.EditEventScreen("{id}").route, enterTransition = {
+            slideInVertically(
+                initialOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
+            )
+        }, exitTransition = {
+            slideOutVertically(
+                targetOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
+            )
+        }, arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt()
             FormEventScreen(
-                navController = navController,
-                id = id,
-                isNewEvent = false
+                navController = navController, id = id, isNewEvent = false
             )
         }
 
-        composable(
-            Screen.EditAssistantScreen("{id}").route,
-            enterTransition = {
-                slideInVertically(
-                    initialOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
-                )
-            },
-            exitTransition = {
-                slideOutVertically(
-                    targetOffsetY = { fullHeight -> fullHeight },
-                    animationSpec = tween(500)
-                )
-            },
-            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        composable(Screen.EditAttendantScreen("{id}").route, enterTransition = {
+            slideInVertically(
+                initialOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
+            )
+        }, exitTransition = {
+            slideOutVertically(
+                targetOffsetY = { fullHeight -> fullHeight }, animationSpec = tween(500)
+            )
+        }, arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt()
-            FormAssistant(
-                navController = navController,
-                id = id,
-                isNewAssistant = false,
-                eventId = null
+            FormAttendant(
+                navController = navController, id = id, isNewAttendant = false, eventId = null
             )
         }
 
         composable(
-            Screen.CreateAssistantCameraScreen("{id}").route,
+            Screen.CreateAttendantCameraScreen("{id}").route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt() ?: -1
@@ -190,13 +151,12 @@ fun AppNavigation() {
         }
 
         composable(
-            Screen.CreateAssistantPdf417("{id}").route,
+            Screen.CreateAttendantPdf417("{id}").route,
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { entry ->
             val id = entry.arguments?.getString("id")?.toInt()
             MainScreenPdf417(
-                navController = navController,
-                eventId = id
+                navController = navController, eventId = id
             )
         }
 
@@ -206,8 +166,7 @@ fun AppNavigation() {
         ) {
             val bottomNavController = rememberNavController()
             HomeMainScreen(
-                navController,
-                bottomNavController
+                navController, bottomNavController
             )
         }
     }
@@ -215,19 +174,16 @@ fun AppNavigation() {
 
 @Composable
 fun HomeMainScreen(
-    navController: NavHostController,
-    navBottomController: NavHostController
+    navController: NavHostController, navBottomController: NavHostController
 ) {
     var showFloatingButton by remember { mutableStateOf(false) }
 
-    ScaffoldMainScreen(
-        navController = navController,
+    ScaffoldMainScreen(navController = navController,
         allowsItemBar = 1,
         showFloatingButton = showFloatingButton,
-        onNavSectionSelected = { index, bottomNavigationItem ->
+        onNavSectionSelected = { _, bottomNavigationItem ->
             navBottomController.navigate(bottomNavigationItem.route)
-        }
-    ) { paddingValues ->
+        }) { paddingValues ->
         NavHost(
             modifier = Modifier.fillMaxSize(),
             navController = navBottomController,

@@ -7,7 +7,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "assistants",
+    tableName = "Attendants",
     foreignKeys = [
         ForeignKey(
             entity = EventEntity::class,
@@ -19,7 +19,7 @@ import androidx.room.PrimaryKey
     indices = [Index("eventId")]
 )
 
-data class AssistantEntity(
+data class AttendanceEntity(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "identification") val identification: String,

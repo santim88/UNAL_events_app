@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens.assistants.adapter
+package com.unalminas.eventsapp.presentation.screens.attendants.adapter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,10 +32,10 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.unalminas.eventsapp.R
-import com.unalminas.eventsapp.domain.Assistant
+import com.unalminas.eventsapp.domain.Attendant
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.myComposables.InfoDialogContent
-import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
+import com.unalminas.eventsapp.presentation.screens.Attendants.AttendantScreenViewModel
 import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Platinum
@@ -44,10 +44,10 @@ import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
 @Composable
-fun AssistantTable(
-    eventListState: List<Assistant> = listOf(),
+fun AttendantChart(
+    eventListState: List<Attendant> = listOf(),
     navController: NavController,
-    assistantViewModel: AssistantScreenViewModel = hiltViewModel(),
+    attendantViewModel: AttendantScreenViewModel = hiltViewModel(),
 ) {
 
     var dialogState by remember { mutableStateOf(false) }
@@ -77,7 +77,7 @@ fun AssistantTable(
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 16.dp),
-                text = stringResource(id = R.string.name_assistant),
+                text = stringResource(id = R.string.name_attendant),
                 fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = OxfordBlue
@@ -85,7 +85,7 @@ fun AssistantTable(
             Text(
                 modifier = Modifier
                     .weight(1f),
-                text = stringResource(id = R.string.identification_assistant),
+                text = stringResource(id = R.string.identification_attendant),
                 fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = OxfordBlue
@@ -93,7 +93,7 @@ fun AssistantTable(
             Text(
                 modifier = Modifier
                     .weight(1f),
-                text = stringResource(id = R.string.email_assistant),
+                text = stringResource(id = R.string.email_attendant),
                 fontFamily = NunitoFont,
                 fontWeight = FontWeight.Black,
                 color = OxfordBlue
@@ -106,12 +106,12 @@ fun AssistantTable(
             verticalArrangement = Arrangement.spacedBy(4.dp),
             contentPadding = PaddingValues(vertical = 10.dp)
         ) {
-            var currentAssistant = Assistant()
+            var currentAttendant = Attendant()
             itemsIndexed(items = eventListState) { index, item ->
 
                 val delete = SwipeAction(
                     onSwipe = {
-                        currentAssistant = item
+                        currentAttendant = item
                         dialogState = true
                     },
                     icon = {
@@ -129,13 +129,13 @@ fun AssistantTable(
                         onDismissRequest = { dialogState = false },
                         content = {
                             InfoDialogContent(
-                                R.string.message_delete_assistant,
+                                R.string.message_delete_attendant,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(16.dp),
                                 onDeleteClick = {
-                                    currentAssistant.id?.let { nonNullId ->
-                                        assistantViewModel.deleteAssistantById(nonNullId)
+                                    currentAttendant.id?.let { nonNullId ->
+                                        attendantViewModel.deleteAttendantById(nonNullId)
                                     }
                                     dialogState = false
                                 },
@@ -153,12 +153,12 @@ fun AssistantTable(
                     endActions = listOf(delete),
                     backgroundUntilSwipeThreshold = Color.Transparent
                 ) {
-                    CardAssistant(
+                    CardAttendant(
                         modifier = Modifier
                             .background(Snow, RoundedCornerShape(30))
                             .clickable {
                                 item.id?.let { nonNullId ->
-                                    val screen = Screen.EditAssistantScreen(nonNullId.toString())
+                                    val screen = Screen.EditAttendantScreen(nonNullId.toString())
                                     navController.navigate(screen.createRoute())
                                 }
                             }, index + 1, item

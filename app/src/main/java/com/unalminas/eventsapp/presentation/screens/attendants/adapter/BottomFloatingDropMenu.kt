@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens.assistants.adapter
+package com.unalminas.eventsapp.presentation.screens.attendants.adapter
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -54,12 +54,12 @@ fun BottomFloatingDropMenu(
                         onMenuExpandedChanged(false)
 
                         if (item == menuItems[0]) {
-                            val screen = Screen.CreateAssistantScreen(eventId.toString())
+                            val screen = Screen.CreateAttendantScreen(eventId.toString())
                             navController.navigate(screen.createRoute())
                         }
 
                         if (item == menuItems[1]) {
-                            val screen = Screen.CreateAssistantPdf417(eventId.toString())
+                            val screen = Screen.CreateAttendantPdf417(eventId.toString())
                             navController.navigate(screen.createRoute())
                         }
                     },

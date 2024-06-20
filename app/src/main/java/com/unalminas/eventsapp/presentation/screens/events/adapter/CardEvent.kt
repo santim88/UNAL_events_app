@@ -152,7 +152,7 @@ fun CardEvent(
                     )
                 ) {
                     Text(
-                        text = stringResource(id = R.string.take_asistence),
+                        text = stringResource(id = R.string.take_attendance),
                         fontFamily = NunitoFont,
                         fontSize = 16.sp
                     )

@@ -1,11 +1,11 @@
 package com.unalminas.eventsapp.framework.db
 
-import com.unalminas.eventsapp.domain.Assistant
+import com.unalminas.eventsapp.domain.Attendant
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.domain.Image
-import com.unalminas.eventsapp.framework.db.entity.AssistantEntity
+import com.unalminas.eventsapp.framework.db.entity.AttendanceEntity
 import com.unalminas.eventsapp.framework.db.entity.EventEntity
-import com.unalminas.eventsapp.framework.db.entity.EventWithAssistantCount
+import com.unalminas.eventsapp.framework.db.entity.EventWithAttendanceCount
 import com.unalminas.eventsapp.framework.db.entity.ImageEntity
 
 
@@ -27,7 +27,7 @@ fun Event.toEventEntity() = EventEntity(
     hour = hour
 )
 
-fun AssistantEntity.toAssistant() = Assistant(
+fun AttendanceEntity.toAttendant() = Attendant(
     id = id,
     name = name,
     identification = identification,
@@ -35,7 +35,7 @@ fun AssistantEntity.toAssistant() = Assistant(
     eventId = eventId
 )
 
-fun Assistant.toAssistantEntity() = AssistantEntity(
+fun Attendant.toAttendantEntity() = AttendanceEntity(
     id = id,
     name = name,
     identification = identification,
@@ -55,12 +55,12 @@ fun Image.toImageEntity() = ImageEntity(
     imageByteArray = imageByteArray
 )
 
-fun EventWithAssistantCount.toEvent() = Event(
+fun EventWithAttendanceCount.toEvent() = Event(
     id = event.id,
     name = event.name ?: "",
     description = event.description,
     place = event.place ?: "",
     date = event.date ?: "",
     hour = event.hour ?: "",
-    assistantCount = quantityAssistants
+    attendantCount = quantityAttendants
 )

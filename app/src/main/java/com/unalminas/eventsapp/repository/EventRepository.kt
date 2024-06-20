@@ -10,5 +10,5 @@ interface EventRepository {
     suspend fun getEventById(id: Int): Event
     suspend fun deleteEventById(id: Int)
     suspend fun getEventsByDate(date: String): List<Event>
-    suspend fun getEventsWithAssistantCount(date: String): List<Event>
+    suspend fun getEventsWithAttendantCount(date: String): List<Event>
 }

@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens.assistants.adapter
+package com.unalminas.eventsapp.presentation.screens.attendants.adapter
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.basicMarquee
@@ -12,16 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.unalminas.eventsapp.domain.Assistant
+import com.unalminas.eventsapp.domain.Attendant
 import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CardAssistant(
+fun CardAttendant(
     modifier: Modifier = Modifier,
     index: Int = 0,
-    item: Assistant
+    item: Attendant
 ) {
     ElevatedCard(
         modifier = modifier

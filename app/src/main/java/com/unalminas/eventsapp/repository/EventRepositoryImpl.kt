@@ -12,29 +12,30 @@ class EventRepositoryImpl(
     }
 
     override suspend fun insertEvent(event: Event) {
-        return  eventDataSource.saveEvent(event)
+        return eventDataSource.saveEvent(event)
     }
 
     override suspend fun updateEvent(event: Event) {
-        return  eventDataSource.updateEvent(event)
+        return eventDataSource.updateEvent(event)
     }
 
     override suspend fun deleteEvent(event: Event) {
-        return  eventDataSource.deleteEvent(event)
+        return eventDataSource.deleteEvent(event)
     }
 
     override suspend fun getEventById(id: Int): Event {
-       return  eventDataSource.getEventById(id)
+        return eventDataSource.getEventById(id)
     }
 
     override suspend fun deleteEventById(id: Int) {
-        return  eventDataSource.deleteEventById(id)
+        return eventDataSource.deleteEventById(id)
     }
 
     override suspend fun getEventsByDate(date: String): List<Event> {
         return eventDataSource.getEventsByDate(date)
     }
-    override suspend fun getEventsWithAssistantCount(date: String): List<Event> {
+
+    override suspend fun getEventsWithAttendantCount(date: String): List<Event> {
         return eventDataSource.getEventsWithAssistantCount(date)
     }
 }

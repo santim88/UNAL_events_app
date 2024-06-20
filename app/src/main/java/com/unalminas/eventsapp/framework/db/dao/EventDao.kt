@@ -6,10 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.unalminas.eventsapp.framework.db.entity.AssistantEntity
 import com.unalminas.eventsapp.framework.db.entity.EventEntity
-import com.unalminas.eventsapp.framework.db.entity.EventWithAssistantCount
-import java.util.Date
+import com.unalminas.eventsapp.framework.db.entity.EventWithAttendanceCount
 
 @Dao
 interface EventDao {
@@ -37,12 +35,14 @@ interface EventDao {
     @Query("SELECT * FROM events WHERE date = :date")
     fun getEventsByDate(date: String): List<EventEntity>
 
-    @Query("""
-        SELECT events.*, COUNT(assistants.id) as quantityAssistants
+    @Query(
+        """
+        SELECT events.*, COUNT(attendants.id) as quantityAttendants
         FROM events
-        LEFT JOIN assistants ON events.id = assistants.eventId
+        LEFT JOIN Attendants ON events.id = Attendants.eventId
         WHERE date = :date
         GROUP BY events.id
-    """)
-    fun getEventsWithAssistantCount(date: String): List<EventWithAssistantCount>
+    """
+    )
+    fun getEventsWithAttendantCount(date: String): List<EventWithAttendanceCount>
 }

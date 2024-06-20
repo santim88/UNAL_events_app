@@ -63,10 +63,10 @@ fun CalendarScreen(
     val selectDate by viewModel.formattedDataState.collectAsState()
     val selectDateOnlyDay by viewModel.formattedDateStateOnlyDay.collectAsState()
     val currentDate by viewModel.currentDateState.collectAsState()
-    val eventList by viewModel.eventListWithAssistantCountState.collectAsState()
+    val eventList by viewModel.eventListWithAttendantCountState.collectAsState()
 
     LaunchedEffect(currentDate) {
-        viewModel.getEventsWithAssistantCount(currentDate)
+        viewModel.getEventsWithAttendantCount(currentDate)
     }
 
     Column(
@@ -266,7 +266,7 @@ fun EventItem(
                     )
                 }
                 IconButton(modifier = Modifier.size(70.dp), onClick = {
-                    val screen = Screen.AssistantScreen(event.id.toString())
+                    val screen = Screen.AttendantScreen(event.id.toString())
                     navController.navigate(screen.createRoute())
                 }) {
                     BadgedBox(
@@ -277,7 +277,7 @@ fun EventItem(
                             ) {
                                 Text(
                                     text =
-                                    event.assistantCount.toString(),
+                                    event.attendantCount.toString(),
                                 )
                             }
                         },

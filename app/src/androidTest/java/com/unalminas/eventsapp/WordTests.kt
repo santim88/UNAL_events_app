@@ -7,8 +7,7 @@ import androidx.test.runner.AndroidJUnit4
 import com.unalminas.eventsapp.framework.db.dao.AssistantDao
 import com.unalminas.eventsapp.framework.db.dao.EventDao
 import com.unalminas.eventsapp.framework.db.dao.ImageDao
-import com.unalminas.eventsapp.framework.db.database.AssistantDataBase
-import com.unalminas.eventsapp.framework.db.entity.AssistantEntity
+import com.unalminas.eventsapp.framework.db.database.AttendantDataBase
 import com.unalminas.eventsapp.framework.db.entity.EventEntity
 import com.unalminas.eventsapp.framework.db.entity.ImageEntity
 import kotlinx.coroutines.runBlocking
@@ -20,7 +19,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class WordTests {
 
-    private lateinit var dataBase: AssistantDataBase
+    private lateinit var dataBase: AttendantDataBase
     private lateinit var assistantDao: AssistantDao
     private lateinit var eventDao: EventDao
     private lateinit var imageDao: ImageDao
@@ -29,7 +28,7 @@ class WordTests {
     fun setUp() {
         dataBase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            AssistantDataBase::class.java
+            AttendantDataBase::class.java
         ).build()
 
         assistantDao = dataBase.assistantDao()

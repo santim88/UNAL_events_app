@@ -1,6 +1,6 @@
 package com.unalminas.eventsapp.domain
 
-data class Assistant(
+data class Attendant(
     val id: Int? = System.currentTimeMillis().hashCode(),
     val name: String = "",
     val identification: String = "",

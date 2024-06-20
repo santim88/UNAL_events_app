@@ -15,27 +15,27 @@ sealed class Screen(val route: String) {
         object CalendarScreen : HomeScreen("CalendarScreen")
     }
 
-    data class AssistantScreen(val id: String) : Screen("AssistantScreen/{id}") {
-        fun createRoute() = "AssistantScreen/$id"
+    data class AttendantScreen(val id: String) : Screen("AttendantScreen/{id}") {
+        fun createRoute() = "AttendantScreen/$id"
     }
 
-    data class CreateAssistantScreen(val eventId: String) : Screen("AssistantCreate/{eventId}") {
-        fun createRoute() = "AssistantCreate/$eventId"
+    data class CreateAttendantScreen(val eventId: String) : Screen("AttendantCreate/{eventId}") {
+        fun createRoute() = "AttendantCreate/$eventId"
     }
 
     data class EditEventScreen(val id: String) : Screen("Edit/{id}") {
         fun createRoute() = "Edit/$id"
     }
 
-    data class EditAssistantScreen(val id: String) : Screen("AssistantEdit/{id}") {
-        fun createRoute() = "AssistantEdit/$id"
+    data class EditAttendantScreen(val id: String) : Screen("AttendantEdit/{id}") {
+        fun createRoute() = "AttendantEdit/$id"
     }
 
-    data class CreateAssistantCameraScreen(val id: String) : Screen("AssistantCamera/{id}") {
-        fun createRoute() = "AssistantCamera/$id"
+    data class CreateAttendantCameraScreen(val id: String) : Screen("AttendantCamera/{id}") {
+        fun createRoute() = "AttendantCamera/$id"
     }
 
-    data class CreateAssistantPdf417(val id: String) : Screen("AssistantPdf417/{id}") {
-        fun createRoute() = "AssistantPdf417/$id"
+    data class CreateAttendantPdf417(val id: String) : Screen("AttendantPdf417/{id}") {
+        fun createRoute() = "AttendantPdf417/$id"
     }
 }
