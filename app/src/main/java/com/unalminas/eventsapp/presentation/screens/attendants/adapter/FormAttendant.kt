@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens.assistants.adapter
+package com.unalminas.eventsapp.presentation.screens.attendants.adapter
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -25,10 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
-import com.unalminas.eventsapp.domain.AssistantFieldEnum
+import com.unalminas.eventsapp.domain.AttendantFieldEnum
 import com.unalminas.eventsapp.presentation.Screen
 import com.unalminas.eventsapp.presentation.myComposables.GeneralDataField
-import com.unalminas.eventsapp.presentation.screens.assistants.AssistantScreenViewModel
+import com.unalminas.eventsapp.presentation.screens.Attendants.AttendantScreenViewModel
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 import com.unalminas.eventsapp.presentation.ui.theme.BlueGreen
 import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
@@ -40,22 +40,22 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
-fun FormAssistant(
+fun FormAttendant(
     navController: NavHostController,
     id: Int? = null,
     eventId: Int? = null,
-    isNewAssistant: Boolean,
-    viewModel: AssistantScreenViewModel = hiltViewModel()
+    isNewAttendant: Boolean,
+    viewModel: AttendantScreenViewModel = hiltViewModel()
 ) {
-    val assistant by viewModel.assistantState.collectAsState()
+    val attendant by viewModel.attendantState.collectAsState()
 
     val context = LocalContext.current
 
-    LaunchedEffect(isNewAssistant) {
-        if (!isNewAssistant) id?.let {
-            viewModel.getAssistantById(id)
+    LaunchedEffect(isNewAttendant) {
+        if (!isNewAttendant) id?.let {
+            viewModel.getAttendantById(id)
         } else {
-            viewModel.editAssistantField(AssistantFieldEnum.EVENTID, eventId.toString())
+            viewModel.editAttendantField(AttendantFieldEnum.EVENTID, eventId.toString())
         }
     }
     Column(
@@ -64,7 +64,7 @@ fun FormAssistant(
             .background(OxfordBlue)
     ) {
         TopBarTitle(
-            title = stringResource(id = if (isNewAssistant) R.string.create_assistant else R.string.edit_assistant),
+            title = stringResource(id = if (isNewAttendant) R.string.create_attendant else R.string.edit_attendant),
             showBackButton = true,
             backButtonColor = Snow,
             onBackButtonClick = {
@@ -80,15 +80,15 @@ fun FormAssistant(
         ) {
             GeneralDataField(
                 modifier = Modifier.fillMaxWidth(),
-                value = assistant.name,
+                value = attendant.name,
                 onValueChange = { newName ->
                     viewModel.isValidName(newName)
-                    viewModel.editAssistantField(AssistantFieldEnum.NAME, newName)
+                    viewModel.editAttendantField(AttendantFieldEnum.NAME, newName)
                 },
                 label = {
                     Text(
                         text = stringResource(
-                            id = R.string.name_assistant
+                            id = R.string.name_attendant
                         )
                     )
                 },
@@ -97,18 +97,18 @@ fun FormAssistant(
             )
             GeneralDataField(
                 modifier = Modifier.fillMaxWidth(),
-                value = assistant.identification,
+                value = attendant.identification,
                 onValueChange = { newIdentification ->
                     viewModel.isValidIdentification(newIdentification)
-                    viewModel.editAssistantField(
-                        AssistantFieldEnum.IDENTIFICATION,
+                    viewModel.editAttendantField(
+                        AttendantFieldEnum.IDENTIFICATION,
                         newIdentification
                     )
                 },
                 label = {
                     Text(
                         text = stringResource(
-                            id = R.string.identification_assistant
+                            id = R.string.identification_attendant
                         )
                     )
                 },
@@ -117,15 +117,15 @@ fun FormAssistant(
             )
             GeneralDataField(
                 modifier = Modifier.fillMaxWidth(),
-                value = assistant.email,
+                value = attendant.email,
                 onValueChange = { newEmail ->
                     viewModel.isValidEmail(newEmail)
-                    viewModel.editAssistantField(AssistantFieldEnum.EMAIL, newEmail)
+                    viewModel.editAttendantField(AttendantFieldEnum.EMAIL, newEmail)
                 },
                 label = {
                     Text(
                         text = stringResource(
-                            id = R.string.email_assistant
+                            id = R.string.email_attendant
                         )
                     )
                 },
@@ -134,20 +134,20 @@ fun FormAssistant(
             )
             Button(
                 onClick = {
-                    if (viewModel.areAllValidFields(assistant)) {
-                        if (isNewAssistant) {
-                            viewModel.createAssistant(assistant)
+                    if (viewModel.areAllValidFields(attendant)) {
+                        if (isNewAttendant) {
+                            viewModel.createAttendant(attendant)
                             CoroutineScope(Dispatchers.IO).launch {
                                 withContext(Dispatchers.Main) {
                                     navController.popBackStack()
                                 }
                             }
                         } else {
-                            viewModel.updateAssistant(assistant)
+                            viewModel.updateAttendant(attendant)
                             CoroutineScope(Dispatchers.IO).launch {
                                 withContext(Dispatchers.Main) {
                                     val screen =
-                                        Screen.AssistantScreen(assistant.eventId.toString())
+                                        Screen.AttendantScreen(attendant.eventId.toString())
                                     navController.navigate(screen.createRoute())
                                 }
                             }
@@ -171,7 +171,7 @@ fun FormAssistant(
             ) {
                 Text(
                     text = stringResource(
-                        id = R.string.save_assistant
+                        id = R.string.save_attendant
                     ),
                     fontFamily = NunitoFont,
                     fontWeight = FontWeight.Bold,

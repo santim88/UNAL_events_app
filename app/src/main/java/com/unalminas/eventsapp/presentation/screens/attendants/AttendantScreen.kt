@@ -1,4 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens.assistants
+package com.unalminas.eventsapp.presentation.screens.Attendants
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,30 +27,30 @@ import androidx.navigation.NavHostController
 import com.unalminas.eventsapp.R
 import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.presentation.Screen
-import com.unalminas.eventsapp.presentation.screens.assistants.adapter.AssistantTable
-import com.unalminas.eventsapp.presentation.screens.assistants.adapter.BottomFloatingDropMenu
-import com.unalminas.eventsapp.presentation.screens.assistants.adapter.IndicatorEventBox
+import com.unalminas.eventsapp.presentation.screens.attendants.adapter.AttendantChart
+import com.unalminas.eventsapp.presentation.screens.attendants.adapter.BottomFloatingDropMenu
+import com.unalminas.eventsapp.presentation.screens.attendants.adapter.IndicatorEventBox
 import com.unalminas.eventsapp.presentation.ui.TopBarTitle
 import com.unalminas.eventsapp.presentation.ui.theme.NunitoFont
 import com.unalminas.eventsapp.presentation.ui.theme.OxfordBlue
 import com.unalminas.eventsapp.presentation.ui.theme.Snow
 
 @Composable
-fun AssistantScreen(
+fun AttendantScreen(
     navController: NavHostController,
-    viewModel: AssistantScreenViewModel = hiltViewModel(),
+    viewModel: AttendantScreenViewModel = hiltViewModel(),
     id: Int? = null,
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
     val menuItems = listOf(
-        stringResource(id = R.string.enter_assistant),
+        stringResource(id = R.string.enter_attendant),
         stringResource(id = R.string.register_qr),
     )
 
     LaunchedEffect(Unit) {
         id?.let {
-            viewModel.getAssistantListByEvent(id)
-            viewModel.getAssistantList()
+            viewModel.getAttendantListByEvent(id)
+            viewModel.getAttendantList()
         }
         id?.let {
             viewModel.getEventById(id)
@@ -58,8 +58,8 @@ fun AssistantScreen(
     }
 
     val eventCurrent by viewModel.eventCurrentState.collectAsState(Event())
-    val assistantListState by viewModel.assistantListState.collectAsState(emptyList())
-    val itemCount = assistantListState.size
+    val attendantListState by viewModel.attendantListState.collectAsState(emptyList())
+    val itemCount = attendantListState.size
 
     Box(
         modifier = Modifier
@@ -71,17 +71,14 @@ fun AssistantScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TopBarTitle(
-                title = stringResource(id = R.string.list_assistants),
+            TopBarTitle(title = stringResource(id = R.string.list_attendance),
                 showBackButton = true,
                 backButtonColor = OxfordBlue,
                 onBackButtonClick = {
                     navController.navigate(Screen.HomeScreen.EventsRoute.route)
-                }
-            )
+                })
             IndicatorEventBox(
-                navController = navController,
-                event = eventCurrent
+                navController = navController, event = eventCurrent
             )
             Text(
                 modifier = Modifier.padding(vertical = 16.dp),
@@ -90,7 +87,7 @@ fun AssistantScreen(
                 fontWeight = FontWeight.Black,
                 style = TextStyle(fontSize = 16.sp, color = Color.Gray)
             )
-            AssistantTable(assistantListState, navController)
+            AttendantChart(attendantListState, navController)
         }
         BottomFloatingDropMenu(
             modifier = Modifier

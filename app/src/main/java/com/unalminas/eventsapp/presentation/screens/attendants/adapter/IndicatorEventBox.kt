@@ -1,5 +1,4 @@
-package com.unalminas.eventsapp.presentation.screens.assistants.adapter
-
+package com.unalminas.eventsapp.presentation.screens.attendants.adapter
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -98,7 +97,7 @@ fun IndicatorEventBox(
                 .padding(5.dp)
                 .size(80.dp),
                 onClick = {
-                    val screen = Screen.CreateAssistantCameraScreen(event.id.toString())
+                    val screen = Screen.CreateAttendantCameraScreen(event.id.toString())
                     navController.navigate(screen.createRoute())
                 }
             )

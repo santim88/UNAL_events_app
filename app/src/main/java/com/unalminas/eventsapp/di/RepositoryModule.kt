@@ -1,19 +1,16 @@
 package com.unalminas.eventsapp.di
 
-import android.content.Context
-import com.unalminas.eventsapp.data.AssistantDataSource
-import com.unalminas.eventsapp.data.AssistantDataSourceImp
-import com.unalminas.eventsapp.data.AssistantMockDataSourceImpl
+import com.unalminas.eventsapp.data.AttendantDataSource
+import com.unalminas.eventsapp.data.AttendantDataSourceImp
 import com.unalminas.eventsapp.data.EventDataSource
 import com.unalminas.eventsapp.data.EventDataSourceImpl
-import com.unalminas.eventsapp.data.EventMockDataSourceImpl
 import com.unalminas.eventsapp.data.ImageDataSource
 import com.unalminas.eventsapp.data.ImageDataSourceImpl
-import com.unalminas.eventsapp.framework.db.dao.AssistantDao
+import com.unalminas.eventsapp.framework.db.dao.AttendantDao
 import com.unalminas.eventsapp.framework.db.dao.EventDao
 import com.unalminas.eventsapp.framework.db.dao.ImageDao
-import com.unalminas.eventsapp.repository.AssistantRepository
-import com.unalminas.eventsapp.repository.AssistantRepositoryImpl
+import com.unalminas.eventsapp.repository.AttendantRepository
+import com.unalminas.eventsapp.repository.AttendantRepositoryImpl
 import com.unalminas.eventsapp.repository.EventRepository
 import com.unalminas.eventsapp.repository.EventRepositoryImpl
 import com.unalminas.eventsapp.repository.ImageRepository
@@ -38,13 +35,6 @@ object RepositoryModule {
         return EventDataSourceImpl(eventDao)
     }
 
-    @Named("EventMockDataSource")
-    @Singleton
-    @Provides
-    fun provideEventMockDataSource(): EventDataSource {
-        return EventMockDataSourceImpl()
-    }
-
     @Singleton
     @Provides
     fun provideEventRepository(
@@ -53,28 +43,21 @@ object RepositoryModule {
         return EventRepositoryImpl(eventDataSource)
     }
 
-    @Named("AssistantMockDataSource")
+    @Named("AttendantDataSource")
     @Singleton
     @Provides
-    fun assistantMockDataSource(): AssistantDataSource {
-        return AssistantMockDataSourceImpl()
-    }
-
-    @Named("AssistantDataSource")
-    @Singleton
-    @Provides
-    fun provideAssistantDataSource(
-       assistantDao: AssistantDao
-    ): AssistantDataSource {
-        return AssistantDataSourceImp(assistantDao)
+    fun provideAttendantDataSource(
+        AttendantDao: AttendantDao
+    ): AttendantDataSource {
+        return AttendantDataSourceImp(AttendantDao)
     }
 
     @Singleton
     @Provides
-    fun provideAssistantDataRepository(
-        @Named("AssistantDataSource") assistantDataSource: AssistantDataSource
-    ): AssistantRepository {
-        return AssistantRepositoryImpl(assistantDataSource)
+    fun provideAttendantDataRepository(
+        @Named("AttendantDataSource") AttendantDataSource: AttendantDataSource
+    ): AttendantRepository {
+        return AttendantRepositoryImpl(AttendantDataSource)
     }
 
     @Named("ImageDataSource")

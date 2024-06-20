@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Unal Assistance</string>
+    <string name="app_name">UNAL Attendance</string>
 
     <string name="create_event">Create Event</string>
     <string name="edit_event">Edit Event</string>
@@ -9,27 +9,27 @@
     <string name="date_event">Date</string>
     <string name="description_event">Description</string>
     <string name="name_event">Name</string>
-    <string name="take_asistence">Take assistance</string>
-    <string name="create_assistant">New assistant</string>
-    <string name="edit_assistant">Edit assistant</string>
-    <string name="name_assistant">Name</string>
-    <string name="identification_assistant">Identification</string>
-    <string name="email_assistant">Email</string>
-    <string name="save_assistant">Save Assistant</string>
-    <string name="list_assistants">Assistants list</string>
+    <string name="take_attendance">Take attendance</string>
+    <string name="create_attendant">New attendant</string>
+    <string name="edit_attendant">Edit attendant</string>
+    <string name="name_attendant">Name</string>
+    <string name="identification_attendant">Identification</string>
+    <string name="email_attendant">Email</string>
+    <string name="save_attendant">Save attendant</string>
+    <string name="list_attendance">Attendance list</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="message_delete_event">Do you want to delete the event?</string>
-    <string name="message_delete_assistant">Do you want to delete the assistant?</string>
+    <string name="message_delete_attendant">Do you want to delete the attendant?</string>
 
     <string name="event_name_format">Event: %1$s</string>
     <string name="event_description_format">Description: %1$s</string>
     <string name="event_date_format">Date: %1$s</string>
     <string name="event_hour_format">Hour: %1$s</string>
     <string name="event_place_format">Place: %1$s</string>
-    <string name="dialog_state_format">Assistants: %1$s</string>
+    <string name="dialog_state_format">Attendants: %1$s</string>
 
-    <string name="enter_assistant">Add assistant</string>
+    <string name="enter_attendant">Add attendant</string>
     <string name="register_qr">Register Qr</string>
     <string name="settings">Settings</string>
     <string name="dd_mm_yyyy">DD/MM/YYYY</string>

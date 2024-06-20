@@ -2,10 +2,10 @@ package com.unalminas.eventsapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.unalminas.eventsapp.framework.db.dao.AssistantDao
+import com.unalminas.eventsapp.framework.db.dao.AttendantDao
 import com.unalminas.eventsapp.framework.db.dao.EventDao
 import com.unalminas.eventsapp.framework.db.dao.ImageDao
-import com.unalminas.eventsapp.framework.db.database.AssistantDataBase
+import com.unalminas.eventsapp.framework.db.database.AttendantDataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,22 +19,22 @@ class DataModuleApp {
 
     @Provides
     @Singleton
-    fun providesDataBase(@ApplicationContext context: Context): AssistantDataBase =
+    fun providesDataBase(@ApplicationContext context: Context): AttendantDataBase =
         Room.databaseBuilder(
             context,
-            AssistantDataBase::class.java, "assistants_db"
+            AttendantDataBase::class.java, "attendant_db"
         ).fallbackToDestructiveMigration().build()
 
 
     @Provides
     @Singleton
-    fun providesAssistantDao(database: AssistantDataBase): AssistantDao = database.assistantDao()
+    fun providesAttendantDao(database: AttendantDataBase): AttendantDao = database.attendantDao()
 
     @Provides
     @Singleton
-    fun providesEventDao(database: AssistantDataBase): EventDao = database.eventDao()
+    fun providesEventDao(database: AttendantDataBase): EventDao = database.eventDao()
 
     @Provides
     @Singleton
-    fun providesImageDao(database: AssistantDataBase): ImageDao = database.imageDao()
+    fun providesImageDao(database: AttendantDataBase): ImageDao = database.imageDao()
 }

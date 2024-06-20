@@ -31,8 +31,8 @@ class CalendarViewModel @Inject constructor(
     private val _eventListState = MutableStateFlow(emptyList<Event>())
     val eventListState = _eventListState.asStateFlow()
 
-    private val _eventListWithAssistantCountState = MutableStateFlow(emptyList<Event>())
-    val eventListWithAssistantCountState = _eventListWithAssistantCountState.asStateFlow()
+    private val _eventListWithAttendantCountState = MutableStateFlow(emptyList<Event>())
+    val eventListWithAttendantCountState = _eventListWithAttendantCountState.asStateFlow()
 
     fun setDateSelected(date: String) {
         _formattedDateState.value = date
@@ -70,10 +70,10 @@ class CalendarViewModel @Inject constructor(
         return format.format(calendar.time)
     }
 
-    fun getEventsWithAssistantCount(date: String) {
+    fun getEventsWithAttendantCount(date: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _eventListWithAssistantCountState.value =
-                eventRepository.getEventsWithAssistantCount(date)
+            _eventListWithAttendantCountState.value =
+                eventRepository.getEventsWithAttendantCount(date)
         }
     }
 }

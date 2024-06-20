@@ -3,7 +3,7 @@ package com.unalminas.eventsapp.framework.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 
-data class EventWithAssistantCount(
+data class EventWithAttendanceCount(
     @Embedded val event: EventEntity,
-    @ColumnInfo(name = "quantityAssistants") val quantityAssistants: Int
+    @ColumnInfo(name = "quantityAttendants") val quantityAttendants: Int
 )

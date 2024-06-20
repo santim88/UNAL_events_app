@@ -1,6 +1,5 @@
 package com.unalminas.eventsapp.data
 
-import com.unalminas.eventsapp.domain.Event
 import com.unalminas.eventsapp.domain.Image
 
 interface ImageDataSource {

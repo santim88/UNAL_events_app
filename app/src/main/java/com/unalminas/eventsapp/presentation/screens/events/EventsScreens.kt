@@ -90,7 +90,7 @@ fun EventsScreens(
             },
             eventListState = eventListState,
             onEventClicked = { event ->
-                val screen = Screen.AssistantScreen(event.id.toString())
+                val screen = Screen.AttendantScreen(event.id.toString())
                 navController.navigate(screen.createRoute())
             }
         )

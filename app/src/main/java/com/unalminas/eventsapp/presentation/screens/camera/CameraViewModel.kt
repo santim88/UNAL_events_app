@@ -40,11 +40,11 @@ class CameraViewModel @Inject constructor(
     val bitmapsByEvent = _bitmapsByEvent.asStateFlow()
 
 
-
     suspend fun saveImage(image: Image) {
         viewModelScope.launch(Dispatchers.IO) {
             imageRepository.insertImage(image)
-            val bitmap = BitmapFactory.decodeByteArray(image.imageByteArray, 0, image.imageByteArray.size)
+            val bitmap =
+                BitmapFactory.decodeByteArray(image.imageByteArray, 0, image.imageByteArray.size)
             _bitmapsByEvent.value += bitmap
         }
     }
@@ -66,7 +66,7 @@ class CameraViewModel @Inject constructor(
         }
     }
 
-    suspend fun deleteAllImages(){
+    suspend fun deleteAllImages() {
         viewModelScope.launch(Dispatchers.IO) {
             imageRepository.deleteAllImages()
         }
